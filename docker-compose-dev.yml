@@ -1,0 +1,40 @@
+services:
+  backend: &backend
+    build:
+      dockerfile: ./backend/Dockerfile
+      context: ./
+    env_file:
+      - .env
+    command: bash -c "/code/manage.py runserver 0.0.0.0:8000"
+    image: expiration-tracker/backend-${ENVIRONMENT}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/code
+      - /code/.venv
+    depends_on:
+      - db
+      - cache
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend/Dockerfile
+    user: "node"
+    command:
+      - npm
+      - run
+      - dev
+    env_file:
+      - .env
+    image: expiration-tracker/frontend-${ENVIRONMENT}
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+volumes:
+  postgres_data:
+  node_modules:
+version: "3.7"

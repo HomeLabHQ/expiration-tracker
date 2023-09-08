@@ -1,0 +1,742 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/auth/:
+    post:
+      operationId: auth_create
+      description: |-
+        post:
+        Generate REST API token.
+
+        Generate personal REST API token with expired date `ACCESS_TOKEN_LIFETIME_HOURS` or/and
+        `ACCESS_TOKEN_LIFETIME_MINUTES` (1 day).
+
+        In a few words - it's an authentication token. To work with API you need to have it, entering your email
+        and password. Each time you request to the API, you need to send in header your token like
+        `Authorization: JWT eyJ0eXAiOiJKV...`, where `JWT` is header authorization prefix.
+
+        ### Examples
+
+        If data is successfully processed the server returns status code `200`.
+
+        ```json
+        {
+            "email": "watch.dog@coaxsoft.com",
+            "password": "qwerty123"
+        }
+        ```
+
+        ### Errors
+
+        If there were some error in client data, it sends status code `401` with the error message looks like:
+
+        ```json
+        {
+            "detail": "No active account found with the given credentials"
+        }
+        ```
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTokenObtainPair'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: auth_refresh_create
+      description: |-
+        post:
+        Refresh expired JSON Web Token.
+
+        It is used JWT authentication with refresh expiration time = 14 days [Read JWT docs](https://jwt.io/). It
+        means, that you have 14 days, from the time your token was generated, to update token with new one. So
+        that you need to send your JSON WEB Token.
+
+        ### Examples
+
+        If data is successfully processed the server returns status code `200`.
+
+        ```json
+        {
+            "refresh": "emskdlgnkngdDFHGergergEGRerRGEgerERE346346vergd456456"
+        }
+        ```
+
+        ### Errors
+
+        If there were some error in client data, it sends status code `401` with the error message looks like:
+
+        ```json
+        {
+            "detail": "Token is invalid or expired",
+            "code": "token_not_valid"
+        }
+        ```
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: auth_register_create
+      description: |-
+        Register new user in the system
+
+        You need to provide `email`, `first_name`, `last_name`, `password_repeated`
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SignUp'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignUp'
+          description: ''
+  /api/auth/verify/:
+    post:
+      operationId: auth_verify_create
+      description: |-
+        post:
+        Verify your token (is it valid?)
+
+        To work with API you need to have valid (verified) token which you get after visiting `/auth/token-verify`
+        url, entering your token.[Read JWT docs](https://jwt.io/)
+
+        ### Examples
+
+        If data is successfully processed the server returns status code `200`.
+
+        ```json
+        {
+            "token": "emskdlgnkngdDFHGergergEGRerRGEgerERE346346vergd456456"
+        }
+        ```
+
+        ### Errors
+
+        If there were some error in client data, it sends status code `401` with the error message looks like:
+
+        ```json
+        {
+            "detail": "Token is invalid or expired",
+            "code": "token_not_valid"
+        }
+        ```
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /api/items/:
+    get:
+      operationId: items_list
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - items
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBaseItemList'
+          description: ''
+    post:
+      operationId: items_create
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Item'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Item'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+  /api/items/{id}/:
+    get:
+      operationId: items_retrieve
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item.
+        required: true
+      tags:
+      - items
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+    put:
+      operationId: items_update
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item.
+        required: true
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Item'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Item'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+    patch:
+      operationId: items_partial_update
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this item.
+        required: true
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedItem'
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+  /api/items/choices/:
+    get:
+      operationId: items_choices_retrieve
+      description: |-
+        Use this mixin if you have some choices that need to be send to frontend
+        this action will import dynamic all choices user send in type query
+        and return its choices
+      tags:
+      - items
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+          description: ''
+  /api/items/locations//:
+    get:
+      operationId: items_locations_list
+      description: |-
+        list:
+        All items.
+
+        retrieve:
+        Details for single item
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - items
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedBaseLocationList'
+          description: ''
+  /api/items/locations//{id}/:
+    get:
+      operationId: items_locations_retrieve
+      description: |-
+        list:
+        All items.
+
+        retrieve:
+        Details for single item
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this location.
+        required: true
+      tags:
+      - items
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+components:
+  schemas:
+    BaseItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        quantity:
+          type: integer
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          $ref: '#/components/schemas/BaseLocation'
+        ttl:
+          type: string
+          readOnly: true
+      required:
+      - id
+      - location
+      - title
+      - ttl
+    BaseLocation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+      required:
+      - id
+      - title
+    CategoryEnum:
+      enum:
+      - GOODS
+      - MEDICATIONS
+      type: string
+      description: |-
+        * `GOODS` - Goods
+        * `MEDICATIONS` - Medications
+    CustomTokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        quantity:
+          type: integer
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          $ref: '#/components/schemas/BaseLocation'
+        ttl:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - location
+      - title
+      - ttl
+    Location:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        description:
+          type: string
+      required:
+      - id
+      - title
+    PaginatedBaseItemList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseItem'
+    PaginatedBaseLocationList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/BaseLocation'
+    PatchedItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        quantity:
+          type: integer
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          $ref: '#/components/schemas/BaseLocation'
+        ttl:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+    SignUp:
+      type: object
+      description: Create new user when sign up
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 255
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - id
+      - password
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

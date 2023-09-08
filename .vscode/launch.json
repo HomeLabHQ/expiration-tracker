@@ -1,0 +1,44 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+    {
+      "name": "server+client",
+      "configurations": ["client","be-server", "fe-server"],
+      "stopAll": true
+    }
+    ]
+      "configurations": [
+    {
+      "name": "be-server",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["runserver"],
+      "django": true,
+      "justMyCode": true
+    },
+    {
+      "name": "fe-server",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "envFile": "${workspaceFolder}/.env",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "frontend"]
+    },
+    {
+      "name": "client",
+      "type": "firefox",
+      "request": "launch",
+      "profile":"dev-edition-default",
+      "url": "http://localhost:3000",
+      "pathMappings": [{
+          "url": "http://localhost:3000",
+          "path": "${workspaceFolder}/frontend"
+      }]
+      }
+  ]
+
+}
