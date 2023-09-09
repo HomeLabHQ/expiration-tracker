@@ -10,31 +10,11 @@ repos:
     hooks:
       - id: pre-commit-api-docs
         name: renew api docs
-        entry: python ./backend/manage.py spectacular --color --file ./docs/schema.yml
-        language: python
+        entry: cd backend && poetry  run ./manage.py spectacular --color --file ../docs/schema.yml
+        language: system
         pass_filenames: false
-        additional_dependencies:
-          [
-            django,
-            djangorestframework,
-            drf-spectacular,
-            django-filter,
-            django-cors-headers,
-            djangorestframework-simplejwt,
-            django-extensions,
-          ]
-      - id: pre-commit-django-migrations
-        name: Check django migrations
-        entry: python ./backend/manage.py makemigrations
-        language: python
+      - id: pre-commit-ruff
+        name: Lint with ruff
+        entry: cd backend && poetry ruff
+        language: system
         pass_filenames: false
-        additional_dependencies:
-          [
-            django,
-            djangorestframework,
-            drf-spectacular,
-            django-filter,
-            django-cors-headers,
-            djangorestframework-simplejwt,
-            django-extensions,
-          ]
