@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from expiration_tracker.mixins import RepresentationPKField
 from items.models import Item, Location
 
 
@@ -16,7 +17,12 @@ class LocationSerializer(BaseLocationSerializer):
 
 
 class BaseItemSerializer(serializers.ModelSerializer):
-    location = BaseLocationSerializer()
+    location = RepresentationPKField(
+        many=False,
+        representation=BaseLocationSerializer,
+        queryset=Location.objects.all(),
+        required=True,
+    )
 
     class Meta:
         model = Item

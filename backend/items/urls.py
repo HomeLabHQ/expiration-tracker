@@ -4,7 +4,7 @@ from items.views import ItemViewSet, LocationViewSet
 
 app_name = "items"
 router = SimpleRouter()
+router.register("locations", LocationViewSet, basename="locations")
+router.register("items", ItemViewSet, basename="items")
 
-router.register("", ItemViewSet, basename="items")
-router.register("locations/", LocationViewSet, basename="locations")
 urlpatterns = [*router.urls]

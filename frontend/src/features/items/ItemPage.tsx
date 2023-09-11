@@ -1,23 +1,26 @@
+import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons"
+import { Button, DatePicker, Select, Space, Table, Tag } from "antd"
+import { ColumnFilterItem } from "antd/es/table/interface"
+import dayjs from "dayjs"
+import _ from "lodash"
 import React from "react"
 import {
   useGetItemsChoicesQuery,
   useGetItemsQuery,
+  useGetLocationsQuery,
   useUpdateItemMutation,
 } from "../../app/api"
-import { MinusCircleTwoTone, PlusCircleTwoTone } from "@ant-design/icons"
-import { Table, Button, Space, Spin, DatePicker } from "antd"
-import * as dayjs from "dayjs"
-import _ from "lodash"
+import ItemModalForm from "./ItemModalForm"
+import LocationModalForm from "./LocationModalForm"
 
 export default function ItemPage() {
   const { data, isLoading } = useGetItemsQuery()
   const { data: choices } = useGetItemsChoicesQuery()
+  const { data: locations } = useGetLocationsQuery()
   const [updateItem] = useUpdateItemMutation()
+
   const buildFilter = (value: string) => {
-    const fieldChoices: Array<{
-      text: string | number | boolean
-      value: string | number | boolean
-    }> = []
+    const fieldChoices: ColumnFilterItem[] = []
     if (choices) {
       const fieldChoice = _.find(choices, { field: value })
       fieldChoice?.values.map((item: string | number | boolean) => {
@@ -31,6 +34,17 @@ export default function ItemPage() {
     }
     return fieldChoices
   }
+  const buildLocationFilter = () => {
+    const fieldChoices: ColumnFilterItem[] = []
+    locations?.results.map((location: BaseLocation) => {
+      fieldChoices.push({
+        text: location.title,
+        value: location.id,
+      })
+    })
+    return fieldChoices
+  }
+
   const columns = [
     {
       title: "Title",
@@ -46,6 +60,11 @@ export default function ItemPage() {
         compare: (a: BaseItem, b: BaseItem) =>
           a.category.localeCompare(b.category),
       },
+      render: (text: string) => (
+        <React.Fragment>
+          <Tag color="green">{text}</Tag>
+        </React.Fragment>
+      ),
       onFilter: (value: string | number | boolean, record: BaseItem) =>
         record.category.startsWith(value.toString()),
     },
@@ -53,18 +72,19 @@ export default function ItemPage() {
       title: "Location",
       dataIndex: "location",
       width: "5%",
-      filters: [
-        {
-          text: "Goods",
-          value: 1,
-        },
-        {
-          text: "Medications",
-          value: 2,
-        },
-      ],
+      filters: buildLocationFilter(),
       render: (text: string, record: BaseItem) => (
-        <React.Fragment>{record.location.title}</React.Fragment>
+        <React.Fragment>
+          <Select
+            defaultValue={record.location.id}
+            options={locations?.results?.map((item) => {
+              return { value: item.id, label: item.title }
+            })}
+            onChange={(value) => {
+              updateItem({ id: record.id, location: value })
+            }}
+          />
+        </React.Fragment>
       ),
       sorter: {
         compare: (a: BaseItem, b: BaseItem) =>
@@ -104,7 +124,6 @@ export default function ItemPage() {
         </>
       ),
     },
-
     {
       title: "Expiration",
       dataIndex: "expiration_date",
@@ -133,11 +152,17 @@ export default function ItemPage() {
 
   return (
     <React.Fragment>
-      {isLoading ? (
-        <Spin size="large"></Spin>
-      ) : (
-        <Table columns={columns} dataSource={data?.results} rowKey="id" />
-      )}
+      <Space>
+        <ItemModalForm />
+        <LocationModalForm />
+      </Space>
+      <Table
+        loading={isLoading}
+        bordered
+        columns={columns}
+        dataSource={data?.results}
+        rowKey="id"
+      />
     </React.Fragment>
   )
 }

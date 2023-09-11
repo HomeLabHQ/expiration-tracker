@@ -2,6 +2,9 @@ interface BaseLocation {
   id: number
   title: string
 }
+interface Location extends BaseLocation {
+  description: string
+}
 
 interface Locations {
   count: number
@@ -18,6 +21,15 @@ interface BaseItem {
   location: BaseLocation
   ttl: number
 }
+interface PayloadItem {
+  id: number
+  title: string
+  category: string
+  quantity: number
+  expiration_date: string
+  location: number
+  ttl: number
+}
 
 interface Items {
   count: number
@@ -29,4 +41,9 @@ interface Items {
 interface Choice {
   field: string
   values: string[] | number[] | boolean[]
+}
+
+interface LoginValues {
+  email: string
+  password: string
 }

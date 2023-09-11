@@ -15,3 +15,4 @@ export const SocialLinks = [
 
 export const IconSize = 20
 export const AppName = "Expiration tracker"
+export const DateFormat = "YYYY-MM-DD"

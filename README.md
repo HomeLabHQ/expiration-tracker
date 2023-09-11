@@ -27,7 +27,6 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
 
@@ -41,10 +40,11 @@ Also as a bonus i get to dive into Typescript and Ant Design.
 
 ### Built With
 
-- [![Django][Django]][Django-url]
-- [![React][React.js]][React-url]
-- [![Redux][Redux]][Redux-url]
-- [![Vite][Vite]][Vite-url]
+[![Django][Django]][Django-url]
+[![React][React.js]][React-url]
+[![Redux][Redux]][Redux-url]
+[![Vite][Vite]][Vite-url]
+[![Antd][Antd]][Antd-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -55,50 +55,66 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+For local development you will need:
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- Python 3.11.0
+- Node 16.20.2
+  - Yarn 1.22.19
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
+1. Run `make setup`
+2. Initialize backend via `make be_init`
+   - Creates superuser from .env variables
+   - Run migrations
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- USAGE EXAMPLES -->
-
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+There are 2 methods of usage:
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+- Development environment
+  - VScode debug config in you need to play around with debugger
+  - Run `make start`. Please note that in this case you will manually need to add env variables.
+
+Complete app to use
+
+- Launch docker stack `docker compose up -d`
+- Create superuser from .env `docker exec -it api python manage.py createsuperuser --no-input`
+- Access via `http://hostip`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Roadmap
 
-◯ Release
-   ◦ Create docker with Ngnix
-   ◦ Move to postgress
-◯ Create new item feature
-◯ Item list features
-   ◦ Handle pagination
-   ✔ Editing in table
+Expiration tracker
+
+- [ ]Add barcode scanner
+  - [ ]Add suggestions from duckduckgo from barcode
+- [ ]Item list features ★
+  - [x]Editing in table
+  - [x]Add location change feature
+  - [ ]Handle pagination
+  - [ ]Handle sorting on BE
+- [ ]Barcode scanner via mfp api
+- [ ]Signup feature
+- [ ]QOL improvements
+  - [x]Add logout button
+  - [ ]Add internationalization and have all message string in json
+  - [x]Add error handling in forms(login,create item)
+- [ ]Add Docker containers
+  - [x]Nginx with production build of FE app
+  - [ ]Postgress
+- [x]Create new item feature ★
+  - [x]Add create button
+  - [x]Add location selector in form based on list of locations from api
+  - [x]Add progress indicator based on form completion
+  - [x]Add optimistic update via rtk
+- [x]Add new location feature
+  - [x]Add button
+  - [x]Add form to create new location
+  - [ ]Update relevant state data in rtk query
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -123,6 +139,8 @@ Don't forget to give the project a star! Thanks again!
 [linkedin-url]: https://linkedin.com/in/oleksandr-korol/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[Antd]: https://img.shields.io/badge/antd-20232A?style=for-the-badge&logo=antdesign&logoColor=61DAFB
+[antd-url]: https://ant.design/
 [redux]: https://img.shields.io/badge/Redux%20toolkit-20232A?style=for-the-badge&logo=redux&logoColor=61DAFB
 [redux-url]: https://reactjs.org/
 [Vite]: https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite&logoColor=61DAFB
