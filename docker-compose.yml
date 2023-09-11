@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   api:
-    container_name: api
+    container_name: expiration-tracker-api
     build:
       dockerfile: ./backend/Dockerfile
       context: ./
@@ -11,7 +11,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
-    container_name: nginx
+    container_name: expiration-tracker-nginx
     build:
       dockerfile: ./nginx/Dockerfile
       context: ./

@@ -90,31 +90,31 @@ Complete app to use
 
 Expiration tracker
 
-- [ ]Add barcode scanner
-  - [ ]Add suggestions from duckduckgo from barcode
-- [ ]Item list features ★
-  - [x]Editing in table
-  - [x]Add location change feature
-  - [ ]Handle pagination
-  - [ ]Handle sorting on BE
-- [ ]Barcode scanner via mfp api
-- [ ]Signup feature
-- [ ]QOL improvements
-  - [x]Add logout button
-  - [ ]Add internationalization and have all message string in json
-  - [x]Add error handling in forms(login,create item)
-- [ ]Add Docker containers
-  - [x]Nginx with production build of FE app
-  - [ ]Postgress
-- [x]Create new item feature ★
-  - [x]Add create button
-  - [x]Add location selector in form based on list of locations from api
-  - [x]Add progress indicator based on form completion
-  - [x]Add optimistic update via rtk
-- [x]Add new location feature
-  - [x]Add button
-  - [x]Add form to create new location
-  - [ ]Update relevant state data in rtk query
+- [ ] Add barcode scanner
+  - [ ] Add suggestions from duckduck go from barcode
+- [ ] Item list features ★
+  - [x] Editing in table
+  - [x] Add location change feature
+  - [ ] Handle pagination
+  - [ ] Handle sorting on BE
+- [ ] Barcode scanner via mfp api
+- [ ] Signup feature
+- [ ] QOL improvements
+  - [x] Add logout button
+  - [ ] Add internationalization and have all message string in json
+  - [x] Add error hadnling in forms(login,create item)
+- [ ] Add Docker containers
+  - [x] Nginx with production build of FE app
+  - [ ] Postgress
+- [x] Create new item feature ★
+  - [x] Add create button
+  - [x] Add location selector in form based on list of locations from api
+  - [x] Add progress indicator based on form completion
+  - [x] Add optimistic update via rtk
+- [x] Add new location feature
+  - [x] Add button
+  - [x] Add form to create new location
+  - [x] Update relevant state data in rtk query
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

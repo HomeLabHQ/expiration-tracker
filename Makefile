@@ -29,4 +29,4 @@ be_admin: ## Generate admin file for specific app `make be_admin app=items`
 api_docs: ## Regenerate api from docs
 	cd backend && python ./manage.py spectacular --color --file ../docs/schema.yml
 roadmap: ## Some hectic stuff to convert microsoft todos to normal markdown
-	sed -i -e "s/\ ◯ /-[ ]/g" README.md && sed -i -e "s/\ ◦ /- [ ]/g" README.md && sed -i -e "s/\ ✔ /- [x]/g" README.md && sed -i -e "s/\◯ /- [ ]/g" README.md && sed -i -e "s/\✔ /- [x]/g" README.md
+	sed -i -e "s/\ ◯ /-[ ] /g" README.md && sed -i -e "s/\ ◦ /- [ ] /g" README.md && sed -i -e "s/\ ✔ /- [x] /g" README.md && sed -i -e "s/\◯ /- [ ] /g" README.md && sed -i -e "s/\✔ /- [x] /g" README.md
