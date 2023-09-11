@@ -1,10 +1,22 @@
 import React from "react"
-import { Layout } from "antd"
+import { Menu, Button } from "antd"
 import { CalendarTwoTone } from "@ant-design/icons"
+import type { MenuProps } from "antd"
+import { AppName } from "../../constants/settings"
+import { logout } from "../auth/authSlice"
+import { useDispatch } from "react-redux"
 export default function Header() {
-  return (
-    <Layout.Header>
-      <CalendarTwoTone />
-    </Layout.Header>
-  )
+  const dispatch = useDispatch()
+  const items: MenuProps["items"] = [
+    {
+      label: AppName,
+      key: "mail",
+      icon: <CalendarTwoTone />,
+    },
+    {
+      label: <Button onClick={() => dispatch(logout())}>Logout</Button>,
+      key: "logout",
+    },
+  ]
+  return <Menu items={items} selectable={false} mode="horizontal"></Menu>
 }

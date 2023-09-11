@@ -51,6 +51,7 @@ class ItemViewSet(
 
 class LocationViewSet(
     ListSerializerMixin,
+    mixins.CreateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,

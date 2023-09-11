@@ -1,7 +1,6 @@
 [tool.poetry]
 authors = ["Oleksandr Korol <zibertua@gmail.com>"]
 description = ""
-license = "MIT"
 name = "backend"
 readme = "README.md"
 version = "0.1.0"
@@ -9,17 +8,19 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 Django = "^4.2.4"
 django-cors-headers = "^4.2.0"
+django-extensions = "^3.2.3"
 django-filter = "^23.2"
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.0"}
 drf-spectacular = "^0.26.4"
-python = "3.11"
-django-extensions = "^3.2.3"
+python = "^3.11"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+gunicorn = "^21.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
-ruff = "^0.0.285"
 mixer = "^7.2.2"
+ruff = "^0.0.285"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"

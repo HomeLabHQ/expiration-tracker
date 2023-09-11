@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  api:
+    container_name: api
+    build:
+      dockerfile: ./backend/Dockerfile
+      context: ./
+    env_file:
+      - .env
+    image: expiration-tracker/backend-${ENVIRONMENT}
+    ports:
+      - "8000:8000"
+  nginx:
+    container_name: nginx
+    build:
+      dockerfile: ./nginx/Dockerfile
+      context: ./
+      args:
+        - PUBLIC_URL
+        - API_URL
+    restart: always
+    ports:
+      - 80:80
+    env_file:
+      - .env
+    volumes:
+      - static:/static
+      - attachments:/attachments
+    depends_on:
+      - api
+volumes:
+  static:
+  attachments:

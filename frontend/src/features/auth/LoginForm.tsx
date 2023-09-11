@@ -1,17 +1,23 @@
+import { LockOutlined, UserOutlined } from "@ant-design/icons"
+import { Button, Card, Form, Input, Typography, message } from "antd"
+import React from "react"
 import { useLoginMutation } from "../../app/api"
-import { Form, Input, Button, Card, Typography } from "antd"
-import { UserOutlined, LockOutlined } from "@ant-design/icons"
-
-interface Values {
-  email: string
-  password: string
-}
 
 const { Title } = Typography
 export default function LoginForm() {
-  const [login, { isLoading }] = useLoginMutation()
-  const onFinish = (values: Values) => {
+  const [login] = useLoginMutation()
+  const [msg, contextHolder] = message.useMessage()
+  const onFinish = (values: LoginValues) => {
     login({ email: values.email, password: values.password })
+      .unwrap()
+      .then(() => {})
+      .catch((error) => {
+        msg.error(
+          `Error while logging in ${error.status} ${JSON.stringify(
+            error.data,
+          )}`,
+        )
+      })
   }
 
   return (
@@ -23,6 +29,7 @@ export default function LoginForm() {
         height: "100vh",
       }}
     >
+      {contextHolder}
       <Card style={{ width: 500 }}>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Title level={2}>Expiration tracker</Title>
@@ -45,9 +52,6 @@ export default function LoginForm() {
               type="password"
               placeholder="Password"
             />
-            {/* <a style={{ float: "right" }} href="">
-              Forgot password
-            </a> */}
           </Form.Item>
           <Form.Item>
             <Button
@@ -58,7 +62,7 @@ export default function LoginForm() {
             >
               Log in
             </Button>
-            Don't have an account <a href="">sign up</a>
+            Signup <a href="">sign up</a>
           </Form.Item>
         </Form>
       </Card>

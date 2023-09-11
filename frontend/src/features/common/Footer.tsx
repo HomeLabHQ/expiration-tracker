@@ -30,6 +30,7 @@ export default function Footer() {
     })
     return socialLinks
   }
+
   return (
     <React.Fragment>
       <Layout.Footer

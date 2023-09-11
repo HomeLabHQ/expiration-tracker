@@ -31,37 +31,74 @@ const backendApi = createApi({
       }),
     }),
     getItems: builder.query<Items, void>({
-      query: () => `items/`,
+      query: () => `items/items/`,
       providesTags: ["Items"],
     }),
+    addItem: builder.mutation<BaseItem, Partial<BaseItem>>({
+      query(body) {
+        return {
+          url: `items/items/`,
+          method: "POST",
+          body,
+        }
+      },
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        try {
+          const { data: addItem } = await queryFulfilled
+          dispatch(
+            backendApi.util.updateQueryData(
+              "getItems",
+              undefined,
+              (draftItems) => {
+                draftItems?.results?.push(addItem)
+              },
+            ),
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      },
+    }),
     getItemsChoices: builder.query<Choice[], void>({
-      query: () => `items/choices/`,
+      query: () => `items/items/choices/`,
       providesTags: ["Items-choices"],
     }),
     getLocations: builder.query<Locations, void>({
       query: () => `items/locations/`,
       providesTags: ["Locations"],
     }),
-    // getItemsByCategory: builder.query<
-    //   Items,
-    //   { category: BaseItem["category"] }
-    // >({
-    //   query: (arg) => {
-    //     console.log(arg)
-    //     return {
-    //       url: "items/",
-    //       // params: { start, end },
-    //     }
-    //   },
-    //   providesTags: ["Items"],
-    // }),
+    addLocation: builder.mutation<Location, Partial<Location>>({
+      query(body) {
+        return {
+          url: `items/locations/`,
+          method: "POST",
+          body,
+        }
+      },
+      async onQueryStarted(body, { dispatch, queryFulfilled }) {
+        try {
+          const { data: addLocation } = await queryFulfilled
+          dispatch(
+            backendApi.util.updateQueryData(
+              "getLocations",
+              undefined,
+              (draftItems) => {
+                draftItems?.results?.push(addLocation)
+              },
+            ),
+          )
+        } catch (err) {
+          console.log(err)
+        }
+      },
+    }),
 
     updateItem: builder.mutation<
       BaseItem,
-      Partial<BaseItem> & Pick<BaseItem, "id">
+      Partial<PayloadItem> & Pick<BaseItem, "id">
     >({
       query: ({ id, ...patch }) => ({
-        url: `items/${id}/`,
+        url: `/items/items/${id}/`,
         method: "PATCH",
         body: patch,
       }),
@@ -87,8 +124,11 @@ const backendApi = createApi({
 })
 export const {
   useLoginMutation,
+  useAddItemMutation,
   useGetItemsQuery,
   useUpdateItemMutation,
+  useGetLocationsQuery,
+  useAddLocationMutation,
   useGetItemsChoicesQuery,
 } = backendApi
 
