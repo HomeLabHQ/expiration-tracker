@@ -69,6 +69,9 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_RATES": {
+        "search": "3/minute",
+    },
 }
 
 WSGI_APPLICATION = "expiration_tracker.wsgi.application"
@@ -111,3 +114,5 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "static"))
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "attachments"))
 MEDIA_URL = "/attachments/"
+
+SEARCH_REGION = "ua-uk"

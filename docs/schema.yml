@@ -192,9 +192,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/TokenVerify'
           description: ''
-  /api/items/:
+  /api/items/items/:
     get:
-      operationId: items_list
+      operationId: items_items_list
       description: |-
         create:
         Create Item
@@ -242,7 +242,7 @@ paths:
                 $ref: '#/components/schemas/PaginatedBaseItemList'
           description: ''
     post:
-      operationId: items_create
+      operationId: items_items_create
       description: |-
         create:
         Create Item
@@ -288,9 +288,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
           description: ''
-  /api/items/{id}/:
+  /api/items/items/{id}/:
     get:
-      operationId: items_retrieve
+      operationId: items_items_retrieve
       description: |-
         create:
         Create Item
@@ -332,7 +332,7 @@ paths:
                 $ref: '#/components/schemas/Item'
           description: ''
     put:
-      operationId: items_update
+      operationId: items_items_update
       description: |-
         create:
         Create Item
@@ -386,7 +386,7 @@ paths:
                 $ref: '#/components/schemas/Item'
           description: ''
     patch:
-      operationId: items_partial_update
+      operationId: items_items_partial_update
       description: |-
         create:
         Create Item
@@ -438,9 +438,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
           description: ''
-  /api/items/choices/:
+  /api/items/items/choices/:
     get:
-      operationId: items_choices_retrieve
+      operationId: items_items_choices_retrieve
       description: |-
         Use this mixin if you have some choices that need to be send to frontend
         this action will import dynamic all choices user send in type query
@@ -457,7 +457,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/Item'
           description: ''
-  /api/items/locations//:
+  /api/items/items/search/:
+    post:
+      operationId: items_items_search_create
+      description: |-
+        create:
+        Create Item
+
+        As authenticated user you can create order by providing product and quantity
+
+        list:
+        All items.
+
+
+        retrieve:
+        Details for single item
+
+
+        update:
+        Update Item
+
+
+
+        partial_update:
+        Update Item
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemSearch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemSearch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemSearch'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemSearch'
+          description: ''
+  /api/items/locations/:
     get:
       operationId: items_locations_list
       description: |-
@@ -491,7 +539,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedBaseLocationList'
           description: ''
-  /api/items/locations//{id}/:
+    post:
+      operationId: items_locations_create
+      description: |-
+        list:
+        All items.
+
+        retrieve:
+        Details for single item
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Location'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Location'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /api/items/locations/{id}/:
     get:
       operationId: items_locations_retrieve
       description: |-
@@ -539,7 +619,7 @@ components:
           format: date
           nullable: true
         location:
-          $ref: '#/components/schemas/BaseLocation'
+          type: integer
         ttl:
           type: string
           readOnly: true
@@ -598,7 +678,7 @@ components:
           format: date
           nullable: true
         location:
-          $ref: '#/components/schemas/BaseLocation'
+          type: integer
         ttl:
           type: string
           readOnly: true
@@ -612,6 +692,14 @@ components:
       - location
       - title
       - ttl
+    ItemSearch:
+      type: object
+      properties:
+        barcode:
+          type: string
+          maxLength: 50
+      required:
+      - barcode
     Location:
       type: object
       properties:
@@ -684,7 +772,7 @@ components:
           format: date
           nullable: true
         location:
-          $ref: '#/components/schemas/BaseLocation'
+          type: integer
         ttl:
           type: string
           readOnly: true

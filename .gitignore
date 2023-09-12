@@ -8,3 +8,5 @@ db.sqlite3
 README.md-e
 # Override on production
 compose.override.yml
+# python coverage data
+.coverage

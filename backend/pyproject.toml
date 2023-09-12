@@ -13,15 +13,18 @@ django-filter = "^23.2"
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.0"}
 drf-spectacular = "^0.26.4"
+duckduckgo-search = "^3.8.5"
+gunicorn = "^21.2.0"
 python = "^3.11"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
-gunicorn = "^21.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
 mixer = "^7.2.2"
 ruff = "^0.0.285"
 
+[tool.poetry.group.test.dependencies]
+coverage = {extras = ["toml"], version = "^7.2.7"}
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
@@ -29,7 +32,7 @@ requires = ["poetry-core"]
 [tool.ruff]
 ignore = ["RUF005"]
 line-length = 120
-select = ["E", "F", "W", "I", "C4", "Q", "RUF", "PIE", "COM"]
+select = ["E", "F", "W", "C4", "Q", "RUF", "PIE", "COM"]
 # Exclude a variety of commonly ignored directories.
 exclude = [
   ".git",
@@ -75,3 +78,23 @@ exclude = '''
 '''
 line-length = 120
 target-version = ["py311"]
+
+[tool.coverage.run]
+branch = true
+omit = [
+  ".venv/*",
+  "*/migrations/*",
+  "*/admin.py",
+  "*/apps.py",
+  "manage.py",
+  "*/settings.py",
+  "*/asgi.py",
+  "*/wsgi.py",
+  "*/tests.py",
+  "example/*",
+  "shop/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
