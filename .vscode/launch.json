@@ -8,6 +8,17 @@
     }
     ]
       "configurations": [
+      {
+      "name": "be-tests",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["test"],
+      "django": true,
+      "justMyCode": true
+    },
     {
       "name": "be-server",
       "type": "python",

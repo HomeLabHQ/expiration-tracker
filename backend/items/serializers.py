@@ -1,6 +1,6 @@
+from expiration_tracker.mixins import RepresentationPKField
 from rest_framework import serializers
 
-from expiration_tracker.mixins import RepresentationPKField
 from items.models import Item, Location
 
 
@@ -11,7 +11,6 @@ class BaseLocationSerializer(serializers.ModelSerializer):
 
 
 class LocationSerializer(BaseLocationSerializer):
-    # TODO: Add list of all items in this location?
     class Meta(BaseLocationSerializer.Meta):
         fields = (*BaseLocationSerializer.Meta.fields, "description")
 
@@ -32,3 +31,13 @@ class BaseItemSerializer(serializers.ModelSerializer):
 class ItemSerializer(BaseItemSerializer):
     class Meta(BaseItemSerializer.Meta):
         fields = (*BaseItemSerializer.Meta.fields, "created_at")
+
+
+class ItemSearchSerializer(serializers.Serializer):
+    barcode = serializers.CharField(max_length=50)
+
+
+class SearchResultSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    href = serializers.CharField()
+    body = serializers.CharField()
