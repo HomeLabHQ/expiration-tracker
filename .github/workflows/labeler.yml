@@ -1,0 +1,8 @@
+name: Labeler
+on: [push]
+
+jobs:
+  label:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/labeler@main
