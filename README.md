@@ -13,6 +13,7 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
+      <a href="#demo">Demo</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -35,6 +36,19 @@
 Main goal of this project is to allow users to track expiration dates of items(food/medication),
 and hopefully eliminate huge portions of wasted food/medications.
 Also as a bonus i get to dive into Typescript and Ant Design.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Demo
+
+To try this out access demo instance at [Demo]
+with credentials:
+
+```js
+email:test@example.com
+password:Test12345
+```
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -148,3 +162,4 @@ Don't forget to give the project a star! Thanks again!
 [Django]: https://img.shields.io/badge/Django-20232A?style=for-the-badge&logo=django&logoColor=61DAFB
 [Django-url]: https://www.djangoproject.com/
 [Wakatime-shield]: https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/9e8caf94-21bb-4372-9c1e-00e07136d2d3.svg
+[Demo]: https://g9l1dqnl-8023.euw.devtunnels.ms/
