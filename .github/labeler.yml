@@ -1,0 +1,4 @@
+api_changes:
+  - all: ["docs/schema.yml"]
+no_tests:
+  - all: ["!**/tests.py", "!**/**/tests.py"]
