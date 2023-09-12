@@ -8,8 +8,6 @@ services:
     env_file:
       - .env
     image: expiration-tracker/backend-${ENVIRONMENT}
-    ports:
-      - "8000:8000"
   nginx:
     container_name: expiration-tracker-nginx
     build:
