@@ -7,26 +7,20 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    # Ruff version.
     rev: v0.0.288
     hooks:
       - id: ruff
         args:
-          [
-            --fix,
-            --exit-non-zero-on-fix,
-            --config,
-            ./backend/pyproject.toml,
-            --extend-select,
-            I001,
-            --extend-ignore,
-            ALL
-          ]
-
+          [--fix, --exit-non-zero-on-fix, --config, ./backend/pyproject.toml]
   - repo: local
     hooks:
       - id: pre-commit-api-docs
         name: renew api docs
         entry: poetry run --directory backend   ./backend/manage.py spectacular --color --file ./docs/schema.yml
+        language: system
+        pass_filenames: false
+      - id: pre-commit-migration-check
+        name: check for missing migrations
+        entry: poetry run --directory backend   ./backend/manage.py makemigrations
         language: system
         pass_filenames: false

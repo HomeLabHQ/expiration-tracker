@@ -1,6 +1,6 @@
 .venv
 node_modules
-.env*
+.env
 .DS_Store
 *.pyc
 db.sqlite3

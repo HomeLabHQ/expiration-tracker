@@ -7,8 +7,9 @@ help:
 	| sed -n 's/^\(.*\): \(.*\)##\(.*\)/\1##\3/p' \
 	| column -t -s '##'
 setup: ## Prepare virtual env and setup project
-	cd backend && poetry install & \
-	cd frontend && yarn install
+	cd backend && poetry install &\
+	cd frontend && yarn install & \
+	pre-commit install
 update: ## Update dependencies
 	cd backend && poetry update & \
 	cd frontend && yarn upgrade
