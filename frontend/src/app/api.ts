@@ -21,7 +21,7 @@ const backendApi = createApi({
     },
     baseUrl: baseUrl,
   }),
-  tagTypes: ["Items", "Items-choices", "Locations"],
+  tagTypes: ["Items", "Items-choices", "Locations", "Item-suggestions"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (body) => ({
@@ -120,6 +120,15 @@ const backendApi = createApi({
         }
       },
     }),
+    searchItem: builder.mutation<SearchResult[], Search>({
+      query(body) {
+        return {
+          url: `items/items/search/`,
+          method: "POST",
+          body,
+        }
+      },
+    }),
   }),
 })
 export const {
@@ -130,6 +139,7 @@ export const {
   useGetLocationsQuery,
   useAddLocationMutation,
   useGetItemsChoicesQuery,
+  useSearchItemMutation,
 } = backendApi
 
 export default backendApi

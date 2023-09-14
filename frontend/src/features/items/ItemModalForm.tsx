@@ -1,8 +1,8 @@
 import {
+  AutoComplete,
   Button,
   DatePicker,
   Form,
-  Input,
   InputNumber,
   Modal,
   Progress,
@@ -17,9 +17,11 @@ import {
   useAddItemMutation,
   useGetItemsChoicesQuery,
   useGetLocationsQuery,
+  useSearchItemMutation,
 } from "../../app/api"
 import { DateFormat } from "../../constants/settings"
-
+import { DefaultOptionType } from "antd/es/select"
+import debounce from "lodash/debounce"
 export default function ItemModalForm() {
   const [open, setOpen] = React.useState(false)
   // * Due to quantity already filled
@@ -30,7 +32,20 @@ export default function ItemModalForm() {
   // ? Can this be moved to root component?
   const [msg, contextHolder] = message.useMessage()
   const [form] = Form.useForm()
+  const [searchItem, { data: suggestions, isLoading: isLoadingSuggestions }] =
+    useSearchItemMutation()
 
+  const buildOptions = () => {
+    const options: DefaultOptionType[] = []
+    if (!isLoadingSuggestions) {
+      suggestions?.forEach((item) => {
+        options.push({ value: item.title, label: item.title })
+      })
+    } else {
+      return []
+    }
+    return options
+  }
   const onFinish = (values: BaseItem) => {
     values.expiration_date = dayjs(values.expiration_date).format(DateFormat)
     addItem(values)
@@ -48,7 +63,6 @@ export default function ItemModalForm() {
         )
       })
   }
-
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -111,9 +125,20 @@ export default function ItemModalForm() {
           <Form.Item
             label="title"
             name="title"
-            rules={[{ required: true, message: "Please input Title" }]}
+            rules={[
+              { required: true, message: "Please input Title" },
+              { max: 50, message: "Make it shorter" },
+            ]}
           >
-            <Input name="title" />
+            <AutoComplete
+              allowClear
+              options={buildOptions()}
+              style={{ width: 200 }}
+              onSearch={debounce((text) => {
+                searchItem({ barcode: text })
+              }, 500)}
+              placeholder="input here"
+            />
           </Form.Item>
           <Form.Item
             label="quantity"
