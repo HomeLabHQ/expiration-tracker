@@ -195,27 +195,6 @@ paths:
   /api/items/items/:
     get:
       operationId: items_items_list
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - name: limit
         required: false
@@ -243,27 +222,6 @@ paths:
           description: ''
     post:
       operationId: items_items_create
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       tags:
       - items
       requestBody:
@@ -291,27 +249,6 @@ paths:
   /api/items/items/{id}/:
     get:
       operationId: items_items_retrieve
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -333,27 +270,6 @@ paths:
           description: ''
     put:
       operationId: items_items_update
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -387,27 +303,6 @@ paths:
           description: ''
     patch:
       operationId: items_items_partial_update
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -441,10 +336,8 @@ paths:
   /api/items/items/choices/:
     get:
       operationId: items_items_choices_retrieve
-      description: |-
-        Use this mixin if you have some choices that need to be send to frontend
-        this action will import dynamic all choices user send in type query
-        and return its choices
+      description: Get ENUM choices for item
+      summary: Get choices for item
       tags:
       - items
       security:
@@ -455,32 +348,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/Choice'
           description: ''
   /api/items/items/search/:
     post:
       operationId: items_items_search_create
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
+      description: Send search string to duck duck go
+      summary: Perform search
       tags:
       - items
       requestBody:
@@ -499,21 +373,28 @@ paths:
       - jwtAuth: []
       - {}
       responses:
-        '200':
+        '201':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ItemSearch'
-          description: ''
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+          description: Created. New resource in response
+        '400':
+          description: Bad request (something invalid)
   /api/items/locations/:
     get:
       operationId: items_locations_list
       description: |-
+        create:
+        Create Location
+
         list:
-        All items.
+        All Locations
 
         retrieve:
-        Details for single item
+        Details for single location
       parameters:
       - name: limit
         required: false
@@ -542,11 +423,14 @@ paths:
     post:
       operationId: items_locations_create
       description: |-
+        create:
+        Create Location
+
         list:
-        All items.
+        All Locations
 
         retrieve:
-        Details for single item
+        Details for single location
       tags:
       - items
       requestBody:
@@ -575,11 +459,14 @@ paths:
     get:
       operationId: items_locations_retrieve
       description: |-
+        create:
+        Create Location
+
         list:
-        All items.
+        All Locations
 
         retrieve:
-        Details for single item
+        Details for single location
       parameters:
       - in: path
         name: id
@@ -598,6 +485,150 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Location'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
           description: ''
 components:
   schemas:
@@ -622,7 +653,6 @@ components:
           type: integer
         ttl:
           type: string
-          readOnly: true
       required:
       - id
       - location
@@ -648,6 +678,18 @@ components:
       description: |-
         * `GOODS` - Goods
         * `MEDICATIONS` - Medications
+    Choice:
+      type: object
+      properties:
+        field:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - field
+      - values
     CustomTokenObtainPair:
       type: object
       properties:
@@ -681,7 +723,6 @@ components:
           type: integer
         ttl:
           type: string
-          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -775,11 +816,23 @@ components:
           type: integer
         ttl:
           type: string
-          readOnly: true
         created_at:
           type: string
           format: date-time
           readOnly: true
+    SearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+        href:
+          type: string
+        body:
+          type: string
+      required:
+      - body
+      - href
+      - title
     SignUp:
       type: object
       description: Create new user when sign up

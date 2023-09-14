@@ -47,3 +47,13 @@ interface LoginValues {
   email: string
   password: string
 }
+
+interface Search {
+  // TODO: Replace by integer when barcode scanner will be available
+  barcode: string
+}
+interface SearchResult {
+  title: string
+  href: string
+  body: string
+}

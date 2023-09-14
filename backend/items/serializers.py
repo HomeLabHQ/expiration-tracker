@@ -22,10 +22,12 @@ class BaseItemSerializer(serializers.ModelSerializer):
         queryset=Location.objects.all(),
         required=True,
     )
+    ttl = serializers.CharField()
 
     class Meta:
         model = Item
         fields = ("id", "title", "category", "quantity", "expiration_date", "location", "ttl")
+        read_only_fields = ("ttl",)
 
 
 class ItemSerializer(BaseItemSerializer):

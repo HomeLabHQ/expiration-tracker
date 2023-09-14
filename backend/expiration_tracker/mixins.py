@@ -2,12 +2,10 @@ from rest_framework import serializers
 from rest_framework.decorators import action
 from rest_framework.relations import PKOnlyObject
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 
 class ListSerializerMixin:
-    """Use this mixin to be able to define list_serializer_class that
-    will be used only for list action"""
-
     list_serializer_class = None
     serializer_class = None
 
@@ -28,9 +26,19 @@ class ListSerializerMixin:
             return super().get_queryset()
 
 
+class ChoiceSerializer(serializers.Serializer):
+    field = serializers.CharField()
+    values = serializers.ListField(child=serializers.CharField())
+
+
 class ChoiceMixin:
     all_choices = None
 
+    @extend_schema(
+        summary="Get choices for item",
+        description="Get ENUM choices for item",
+        responses=OpenApiResponse(ChoiceSerializer),
+    )
     @action(detail=False, methods=["GET"])
     def choices(self, request, *args, **kwargs):
         """Use this mixin if you have some choices that need to be send to frontend
