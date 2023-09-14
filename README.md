@@ -71,8 +71,10 @@ To get a local copy up and running follow these simple example steps.
 For local development you will need:
 
 - Python 3.11.0
-- Node 16.20.2
+- Node 18.17.1
   - Yarn 1.22.19
+
+Also strongly recommend using tools like nvm and pyenv for running specific versions of Python and Node for this project
 
 ### Installation
 
