@@ -23,7 +23,7 @@ class ItemVewSetTest(CRUDTestCase, TestCase):
         "location": random.randint(1, location_count),
         "expiration_date": "2022-12-12",
     }
-    methods: typing.ClassVar = ["list", "create", "update", "partial_update", "destroy"]
+    methods: typing.ClassVar = ["list", "retrieve", "create", "update", "partial_update"]
 
     def setUp(self) -> None:
         for _ in range(self.location_count):
@@ -33,12 +33,12 @@ class ItemVewSetTest(CRUDTestCase, TestCase):
         self.user = self.create_and_login()
         self.barcode = "7622300465674"
 
-    @skipIf(False, "Search without mock")
+    @skipIf(True, "Search without mock")
     def test_search(self):
         resp = self.client.post(reverse(f"{self.base_view}-search"), data={"barcode": self.barcode})
         self.assertEqual(resp.status_code, 200)
 
-    @skipIf(False, "Search without mock")
+    @skipIf(True, "Search without mock")
     def test_search_throttle(self):
         rate = settings.REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"]["search"]
         for _ in range(int(rate.split("/")[0])):

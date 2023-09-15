@@ -17,7 +17,7 @@
       "envFile": "${workspaceFolder}/.env",
       "args": ["test"],
       "django": true,
-      "justMyCode": true
+      "justMyCode": false
     },
     {
       "name": "be-server",

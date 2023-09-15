@@ -514,7 +514,6 @@ components:
       - id
       - location
       - title
-      - ttl
     BaseLocation:
       type: object
       properties:
@@ -589,7 +588,6 @@ components:
       - id
       - location
       - title
-      - ttl
     ItemSearch:
       type: object
       properties:

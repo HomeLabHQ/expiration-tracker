@@ -1,9 +1,9 @@
 import random
 import typing
 from abc import ABC
-from unittest import skipIf, skipUnless
 
 from authentication.models import User
+from unittest import SkipTest
 from django.db.models import TextChoices
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
@@ -104,7 +104,7 @@ class CRUDTestCase(BaseTestCase):
     base_view = None
     queryset = None
     fake_data: typing.ClassVar = {}
-    methods: typing.ClassVar = ["list", "create", "update", "partial_update"]
+    methods: typing.ClassVar = []
 
     def create_and_login(self, email="test@mail.com", password="qwerty123456", first_name="John", last_name="Snow"):
         user: User = self.create(email=email, password=password, first_name=first_name, last_name=last_name)
@@ -127,22 +127,42 @@ class CRUDTestCase(BaseTestCase):
         token = AccessToken.for_user(user)
         self.client.credentials(HTTP_AUTHORIZATION=f"{api_settings.AUTH_HEADER_TYPES[0]} {token}", **additional_headers)
 
-    @skipIf("list" not in methods, "list method not implemented")
     def test_list(self) -> None:
+        if "list" not in self.methods:
+            raise SkipTest("list method not implemented")
         self.client.get(reverse(f"{self.base_view}-list"))
 
-    @skipIf("create" not in methods, "create method not implemented")
     def test_create(self) -> None:
+        if "create" not in self.methods:
+            raise SkipTest("create method not implemented")
         json_response = self.client.post(reverse(f"{self.base_view}-list"), data=self.fake_data).json()
         self.assertEqual(self.queryset.filter(pk=json_response.get("id")).count(), 1)
 
-    @skipUnless("create" not in methods, "create method not implemented")
     def test_create_not_allowed(self) -> None:
+        if "create" in self.methods:
+            raise SkipTest("create method not allowed")
         resp = self.client.post(reverse(f"{self.base_view}-list"), data=self.fake_data)
         self.assertEqual(resp.status_code, 405)
 
-    @skipIf("update" not in methods, "update method not implemented")
+    def test_retrieve(self) -> None:
+        if "retrieve" not in self.methods:
+            raise SkipTest("retrieve method not implemented")
+        test_instance = self.queryset.first()
+        resp = self.client.get(reverse(f"{self.base_view}-detail", args=(test_instance.id,)))
+        ser = resp.renderer_context.get("view").get_serializer_class()
+        serializer = ser(test_instance)
+        self._check_data(serializer, test_instance, resp)
+
+    def test_retrieve_not_allowed(self) -> None:
+        if "retrieve" in self.methods:
+            raise SkipTest("create method not allowed")
+        test_instance = self.queryset.first()
+        resp = self.client.get(reverse(f"{self.base_view}-detail", args=(test_instance.id,)))
+        self.assertEqual(resp.status_code, 405)
+
     def test_update(self) -> None:
+        if "update" not in self.methods:
+            raise SkipTest("retrieve method not implemented")
         test_instance = self.queryset.first()
         resp = self.client.put(reverse(f"{self.base_view}-detail", args=(test_instance.id,)), data=self.fake_data)
         ser = resp.renderer_context.get("view").get_serializer_class()
@@ -150,14 +170,16 @@ class CRUDTestCase(BaseTestCase):
         serializer.is_valid(raise_exception=True)
         self._check_data(serializer, test_instance, resp)
 
-    @skipUnless("update" not in methods, "update method not implemented")
     def test_update_not_allowed(self) -> None:
+        if "update" in self.methods:
+            raise SkipTest("create method not allowed")
         test_instance = self.queryset.first()
         resp = self.client.put(reverse(f"{self.base_view}-detail", args=(test_instance.id,)), data=self.fake_data)
         self.assertEqual(resp.status_code, 405)
 
-    @skipIf("partial_update" not in methods, "partial_update method not implemented")
     def test_partial_update(self) -> None:
+        if "partial_update" not in self.methods:
+            raise SkipTest("partial_update method not allowed")
         test_instance = self.queryset.first()
         rand_index = random.randrange(0, len(self.fake_data))
         payload = {**dict(list(self.fake_data.items())[:rand_index])}
@@ -168,22 +190,25 @@ class CRUDTestCase(BaseTestCase):
         serializer.save()
         self._check_data(serializer, test_instance, resp)
 
-    @skipUnless("partial_update" not in methods, "partial_update method not implemented")
     def test_partial_update_not_allowed(self) -> None:
+        if "partial_update" in self.methods:
+            raise SkipTest("partial-update method not allowed")
         test_instance = self.queryset.first()
         rand_index = random.randrange(0, len(self.fake_data))
         payload = {**dict(list(self.fake_data.items())[:rand_index])}
         resp = self.client.patch(reverse(f"{self.base_view}-detail", args=(test_instance.id,)), data=payload)
         self.assertEqual(resp.status_code, 405)
 
-    @skipIf("destroy" not in methods, "destroy method not implemented")
     def test_destroy(self) -> None:
+        if "destroy" not in self.methods:
+            raise SkipTest("destroy method not allowed")
         test_instance = self.queryset.first()
         self.client.delete(reverse(f"{self.base_view}-detail", args=(test_instance.id,)))
         self.assertEqual(self.queryset.filter(pk=test_instance.pk).count(), 0)
 
-    @skipUnless("destroy" not in methods, "destroy method not implemented")
     def test_destroy_not_allowed(self) -> None:
+        if "destroy" in self.methods:
+            raise SkipTest("destroy method not allowed")
         test_instance = self.queryset.first()
         resp = self.client.delete(reverse(f"{self.base_view}-detail", args=(test_instance.id,)))
         self.assertEqual(resp.status_code, 405)

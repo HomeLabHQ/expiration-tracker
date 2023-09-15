@@ -22,7 +22,7 @@ class BaseItemSerializer(serializers.ModelSerializer):
         queryset=Location.objects.all(),
         required=True,
     )
-    ttl = serializers.CharField()
+    ttl = serializers.CharField(required=False)
 
     class Meta:
         model = Item
