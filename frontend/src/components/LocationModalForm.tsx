@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Progress, message } from "antd"
 import React from "react"
-import { useAddLocationMutation } from "../../app/api"
+import { useAddLocationMutation } from "../app/api"
 
 export default function LocationModalForm() {
   const [open, setOpen] = React.useState(false)

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import backendApi from "../../app/api"
+import backendApi from "./api"
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     access: localStorage.getItem("access") || null,
     refresh: localStorage.getItem("refresh") || null,
-    isAuthenticated: false,
+    isAuthenticated: !!localStorage.getItem("access"),
     user: {},
   },
 
@@ -21,6 +21,26 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(
       backendApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        state.access = payload.access
+        state.refresh = payload.refresh
+        state.isAuthenticated = true
+        localStorage.setItem("access", payload.access)
+        localStorage.setItem("refresh", payload.refresh)
+      },
+    )
+    builder.addMatcher(
+      backendApi.endpoints.verify.matchFulfilled,
+      (state, { payload }) => {
+        state.access = payload.access
+        state.refresh = payload.refresh
+        state.isAuthenticated = true
+        localStorage.setItem("access", payload.access)
+        localStorage.setItem("refresh", payload.refresh)
+      },
+    )
+    builder.addMatcher(
+      backendApi.endpoints.refresh.matchFulfilled,
       (state, { payload }) => {
         state.access = payload.access
         state.refresh = payload.refresh

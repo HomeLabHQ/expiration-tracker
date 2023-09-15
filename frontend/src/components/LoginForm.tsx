@@ -1,16 +1,19 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons"
 import { Button, Card, Form, Input, Typography, message } from "antd"
 import React from "react"
-import { useLoginMutation } from "../../app/api"
-
+import { useLoginMutation } from "../app/api"
+import { useNavigate } from "react-router-dom"
 const { Title } = Typography
 export default function LoginForm() {
   const [login] = useLoginMutation()
   const [msg, contextHolder] = message.useMessage()
+  const navigate = useNavigate()
   const onFinish = (values: LoginValues) => {
     login({ email: values.email, password: values.password })
       .unwrap()
-      .then(() => {})
+      .then(() => {
+        navigate("/")
+      })
       .catch((error) => {
         msg.error(
           `Error while logging in ${error.status} ${JSON.stringify(

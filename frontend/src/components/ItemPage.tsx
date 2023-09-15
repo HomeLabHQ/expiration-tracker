@@ -9,7 +9,7 @@ import {
   useGetItemsQuery,
   useGetLocationsQuery,
   useUpdateItemMutation,
-} from "../../app/api"
+} from "../app/api"
 import ItemModalForm from "./ItemModalForm"
 import LocationModalForm from "./LocationModalForm"
 

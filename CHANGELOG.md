@@ -13,10 +13,13 @@ All notable changes to this project will be documented in this file.
   - Item edits in table
   - Item creations
 - Added docker stack
+- Add duckduck go search
+- Added React browser router
 
 ### Fixed
 
 - Pre commit hook not using poetry virtual env
+- Fix broken labeler action
 
 ### Changed
 
