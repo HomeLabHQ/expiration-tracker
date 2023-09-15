@@ -1,6 +1,6 @@
 import React from "react"
 import { Layout, Space } from "antd"
-import { SocialLinks, IconSize } from "../../constants/settings"
+import { SocialLinks, IconSize } from "../../settings/settings"
 import { LinkedinFilled, GithubFilled, MailFilled } from "@ant-design/icons"
 
 export default function Footer() {

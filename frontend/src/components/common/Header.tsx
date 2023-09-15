@@ -2,8 +2,8 @@ import React from "react"
 import { Menu, Button } from "antd"
 import { CalendarTwoTone } from "@ant-design/icons"
 import type { MenuProps } from "antd"
-import { AppName } from "../../constants/settings"
-import { logout } from "../auth/authSlice"
+import { AppName } from "../../settings/settings"
+import { logout } from "../../app/authSlice"
 import { useDispatch } from "react-redux"
 export default function Header() {
   const dispatch = useDispatch()

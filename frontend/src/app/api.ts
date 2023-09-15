@@ -7,13 +7,13 @@ const backendApi = createApi({
   reducerPath: "backendApi",
   baseQuery: fetchBaseQuery({
     prepareHeaders: (headers, { getState }) => {
-      const { access } = (getState() as RootState).auth
+      const { access, refresh } = (getState() as RootState).auth
       // If we have a token set in state, let's assume that we should be passing it.
       if (access) {
         const token: { exp: number } = jwt_decode(access)
         if (token.exp < Date.now() / 1000) {
-          // * Expired token attempt refresh
-          localStorage.removeItem("access")
+          const [refreshToken] = backendApi.useRefreshMutation()
+          refreshToken({ refresh: refresh })
         }
         headers.set("authorization", `Bearer ${access}`)
       }
@@ -26,6 +26,20 @@ const backendApi = createApi({
     login: builder.mutation({
       query: (body) => ({
         url: `${baseUrl}auth/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+    refresh: builder.mutation({
+      query: (body) => ({
+        url: `${baseUrl}auth/refresh/`,
+        method: "POST",
+        body: body,
+      }),
+    }),
+    verify: builder.mutation({
+      query: (body) => ({
+        url: `${baseUrl}auth/verify/`,
         method: "POST",
         body: body,
       }),
@@ -133,6 +147,8 @@ const backendApi = createApi({
 })
 export const {
   useLoginMutation,
+  useRefreshMutation,
+  useVerifyMutation,
   useAddItemMutation,
   useGetItemsQuery,
   useUpdateItemMutation,
