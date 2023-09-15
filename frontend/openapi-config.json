@@ -1,0 +1,8 @@
+{
+  "schemaFile": "../docs/schema.yml",
+  "apiFile": "./src/app/baseApi.ts",
+  "apiImport": "baseApi",
+  "outputFile": "./src/app/api.ts",
+  "exportName": "backendApi",
+  "hooks": true
+}

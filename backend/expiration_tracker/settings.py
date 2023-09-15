@@ -73,6 +73,13 @@ REST_FRAMEWORK = {
         "search": "5/minute",
     },
 }
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Expiration tracker API",
+    "DESCRIPTION": "App to track expiration dates of medication and other goods",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 
 WSGI_APPLICATION = "expiration_tracker.wsgi.application"
 
