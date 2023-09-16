@@ -1,0 +1,25 @@
+name: BE tests
+on:
+  - push
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install Poetry
+        working-directory: ./backend
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+      - name: Install dependencies
+        run: |
+          poetry install --with test
+        working-directory: ./backend
+      - name: Test with tox
+        working-directory: ./backend
+        run: poetry run coverage run --source='.' manage.py  test
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
