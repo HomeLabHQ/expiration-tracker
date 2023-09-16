@@ -17,7 +17,7 @@ start: ## Start be+fe
 	cd backend && poetry run manage.py runserver & \
 	cd frontend && npm run dev
 be_init: ## Run migrations + create superuser from .env
-	cd backend && poetry  run python manage.py migrate && python manage.py createsuperuser --no-input
+	cd backend && poetry run python manage.py migrate && python manage.py createsuperuser --no-input
 coverage: ## Generate coverage report
 	cd backend && coverage run ./manage.py test && coverage report -m
 be_shell: ## start be shell

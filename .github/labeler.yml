@@ -1,6 +1,6 @@
 api_changes:
-  - docs/schema.yml
+  - "docs/schema.yml"
 no_tests:
   - all: ["!**/tests.py", "!**/**/tests.py"]
 documentation:
-  - "**/*.txt"
+  - "**/*.md"

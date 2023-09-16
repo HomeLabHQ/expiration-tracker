@@ -4,6 +4,7 @@
 <br />
 [![TimeSpent][Wakatime-shield]][Wakatime-shield]
 [![CodeFactor](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker/badge)](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker)
+[![codecov](https://codecov.io/github/HomeLabHQ/expiration-tracker/graph/badge.svg?token=7KECP9M2IS)](https://codecov.io/github/HomeLabHQ/expiration-tracker)
 
 <div align="center">
   <h3 align="center">Expiration tracker</h3>
