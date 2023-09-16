@@ -16,7 +16,7 @@ jobs:
         run: |
           /home/docker/.local/bin/poetry install --with test
         working-directory: ./backend
-      - name: Test with tox
+      - name: Test for coverage
         working-directory: ./backend
         run: /home/docker/.local/bin/poetry run coverage run --source='.' manage.py  test
       - name: Upload coverage reports to Codecov
