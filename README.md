@@ -105,39 +105,9 @@ Complete app to use
 
 ## Roadmap
 
-Expiration tracker
-Expiration tracker
+Overall project plans and tasks can be found here
 
-- [ ] Add sugestion feature ★
-  - [x] [BE] Add suggestions from duckduck go from barcode
-  - [ ] [FE] Add button and element with suggestion
-- [ ] Item list features ★
-  - [x] Editing in table
-  - [x] Add location change feature
-  - [ ] [FE]Handle pagination
-  - [ ] [FE]Handle sorting on BE
-- [ ] Signup feature
-- [ ] [FE QOL]
-  - [x] Add logout button
-  - [ ] Add internationalization and have all message string in json
-  - [x] Add error hadnling in forms(login,create item)
-- [ ] [BE QOL]
-  - [ ] Add tests
-- [ ] [DOCUMENTATION]
-  - [ ] Add c4 with external services
-- [ ] [INFRA]
-  - [x] Nginx with production build of FE app
-  - [ ] Move to postgress
-- [x] Host a demo instance via dev tunnels and write a guide
-- [x] Add new location feature
-  - [x] Add button
-  - [x] Add form to create new location
-  - [x] Update relevant state data in rtk query
-- [x] Create new item feature
-  - [x] Add create button
-  - [x] Add location selector in form based on list of locations from api
-  - [x] Add progress indicator based on form completion
-  - [x] Add optimistic update via rtk
+[Roadmap](https://github.com/orgs/HomeLabHQ/projects/4/views/3)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
