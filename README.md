@@ -3,6 +3,7 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
 [![TimeSpent][Wakatime-shield]][Wakatime-shield]
+[![CodeFactor](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker/badge)](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker)
 
 <div align="center">
   <h3 align="center">Expiration tracker</h3>
