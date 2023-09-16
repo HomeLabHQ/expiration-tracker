@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Add duckduck go search
 - Added React browser router
 - Add ci/cd pipeline for test + upload to codecov
+- Add theme toggle button
 
 ### Fixed
 
