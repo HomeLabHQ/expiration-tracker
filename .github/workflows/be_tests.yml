@@ -1,6 +1,7 @@
 name: BE tests
 on:
-  - push
+  pull_request:
+    types: [opened, synchronize]
 jobs:
   be_tests:
     runs-on: self-hosted
