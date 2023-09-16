@@ -1,4 +1,4 @@
-name: BE tests
+mname: BE tests
 on:
   - push
 env:
@@ -10,8 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
-      - name: Install Poetry
-        working-directory: ./backend
+      - name: Install poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
       - name: Install dependencies
@@ -20,7 +19,7 @@ jobs:
         working-directory: ./backend
       - name: Test for coverage
         working-directory: ./backend
-        run: /home/docker/.local/bin/poetry run python manage.py  test
+        run: /home/docker/.local/bin/poetry run coverage run manage.py  test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
