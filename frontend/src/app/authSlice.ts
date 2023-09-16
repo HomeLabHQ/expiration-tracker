@@ -7,6 +7,7 @@ export const authSlice = createSlice({
     refresh: localStorage.getItem("refresh") || null,
     isAuthenticated: !!localStorage.getItem("access"),
     user: {},
+    mode: "dark",
   },
 
   reducers: {
@@ -16,6 +17,9 @@ export const authSlice = createSlice({
       state.access = null
       state.isAuthenticated = false
       state.user = {}
+    },
+    switchTheme: (state) => {
+      state.mode = state.mode === "dark" ? "light" : "dark"
     },
   },
   extraReducers: (builder) => {
@@ -52,6 +56,6 @@ export const authSlice = createSlice({
   },
 })
 
-export const { logout } = authSlice.actions
+export const { logout, switchTheme } = authSlice.actions
 
 export default authSlice.reducer
