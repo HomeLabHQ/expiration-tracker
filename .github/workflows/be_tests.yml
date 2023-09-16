@@ -12,6 +12,8 @@ jobs:
         working-directory: ./backend
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
+      - name: Add poetry to path
+        run: export PATH="/home/docker/.local/bin:$PATH"
       - name: Install dependencies
         run: |
           poetry install --with test
