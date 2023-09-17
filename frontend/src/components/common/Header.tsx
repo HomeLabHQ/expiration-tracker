@@ -1,4 +1,3 @@
-import React from "react"
 import { Menu, Button } from "antd"
 import { CalendarTwoTone } from "@ant-design/icons"
 import type { MenuProps } from "antd"

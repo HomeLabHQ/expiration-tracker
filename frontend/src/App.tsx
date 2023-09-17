@@ -1,10 +1,9 @@
-import React from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import HomePage from "./pages/HomePage"
 import LoginPage from "./pages/LoginPage"
 import ProtectedRoute from "./pages/ProtectedRoute"
 import { ConfigProvider, theme } from "antd"
 import { useAppSelector } from "./app/hooks"
+import ItemPage from "./pages/ItemPage"
 
 export default function App() {
   const { mode } = useAppSelector((state) => state.auth)
@@ -19,7 +18,7 @@ export default function App() {
             path="/"
             element={
               <ProtectedRoute>
-                <HomePage />
+                <ItemPage />
               </ProtectedRoute>
             }
           />

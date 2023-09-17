@@ -10,10 +10,11 @@ import {
   useGetLocationsQuery,
   useUpdateItemMutation,
 } from "../app/api"
-import ItemModalForm from "./ItemModalForm"
-import LocationModalForm from "./LocationModalForm"
+import ItemForm from "./ItemForm"
+import LocationForm from "./LocationForm"
+import ModalPopup from "./ModalPopup"
 
-export default function ItemPage() {
+export default function ItemTable() {
   const { data, isLoading } = useGetItemsQuery()
   const { data: choices } = useGetItemsChoicesQuery()
   const { data: locations } = useGetLocationsQuery()
@@ -153,8 +154,12 @@ export default function ItemPage() {
   return (
     <React.Fragment>
       <Space>
-        <ItemModalForm />
-        <LocationModalForm />
+        <ModalPopup message="Add new Item">
+          <ItemForm />
+        </ModalPopup>
+        <ModalPopup message="Add new Location">
+          <LocationForm />
+        </ModalPopup>
       </Space>
       <Table
         loading={isLoading}

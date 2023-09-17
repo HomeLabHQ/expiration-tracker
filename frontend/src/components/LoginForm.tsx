@@ -10,7 +10,6 @@ import {
   Typography,
   message,
 } from "antd"
-import React from "react"
 import { useLoginMutation } from "../app/api"
 import { useNavigate } from "react-router-dom"
 import ThemeToggle from "./ThemeToggle"
