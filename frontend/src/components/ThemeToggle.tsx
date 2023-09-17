@@ -1,4 +1,3 @@
-import React from "react"
 import { Switch } from "antd"
 import { switchTheme } from "../app/authSlice"
 import { useDispatch } from "react-redux"
