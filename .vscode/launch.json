@@ -28,7 +28,7 @@
       "envFile": "${workspaceFolder}/.env",
       "args": ["runserver"],
       "django": true,
-      "justMyCode": true
+      "justMyCode": false
     },
     {
       "name": "fe-server",

@@ -1,6 +1,5 @@
 from expiration_tracker.mixins import RepresentationPKField
 from rest_framework import serializers
-
 from items.models import Item, Location
 
 
@@ -22,7 +21,7 @@ class BaseItemSerializer(serializers.ModelSerializer):
         queryset=Location.objects.all(),
         required=True,
     )
-    ttl = serializers.CharField(required=False)
+    ttl = serializers.CharField(required=False, read_only=True)
 
     class Meta:
         model = Item
@@ -33,6 +32,15 @@ class BaseItemSerializer(serializers.ModelSerializer):
 class ItemSerializer(BaseItemSerializer):
     class Meta(BaseItemSerializer.Meta):
         fields = (*BaseItemSerializer.Meta.fields, "created_at")
+
+
+# * Extra serializer to fix schema.yml
+class ReprBaseItemSerializer(BaseItemSerializer):
+    location = BaseLocationSerializer()
+
+
+class ReprItemSerializer(ItemSerializer):
+    location = BaseLocationSerializer()
 
 
 class ItemSearchSerializer(serializers.Serializer):

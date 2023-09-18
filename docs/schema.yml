@@ -44,21 +44,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
         required: true
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CustomTokenObtainPair'
-          description: ''
+          description: No response body
   /api/auth/refresh/:
     post:
       operationId: auth_refresh_create
@@ -96,13 +92,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
         required: true
       responses:
         '200':
@@ -124,13 +120,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
         required: true
       security:
       - jwtAuth: []
@@ -178,21 +174,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
         required: true
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenVerify'
-          description: ''
+          description: No response body
   /api/items/items/:
     get:
       operationId: items_items_list
@@ -219,7 +211,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedBaseItemList'
+                $ref: '#/components/schemas/PaginatedReprBaseItemList'
           description: ''
     post:
       operationId: items_items_create
@@ -229,13 +221,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
         required: true
       security:
       - jwtAuth: []
@@ -245,7 +237,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
   /api/items/items/{id}/:
     get:
@@ -267,7 +259,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
     put:
       operationId: items_items_update
@@ -284,13 +276,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
         required: true
       security:
       - jwtAuth: []
@@ -300,7 +292,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
     patch:
       operationId: items_items_partial_update
@@ -317,13 +309,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
       security:
       - jwtAuth: []
       - {}
@@ -332,7 +324,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
   /api/items/items/choices/:
     get:
@@ -362,13 +354,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ItemSearch'
+              $ref: '#/components/schemas/ItemSearchRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/ItemSearch'
+              $ref: '#/components/schemas/ItemSearchRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/ItemSearch'
+              $ref: '#/components/schemas/ItemSearchRequest'
         required: true
       security:
       - jwtAuth: []
@@ -438,13 +430,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Location'
+              $ref: '#/components/schemas/LocationRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Location'
+              $ref: '#/components/schemas/LocationRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Location'
+              $ref: '#/components/schemas/LocationRequest'
         required: true
       security:
       - jwtAuth: []
@@ -489,31 +481,6 @@ paths:
           description: ''
 components:
   schemas:
-    BaseItem:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-          maxLength: 50
-        category:
-          $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
-        expiration_date:
-          type: string
-          format: date
-          nullable: true
-        location:
-          type: integer
-        ttl:
-          type: string
-      required:
-      - id
-      - location
-      - title
     BaseLocation:
       type: object
       properties:
@@ -546,26 +513,26 @@ components:
       required:
       - field
       - values
-    CustomTokenObtainPair:
+    CustomTokenObtainPairRequest:
       type: object
       properties:
         email:
           type: string
           writeOnly: true
+          minLength: 1
         password:
           type: string
           writeOnly: true
+          minLength: 1
       required:
       - email
       - password
-    Item:
+    ItemRequest:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
         title:
           type: string
+          minLength: 1
           maxLength: 50
         category:
           $ref: '#/components/schemas/CategoryEnum'
@@ -577,22 +544,15 @@ components:
           nullable: true
         location:
           type: integer
-        ttl:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
       required:
-      - created_at
-      - id
       - location
       - title
-    ItemSearch:
+    ItemSearchRequest:
       type: object
       properties:
         barcode:
           type: string
+          minLength: 1
           maxLength: 50
       required:
       - barcode
@@ -610,26 +570,17 @@ components:
       required:
       - id
       - title
-    PaginatedBaseItemList:
+    LocationRequest:
       type: object
       properties:
-        count:
-          type: integer
-          example: 123
-        next:
+        title:
           type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
+          minLength: 1
+          maxLength: 50
+        description:
           type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseItem'
+      required:
+      - title
     PaginatedBaseLocationList:
       type: object
       properties:
@@ -650,7 +601,44 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/BaseLocation'
-    PatchedItem:
+    PaginatedReprBaseItemList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReprBaseItem'
+    PatchedItemRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 50
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        quantity:
+          type: integer
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          type: integer
+    ReprBaseItem:
       type: object
       properties:
         id:
@@ -668,13 +656,47 @@ components:
           format: date
           nullable: true
         location:
-          type: integer
+          $ref: '#/components/schemas/BaseLocation'
         ttl:
           type: string
+          readOnly: true
+      required:
+      - id
+      - location
+      - title
+      - ttl
+    ReprItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        quantity:
+          type: integer
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          $ref: '#/components/schemas/BaseLocation'
+        ttl:
+          type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
           readOnly: true
+      required:
+      - created_at
+      - id
+      - location
+      - title
+      - ttl
     SearchResult:
       type: object
       properties:
@@ -704,12 +726,29 @@ components:
           type: string
         last_name:
           type: string
-        password:
-          type: string
-          writeOnly: true
       required:
       - email
       - id
+    SignUpRequest:
+      type: object
+      description: Create new user when sign up
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          title: Email address
+          maxLength: 255
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
       - password
     TokenRefresh:
       type: object
@@ -717,18 +756,24 @@ components:
         access:
           type: string
           readOnly: true
+      required:
+      - access
+    TokenRefreshRequest:
+      type: object
+      properties:
         refresh:
           type: string
           writeOnly: true
+          minLength: 1
       required:
-      - access
       - refresh
-    TokenVerify:
+    TokenVerifyRequest:
       type: object
       properties:
         token:
           type: string
           writeOnly: true
+          minLength: 1
       required:
       - token
   securitySchemes:

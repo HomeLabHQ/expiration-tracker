@@ -78,6 +78,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "App to track expiration dates of medication and other goods",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
 }
 
 

@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - Added React browser router
 - Add ci/cd pipeline for test + upload to codecov
 - Add theme toggle button
+- Fix schema.yml fields as preparation to fully adopt rtk codegen
 
 ### Fixed
 
