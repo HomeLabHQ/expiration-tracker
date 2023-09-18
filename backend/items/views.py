@@ -19,10 +19,18 @@ from items.serializers import (
     ItemSerializer,
     LocationSerializer,
     SearchResultSerializer,
+    ReprItemSerializer,
+    ReprBaseItemSerializer,
 )
 
 
-@extend_schema_view(create=extend_schema(responses=OpenApiResponse(response=ItemSerializer)))
+@extend_schema_view(
+    retrieve=extend_schema(responses=OpenApiResponse(ReprItemSerializer)),
+    list=extend_schema(responses=OpenApiResponse(ReprBaseItemSerializer)),
+    create=extend_schema(responses=OpenApiResponse(ReprItemSerializer)),
+    update=extend_schema(responses=OpenApiResponse(ReprItemSerializer)),
+    partial_update=extend_schema(responses=OpenApiResponse(ReprItemSerializer)),
+)
 class ItemViewSet(
     ListSerializerMixin,
     ChoiceMixin,
