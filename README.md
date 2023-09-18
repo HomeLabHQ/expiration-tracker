@@ -45,6 +45,7 @@ Also as a bonus i get to dive into Typescript and Ant Design.
 
 To try this out access demo instance at [Demo]
 with credentials:
+> NOTE: Demo not persistent and destroyed on each deployment
 
 ```js
 email:test@example.com
