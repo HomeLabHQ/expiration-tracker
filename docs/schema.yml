@@ -418,7 +418,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
       required:
       - id
       - title
@@ -462,7 +462,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -503,7 +503,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         description:
           type: string
       required:
@@ -515,7 +515,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         description:
           type: string
       required:
@@ -566,7 +566,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -585,7 +585,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -614,7 +614,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:

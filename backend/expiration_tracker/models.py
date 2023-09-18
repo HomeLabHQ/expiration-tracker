@@ -23,7 +23,7 @@ class TitleModel(models.Model):
 
     """
 
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=255)
 
     class Meta:
         abstract = True
