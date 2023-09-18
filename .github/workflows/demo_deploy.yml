@@ -8,16 +8,16 @@ on:
 #     branches:
 #       - dev
 jobs:
-  demo_deploy:
+  install_docker:
     runs-on: self-hosted
-    defaults:
-      run:
-        working-directory: ./backend
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
+  deploy:
+    runs-on: self-hosted
+    steps:
       - name: Execute deploy of demo on remote host
         uses: appleboy/ssh-action@v1.0.0
         with:
