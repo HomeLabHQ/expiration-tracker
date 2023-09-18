@@ -8,26 +8,20 @@ on:
 #     branches:
 #       - dev
 jobs:
-  install_docker:
+  be_tests:
     runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ./backend
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-  deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Execute deploy of demo on remote host
+      - name: Execute deploy of demo
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.DEMO_HOST }}
           username: ${{ secrets.DEMO_USER }}
           password: ${{ secrets.DEMO_PASSWORD }}
-          port: 22
           script: |
-            cd expiration-tracker &&
-            git pull &&
-            docker compose -f compose.override.yml up -d --build &&
-            docker exec -it expiration-tracker-api python manage.py createsuperuser --no-input &&
-            setsid devtunnel host ${{ secrets.DEMO_TUNNEL }} >/dev/null 2>&1 < /dev/null &
+            cd expiration-tracker
+            git pull
+            docker compose -f compose.override.yml up -d --build
+            docker exec -it expiration-tracker-api python manage.py createsuperuser --no-input
