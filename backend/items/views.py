@@ -25,6 +25,7 @@ from items.serializers import (
 )
 
 
+@extend_schema(tags=["items"])
 @extend_schema_view(
     retrieve=extend_schema(responses=OpenApiResponse(ReprItemSerializer)),
     list=extend_schema(responses=OpenApiResponse(ReprBaseItemSerializer)),
@@ -89,6 +90,7 @@ class ItemViewSet(
         return Response(data=result)
 
 
+@extend_schema(tags=["locations"])
 class LocationViewSet(
     ListSerializerMixin,
     mixins.CreateModelMixin,

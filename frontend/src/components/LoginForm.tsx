@@ -1,48 +1,34 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons"
-import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  Layout,
-  Row,
-  Typography,
-  message,
-} from "antd"
-import { useLoginMutation } from "../app/api"
-import { useNavigate } from "react-router-dom"
-import ThemeToggle from "./ThemeToggle"
-const { Title } = Typography
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Card, Col, Form, Input, Layout, Row, Typography, message } from "antd";
+import { useAuthCreateMutation } from "../app/api";
+import { useNavigate } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
+const { Title } = Typography;
 export default function LoginForm() {
-  const [login] = useLoginMutation()
-  const [msg, contextHolder] = message.useMessage()
-  const navigate = useNavigate()
-  const onFinish = (values: LoginValues) => {
-    login({ email: values.email, password: values.password })
+  const [auth] = useAuthCreateMutation();
+  const [msg, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+  const onFinish = (values: { email: string; password: string }) => {
+    auth({ customTokenObtainPairRequest: { email: values.email, password: values.password } })
       .unwrap()
       .then(() => {
-        navigate("/")
+        navigate("/");
       })
       .catch((error) => {
-        msg.error(
-          `Error while logging in ${error.status} ${JSON.stringify(
-            error.data,
-          )}`,
-        )
-      })
-  }
+        msg.error(`Error while logging in ${error.status} ${JSON.stringify(error.data)}`);
+      });
+  };
 
   return (
     <Layout
       style={{
-        height: "100vh",
+        height: "100vh"
       }}
     >
       <Row
         justify={"center"}
         style={{
-          height: "100vh",
+          height: "100vh"
         }}
       >
         <Col
@@ -50,7 +36,7 @@ export default function LoginForm() {
           offset={6}
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           {contextHolder}
@@ -65,26 +51,15 @@ export default function LoginForm() {
             >
               <Form.Item
                 name="email"
-                rules={[
-                  { required: true, message: "Please input your Email!" },
-                ]}
+                rules={[{ required: true, message: "Please input your Email!" }]}
               >
                 <Input prefix={<UserOutlined />} placeholder="Email" />
               </Form.Item>
               <Form.Item name="password">
-                <Input
-                  prefix={<LockOutlined />}
-                  type="password"
-                  placeholder="Password"
-                />
+                <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
               </Form.Item>
               <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
-                  block
-                >
+                <Button type="primary" htmlType="submit" className="login-form-button" block>
                   Log in
                 </Button>
                 Signup <a href="">sign up</a>
@@ -94,5 +69,5 @@ export default function LoginForm() {
         </Col>
       </Row>
     </Layout>
-  )
+  );
 }
