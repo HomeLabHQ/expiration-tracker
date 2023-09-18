@@ -1,35 +1,28 @@
-import { Button, Form, Input, Progress } from "antd"
-import React from "react"
-import { useAddLocationMutation } from "../app/api"
+import { Button, Form, Input, Progress } from "antd";
+import React from "react";
+import { useLocationsCreateMutation } from "../app/api";
 
 export default function LocationForm(props: ParentModalProps) {
-  const [formProgress, setFormProgress] = React.useState(0)
-  const [addLocation] = useAddLocationMutation()
-  const [form] = Form.useForm()
-  const onFinish = (values: Location) => {
-    addLocation(values)
+  const [formProgress, setFormProgress] = React.useState(0);
+  const [addLocation] = useLocationsCreateMutation();
+  const [form] = Form.useForm();
+  const onFinish = (values: { title: string; description: string }) => {
+    addLocation({ locationRequest: values })
       .unwrap()
       .then(() => {
-        props.handleClose?.()
-        form.resetFields()
-        props.msg.success("Location added")
+        props.handleClose?.();
+        form.resetFields();
+        props.msg.success("Location added");
       })
       .catch((error) => {
-        props.msg.error(
-          `Error while adding an item ${error.status} ${JSON.stringify(
-            error.data,
-          )}`,
-        )
-      })
-  }
+        props.msg.error(`Error while adding an item ${error.status} ${JSON.stringify(error.data)}`);
+      });
+  };
 
   return (
     <Form
       onFieldsChange={(changeFields, allFields) => {
-        setFormProgress(
-          (allFields.filter((field) => field.value).length / allFields.length) *
-            100,
-        )
+        setFormProgress((allFields.filter((field) => field.value).length / allFields.length) * 100);
       }}
       scrollToFirstError
       labelCol={{ span: 4 }}
@@ -58,5 +51,5 @@ export default function LocationForm(props: ParentModalProps) {
       </Button>
       <Progress percent={formProgress} size="small" status="active" />
     </Form>
-  )
+  );
 }

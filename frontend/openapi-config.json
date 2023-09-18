@@ -4,5 +4,6 @@
   "apiImport": "baseApi",
   "outputFile": "./src/app/api.ts",
   "exportName": "backendApi",
-  "hooks": true
+  "hooks": true,
+  "tag": true
 }

@@ -3,24 +3,25 @@ import dayjs from "dayjs";
 import _ from "lodash";
 import React, { useEffect } from "react";
 import {
-  useAddItemMutation,
-  useGetItemsChoicesQuery,
-  useGetLocationsQuery,
-  useSearchItemMutation
+  ItemRequest,
+  useItemsChoicesRetrieveQuery,
+  useItemsCreateMutation,
+  useItemsSearchCreateMutation,
+  useLocationsListQuery
 } from "../app/api";
-import { DateFormat } from "../settings/settings";
+import { DateFormat, defaultPagination } from "../settings/settings";
 import { DefaultOptionType } from "antd/es/select";
 import { QrScanner } from "@yudiel/react-qr-scanner";
 
 export default function ItemForm(props: ParentModalProps) {
   // * Due to quantity already filled
   const [formProgress, setFormProgress] = React.useState(20);
-  const { data: locations } = useGetLocationsQuery();
-  const { data: choices } = useGetItemsChoicesQuery();
-  const [addItem] = useAddItemMutation();
+  const { data: locations } = useLocationsListQuery(defaultPagination);
+  const { data: choices } = useItemsChoicesRetrieveQuery();
+  const [addItem] = useItemsCreateMutation();
   const [form] = Form.useForm();
   const [searchItem, { data: suggestions, isLoading: isLoadingSuggestions }] =
-    useSearchItemMutation();
+    useItemsSearchCreateMutation();
   const [barcode, setBarcode] = React.useState("");
   const buildOptions = () => {
     const options: DefaultOptionType[] = [];
@@ -33,9 +34,9 @@ export default function ItemForm(props: ParentModalProps) {
     }
     return options;
   };
-  const onFinish = (values: BaseItem) => {
+  const onFinish = (values: ItemRequest) => {
     values.expiration_date = dayjs(values.expiration_date).format(DateFormat);
-    addItem(values)
+    addItem({ itemRequest: values })
       .unwrap()
       .then(() => {
         props.handleClose?.();
@@ -71,7 +72,7 @@ export default function ItemForm(props: ParentModalProps) {
 
   useEffect(() => {
     if (barcode) {
-      searchItem({ barcode: barcode });
+      searchItem({ itemSearchRequest: { barcode: barcode } });
     }
   }, [barcode]);
   return (

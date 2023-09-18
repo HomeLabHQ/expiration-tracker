@@ -112,20 +112,20 @@ paths:
       responses:
         '200':
           description: No response body
-  /api/items/items/:
+  /api/items/:
     get:
-      operationId: items_items_list
+      operationId: items_list
       parameters:
-      - name: limit
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
         required: false
         in: query
         description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
         schema:
           type: integer
       tags:
@@ -141,7 +141,7 @@ paths:
                 $ref: '#/components/schemas/PaginatedReprBaseItemList'
           description: ''
     post:
-      operationId: items_items_create
+      operationId: items_create
       tags:
       - items
       requestBody:
@@ -166,9 +166,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReprItem'
           description: ''
-  /api/items/items/{id}/:
+  /api/items/{id}/:
     get:
-      operationId: items_items_retrieve
+      operationId: items_retrieve
       parameters:
       - in: path
         name: id
@@ -189,7 +189,7 @@ paths:
                 $ref: '#/components/schemas/ReprItem'
           description: ''
     put:
-      operationId: items_items_update
+      operationId: items_update
       parameters:
       - in: path
         name: id
@@ -222,7 +222,7 @@ paths:
                 $ref: '#/components/schemas/ReprItem'
           description: ''
     patch:
-      operationId: items_items_partial_update
+      operationId: items_partial_update
       parameters:
       - in: path
         name: id
@@ -253,9 +253,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReprItem'
           description: ''
-  /api/items/items/choices/:
+  /api/items/choices/:
     get:
-      operationId: items_items_choices_retrieve
+      operationId: items_choices_retrieve
       description: Get ENUM choices for item
       summary: Get choices for item
       tags:
@@ -268,11 +268,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Choice'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Choice'
           description: ''
-  /api/items/items/search/:
+  /api/items/search/:
     post:
-      operationId: items_items_search_create
+      operationId: items_search_create
       description: Send search string to duck duck go
       summary: Perform search
       tags:
@@ -303,9 +305,9 @@ paths:
           description: Created. New resource in response
         '400':
           description: Bad request (something invalid)
-  /api/items/locations/:
+  /api/locations/:
     get:
-      operationId: items_locations_list
+      operationId: locations_list
       description: |-
         create:
         Create Location
@@ -316,20 +318,20 @@ paths:
         retrieve:
         Details for single location
       parameters:
-      - name: limit
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
         required: false
         in: query
         description: Number of results to return per page.
         schema:
           type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
       tags:
-      - items
+      - locations
       security:
       - jwtAuth: []
       - {}
@@ -341,7 +343,7 @@ paths:
                 $ref: '#/components/schemas/PaginatedBaseLocationList'
           description: ''
     post:
-      operationId: items_locations_create
+      operationId: locations_create
       description: |-
         create:
         Create Location
@@ -352,7 +354,7 @@ paths:
         retrieve:
         Details for single location
       tags:
-      - items
+      - locations
       requestBody:
         content:
           application/json:
@@ -375,9 +377,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Location'
           description: ''
-  /api/items/locations/{id}/:
+  /api/locations/{id}/:
     get:
-      operationId: items_locations_retrieve
+      operationId: locations_retrieve
       description: |-
         create:
         Create Location
@@ -395,7 +397,7 @@ paths:
         description: A unique integer value identifying this location.
         required: true
       tags:
-      - items
+      - locations
       security:
       - jwtAuth: []
       - {}
@@ -416,7 +418,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
       required:
       - id
       - title
@@ -460,7 +462,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -501,7 +503,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         description:
           type: string
       required:
@@ -513,7 +515,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         description:
           type: string
       required:
@@ -528,12 +530,12 @@ components:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
+          example: http://api.example.org/accounts/?page=4
         previous:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
+          example: http://api.example.org/accounts/?page=2
         results:
           type: array
           items:
@@ -548,12 +550,12 @@ components:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
+          example: http://api.example.org/accounts/?page=4
         previous:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
+          example: http://api.example.org/accounts/?page=2
         results:
           type: array
           items:
@@ -564,7 +566,7 @@ components:
         title:
           type: string
           minLength: 1
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -583,7 +585,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -595,11 +597,13 @@ components:
         location:
           $ref: '#/components/schemas/BaseLocation'
         ttl:
-          type: string
+          type: integer
           readOnly: true
       required:
+      - category
       - id
       - location
+      - quantity
       - title
       - ttl
     ReprItem:
@@ -610,7 +614,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
         quantity:
@@ -622,16 +626,18 @@ components:
         location:
           $ref: '#/components/schemas/BaseLocation'
         ttl:
-          type: string
+          type: integer
           readOnly: true
         created_at:
           type: string
           format: date-time
           readOnly: true
       required:
+      - category
       - created_at
       - id
       - location
+      - quantity
       - title
       - ttl
     SearchResult:
