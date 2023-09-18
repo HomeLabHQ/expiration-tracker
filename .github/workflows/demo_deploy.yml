@@ -8,7 +8,7 @@ on:
 #     branches:
 #       - dev
 jobs:
-  be_tests:
+  demo_deploy:
     runs-on: self-hosted
     defaults:
       run:
@@ -22,6 +22,4 @@ jobs:
           password: ${{ secrets.DEMO_PASSWORD }}
           script: |
             cd expiration-tracker
-            git pull
-            docker compose -f compose.override.yml up -d --build
-            docker exec -it expiration-tracker-api python manage.py createsuperuser --no-input
+            ./demo_deploy.sh
