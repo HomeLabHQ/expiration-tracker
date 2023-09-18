@@ -1,8 +1,8 @@
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import serializers
 from rest_framework.decorators import action
 from rest_framework.relations import PKOnlyObject
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, OpenApiResponse
 
 
 class ListSerializerMixin:

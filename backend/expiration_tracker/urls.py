@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 api_urlpatterns = [
     path("auth/", include("authentication.urls")),

@@ -21,7 +21,7 @@ uvicorn = {extras = ["standard"], version = "^0.23.2"}
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
 mixer = "^7.2.2"
-ruff = "^0.0.285"
+ruff = "0.0.290"
 
 [tool.poetry.group.test.dependencies]
 coverage = {extras = ["toml"], version = "^7.2.7"}
@@ -30,28 +30,23 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.ruff]
+fixable = ["ALL"]
 ignore = ["RUF005"]
 line-length = 120
-select = ["E", "F", "W", "C4", "Q", "RUF", "PIE", "COM"]
+select = ["E", "F", "W", "I", "I001", "C4", "Q", "RUF", "PIE", "COM"]
 # Exclude a variety of commonly ignored directories.
 exclude = [
   ".git",
-  ".hg",
   ".mypy_cache",
   ".ruff_cache",
-  ".svn",
-  ".tox",
   ".venv",
   "__pypackages__",
   "_build",
   "buck-out",
   "migrations",
   "dist",
-  "venv",
   ".venv",
   ".conf",
-  ".data",
-  ".env",
   "asgi.py",
 ]
 per-file-ignores = {}

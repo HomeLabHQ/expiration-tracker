@@ -1,9 +1,9 @@
 import random
 import typing
 from abc import ABC
+from unittest import SkipTest
 
 from authentication.models import User
-from unittest import SkipTest
 from django.db.models import TextChoices
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase

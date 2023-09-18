@@ -2,14 +2,15 @@ import typing
 
 from django.conf import settings
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import OpenApiResponse, extend_schema, extend_schema_view
 from duckduckgo_search import DDGS
-from httpx import HTTPStatusError
 from expiration_tracker.mixins import ChoiceMixin, ListSerializerMixin
 from expiration_tracker.throttles import SearchThrottle
-from rest_framework import mixins, viewsets, serializers
+from httpx import HTTPStatusError
+from rest_framework import mixins, serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiResponse
+
 from items.constants import ItemCategory
 from items.models import Item, Location
 from items.serializers import (
@@ -18,9 +19,9 @@ from items.serializers import (
     ItemSearchSerializer,
     ItemSerializer,
     LocationSerializer,
-    SearchResultSerializer,
-    ReprItemSerializer,
     ReprBaseItemSerializer,
+    ReprItemSerializer,
+    SearchResultSerializer,
 )
 
 

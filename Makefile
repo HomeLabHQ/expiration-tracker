@@ -22,8 +22,7 @@ coverage: ## Generate coverage report
 	cd backend && coverage run ./manage.py test && coverage report -m
 be_shell: ## start be shell
 	cd backend && python ./manage.py shell_plus
-be_lint: ## be lint
-	cd backend && ruff . --fix
+
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	cd backend && python ./manage.py admin_generator $(app)
 api_docs: ## Regenerate api from docs
