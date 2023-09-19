@@ -1,4 +1,4 @@
-import { DatePicker, InputNumber, Select, Space, Table, Tag, Typography } from "antd";
+import { DatePicker, Select, Space, Table, Tag, Typography } from "antd";
 import { ColumnFilterItem, ColumnsType } from "antd/es/table/interface";
 import dayjs from "dayjs";
 import _ from "lodash";
@@ -14,8 +14,9 @@ import {
 import ItemForm from "./ItemForm";
 import LocationForm from "./LocationForm";
 import ModalPopup from "./ModalPopup";
-import { defaultPagination } from "../settings/settings";
+import { DateFormat, defaultPagination } from "../settings/settings";
 import { usePagination } from "../hooks/usePagination";
+import ItemEnumSelector from "./ItemEnumSelector";
 
 export default function ItemTable() {
   const [page, setPage] = React.useState(defaultPagination.page);
@@ -70,22 +71,37 @@ export default function ItemTable() {
     );
   };
 
-  const renderQuantity = (record: ReprBaseItem) => {
+  const statusOptions = ItemEnumSelector("status");
+  const renderStatus = (record: ReprBaseItem) => {
     return (
-      <InputNumber
-        value={record.quantity}
-        onChange={(e) => {
-          if (e) {
-            patchItem({ id: record.id, patchedItemRequest: { quantity: e } });
-          }
-        }}
-      />
+      <Space.Compact direction="vertical">
+        <Select
+          defaultValue={record.status}
+          onChange={(value) => {
+            if (value == "OPENED") {
+              patchItem({
+                id: record.id,
+                patchedItemRequest: { opening_date: dayjs().format(DateFormat), status: value }
+              });
+            } else {
+              patchItem({ id: record.id, patchedItemRequest: { status: value } });
+            }
+          }}
+        >
+          {statusOptions}
+        </Select>
+        {record.status === "OPENED" && record.opening_date}
+      </Space.Compact>
     );
   };
+
   const renderExpirationDate = (record: ReprBaseItem) => {
     return (
       <DatePicker
         defaultValue={dayjs(record.expiration_date)}
+        disabledDate={(current) => {
+          return dayjs() >= current;
+        }}
         onChange={(date, dateString) => {
           if (date) {
             patchItem({ id: record.id, patchedItemRequest: { expiration_date: dateString } });
@@ -129,13 +145,10 @@ export default function ItemTable() {
         record.category?.startsWith(value.toString())
     },
     {
-      title: "Location/Quantity",
+      title: "Location/Status",
       responsive: ["xs"],
       render: (record: ReprBaseItem) => (
-        <Space.Compact direction="vertical">
-          {renderLocation(record)}
-          {renderQuantity(record)}
-        </Space.Compact>
+        <Space.Compact direction="vertical">{renderLocation(record)}</Space.Compact>
       )
     },
     {
@@ -153,13 +166,11 @@ export default function ItemTable() {
         record.location.id == value
     },
     {
-      title: "Quantity",
-      width: "2.5%",
+      title: "Status",
+      width: "5%",
       responsive: ["sm"],
-      sorter: {
-        compare: (a: ReprBaseItem, b: ReprBaseItem) => a.quantity - b.quantity
-      },
-      render: (record: ReprBaseItem) => renderQuantity(record)
+      ellipsis: false,
+      render: (record: ReprBaseItem) => renderStatus(record)
     },
     {
       title: "Expiration/TTL",

@@ -1,10 +1,8 @@
-import { AutoComplete, Button, DatePicker, Form, InputNumber, Progress, Select } from "antd";
+import { AutoComplete, Button, DatePicker, Form, Progress, Select } from "antd";
 import dayjs from "dayjs";
-import _ from "lodash";
 import React, { useEffect } from "react";
 import {
   ItemRequest,
-  useItemsChoicesRetrieveQuery,
   useItemsCreateMutation,
   useItemsSearchCreateMutation,
   useLocationsListQuery
@@ -12,12 +10,12 @@ import {
 import { DateFormat, defaultPagination } from "../settings/settings";
 import { DefaultOptionType } from "antd/es/select";
 import { QrScanner } from "@yudiel/react-qr-scanner";
+import ItemEnumSelector from "./ItemEnumSelector";
 
 export default function ItemForm(props: ParentModalProps) {
   // * Due to quantity already filled
   const [formProgress, setFormProgress] = React.useState(20);
   const { data: locations } = useLocationsListQuery(defaultPagination);
-  const { data: choices } = useItemsChoicesRetrieveQuery();
   const [addItem] = useItemsCreateMutation();
   const [form] = Form.useForm();
   const [searchItem, { data: suggestions, isLoading: isLoadingSuggestions }] =
@@ -58,17 +56,7 @@ export default function ItemForm(props: ParentModalProps) {
     });
   };
 
-  // * Category can be taken from choices that was loaded previously
-  const renderCategorySelector = () => {
-    const category = _.find(choices, { field: "category" });
-    return category?.values.map((item, index) => {
-      return (
-        <Select.Option key={index} value={item}>
-          {item}
-        </Select.Option>
-      );
-    });
-  };
+  // * Category and status can be taken from choices that was loaded previously
 
   useEffect(() => {
     if (barcode) {
@@ -109,15 +97,19 @@ export default function ItemForm(props: ParentModalProps) {
         onDecode={(result) => setBarcode(result)}
         onError={(error) => props.msg?.error(error.message)}
       />
-      <Form.Item label="quantity" name="quantity" rules={[{ required: true }]}>
-        <InputNumber name="quantity" />
-      </Form.Item>
       <Form.Item
         label="category"
         name="category"
         rules={[{ required: true, message: "Please select category" }]}
       >
-        <Select>{renderCategorySelector()}</Select>
+        <Select>{ItemEnumSelector("category")}</Select>
+      </Form.Item>
+      <Form.Item
+        label="status"
+        name="status"
+        rules={[{ required: true, message: "Please select status" }]}
+      >
+        <Select>{ItemEnumSelector("status")}</Select>
       </Form.Item>
       <Form.Item
         label="location"
