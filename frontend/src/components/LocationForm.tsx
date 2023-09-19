@@ -1,6 +1,6 @@
 import { Button, Form, Input, Progress } from "antd";
 import React from "react";
-import { useLocationsCreateMutation } from "../app/api";
+import { useLocationsCreateMutation } from "../redux/api";
 
 export default function LocationForm(props: ParentModalProps) {
   const [formProgress, setFormProgress] = React.useState(0);

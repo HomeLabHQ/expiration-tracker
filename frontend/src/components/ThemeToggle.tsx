@@ -1,7 +1,7 @@
 import { Switch } from "antd"
-import { switchTheme } from "../app/authSlice"
+import { switchTheme } from "../redux/authSlice"
 import { useDispatch } from "react-redux"
-import { useAppSelector } from "../app/hooks"
+import { useAppSelector } from "../redux/hooks"
 export default function ThemeToggle() {
   const { mode } = useAppSelector((state) => state.auth)
   const dispatch = useDispatch()

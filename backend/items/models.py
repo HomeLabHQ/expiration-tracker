@@ -32,10 +32,6 @@ class Item(TimeStampedModel, TitleModel):
     def ttl(self):
         return (self.expiration_date - datetime.date.today()).days
 
-    @property
-    def compound_priority(self):
-        return (self.expiration_date - datetime.date.today()).days * self.quantity
-
     class Meta:
         db_table = "items"
         verbose_name_plural = "items"

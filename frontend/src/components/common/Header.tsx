@@ -2,7 +2,7 @@ import { Menu, Button } from "antd"
 import { CalendarTwoTone } from "@ant-design/icons"
 import type { MenuProps } from "antd"
 import { AppName } from "../../settings/settings"
-import { logout } from "../../app/authSlice"
+import { logout } from "../../redux/authSlice"
 import { useDispatch } from "react-redux"
 import ThemeToggle from "../ThemeToggle"
 export default function Header() {
