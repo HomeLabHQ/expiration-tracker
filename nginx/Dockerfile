@@ -13,7 +13,7 @@ COPY ./frontend/. ./
 RUN npm run build &&\
     yarn cache clean
 
-FROM nginx:latest
+FROM nginx:1.25
 
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /frontend/build /usr/share/nginx/html

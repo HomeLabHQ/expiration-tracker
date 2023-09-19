@@ -1,6 +1,8 @@
+import datetime
 import typing
 
 from django.conf import settings
+from django.db.models import F
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import OpenApiResponse, extend_schema, extend_schema_view
 from duckduckgo_search import DDGS
@@ -46,7 +48,9 @@ class ItemViewSet(
     serializer_class = ItemSerializer
     list_serializer_class = BaseItemSerializer
     filter_backends = (DjangoFilterBackend,)
-    queryset = Item.objects.all()
+    queryset = (
+        Item.objects.annotate(expiration=(F("expiration_date") - datetime.date.today())).all().order_by("expiration")
+    )
 
     @extend_schema(
         summary="Perform search",

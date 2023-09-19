@@ -1,17 +1,17 @@
-import React from "react"
-import { Navigate, useLocation } from "react-router-dom"
-import { useAppSelector } from "../app/hooks"
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAppSelector } from "../redux/hooks";
 type ProtectedRouteProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { auth } = useAppSelector((state) => state)
-  const location = useLocation()
+  const { auth } = useAppSelector((state) => state);
+  const location = useLocation();
   if (!auth.isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  return children
-}
+  return children;
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;

@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Form, Input, Layout, Row, Typography, message } from "antd";
-import { useAuthCreateMutation } from "../app/api";
+import { Button, Card, Col, Form, Input, Row, Typography, message } from "antd";
+import { useAuthCreateMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 const { Title } = Typography;
@@ -20,54 +20,49 @@ export default function LoginForm() {
   };
 
   return (
-    <Layout
+    <Row
+      justify={"center"}
       style={{
         height: "100vh"
       }}
     >
-      <Row
-        justify={"center"}
+      <Col
+        span={12}
+        offset={6}
+        xs={{ span: 12, offset: 0 }}
         style={{
-          height: "100vh"
+          display: "flex",
+          alignItems: "center"
         }}
       >
-        <Col
-          span={12}
-          offset={6}
-          style={{
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          {contextHolder}
-          <Card style={{ width: 500 }}>
-            <ThemeToggle />
-            <Title level={2}>Expiration tracker</Title>
-            <Form
-              name="normal_login"
-              className="login-form"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
+        {contextHolder}
+        <Card style={{ width: 500 }}>
+          <ThemeToggle />
+          <Title level={2}>Expiration tracker</Title>
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+          >
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: "Please input your Email!" }]}
             >
-              <Form.Item
-                name="email"
-                rules={[{ required: true, message: "Please input your Email!" }]}
-              >
-                <Input prefix={<UserOutlined />} placeholder="Email" />
-              </Form.Item>
-              <Form.Item name="password">
-                <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
-              </Form.Item>
-              <Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button" block>
-                  Log in
-                </Button>
-                Signup <a href="">sign up</a>
-              </Form.Item>
-            </Form>
-          </Card>
-        </Col>
-      </Row>
-    </Layout>
+              <Input prefix={<UserOutlined />} placeholder="Email" />
+            </Form.Item>
+            <Form.Item name="password">
+              <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="login-form-button" block>
+                Log in
+              </Button>
+              Signup <a href="">sign up</a>
+            </Form.Item>
+          </Form>
+        </Card>
+      </Col>
+    </Row>
   );
 }

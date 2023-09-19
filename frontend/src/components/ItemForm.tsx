@@ -8,7 +8,7 @@ import {
   useItemsCreateMutation,
   useItemsSearchCreateMutation,
   useLocationsListQuery
-} from "../app/api";
+} from "../redux/api";
 import { DateFormat, defaultPagination } from "../settings/settings";
 import { DefaultOptionType } from "antd/es/select";
 import { QrScanner } from "@yudiel/react-qr-scanner";
@@ -107,7 +107,7 @@ export default function ItemForm(props: ParentModalProps) {
       </Form.Item>
       <QrScanner
         onDecode={(result) => setBarcode(result)}
-        onError={(error) => props.msg?.error(error)}
+        onError={(error) => props.msg?.error(error.message)}
       />
       <Form.Item label="quantity" name="quantity" rules={[{ required: true }]}>
         <InputNumber name="quantity" />
