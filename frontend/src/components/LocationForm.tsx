@@ -24,6 +24,7 @@ export default function LocationForm(props: ParentModalProps) {
       onFieldsChange={(changeFields, allFields) => {
         setFormProgress((allFields.filter((field) => field.value).length / allFields.length) * 100);
       }}
+      form={form}
       scrollToFirstError
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 14 }}

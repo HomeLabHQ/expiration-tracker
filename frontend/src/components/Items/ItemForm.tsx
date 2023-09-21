@@ -1,6 +1,6 @@
 import { AutoComplete, Button, Col, DatePicker, Form, Progress, Row, Select, Space } from "antd";
 import dayjs from "dayjs";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ItemRequest,
   useItemsCreateMutation,
@@ -21,20 +21,7 @@ export default function ItemForm(props: ParentModalProps) {
   const { data: locations } = useLocationsListQuery(defaultPagination);
   const [addItem] = useItemsCreateMutation();
   const [scanner, setScanner] = React.useState(false);
-  const [searchItem, { data: suggestions, isLoading: isLoadingSuggestions }] =
-    useItemsSearchCreateMutation();
-  const [barcode, setBarcode] = React.useState("");
-  const buildOptions = () => {
-    const options: DefaultOptionType[] = [];
-    if (!isLoadingSuggestions) {
-      suggestions?.forEach((item) => {
-        options.push({ value: item.title, label: item.title });
-      });
-    } else {
-      return [];
-    }
-    return options;
-  };
+  const [searchItem] = useItemsSearchCreateMutation();
   const submit = (values: ItemRequest, reuse: boolean) => {
     values.expiration_date = dayjs(values.expiration_date).format(DateFormat);
     if (!reuse) {
@@ -77,12 +64,6 @@ export default function ItemForm(props: ParentModalProps) {
 
   // * Category and status can be taken from choices that was loaded previously
 
-  useEffect(() => {
-    if (barcode) {
-      searchItem({ itemSearchRequest: { barcode: barcode } });
-      setOptions(buildOptions());
-    }
-  }, [barcode]);
   return (
     <Form
       form={form}
@@ -114,7 +95,18 @@ export default function ItemForm(props: ParentModalProps) {
         </Button>
         {scanner && (
           <QrScanner
-            onDecode={(result) => setBarcode(result)}
+            onResult={(result) => {
+              searchItem({ itemSearchRequest: { barcode: result.getText() } })
+                .unwrap()
+                .then((data) => {
+                  const results: DefaultOptionType[] = [];
+                  data.forEach((item) => {
+                    results.push({ value: item.title, label: item.title });
+                  });
+                  setOptions(results);
+                });
+              setScanner(!scanner);
+            }}
             onError={(error) => props.msg?.error(error.message)}
           />
         )}
