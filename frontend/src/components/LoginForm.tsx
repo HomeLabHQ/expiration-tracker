@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Card, Col, Form, Input, Row, Typography, message } from "antd";
 import { useAuthCreateMutation } from "../redux/api";
 import { useNavigate } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "./shared/ThemeToggle";
 const { Title } = Typography;
 export default function LoginForm() {
   const [auth] = useAuthCreateMutation();

@@ -1,14 +1,14 @@
 {
-    "version": "0.2.0",
-    "compounds": [
+  "version": "0.2.0",
+  "compounds": [
     {
       "name": "server+client",
-      "configurations": ["client","be-server", "fe-server"],
+      "configurations": ["be-server", "fe-server", "client"],
       "stopAll": true
     }
-    ]
-      "configurations": [
-      {
+  ],
+  "configurations": [
+    {
       "name": "be-tests",
       "type": "python",
       "request": "launch",
@@ -44,13 +44,14 @@
       "name": "client",
       "type": "firefox",
       "request": "launch",
-      "profile":"dev-edition-default",
+      "profile": "dev-edition-default",
       "url": "http://localhost:3000",
-      "pathMappings": [{
+      "pathMappings": [
+        {
           "url": "http://localhost:3000",
           "path": "${workspaceFolder}/frontend"
-      }]
-      }
+        }
+      ]
+    }
   ]
-
 }

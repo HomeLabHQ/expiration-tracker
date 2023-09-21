@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { useItemsChoicesRetrieveQuery } from "../redux/api";
+import { useItemsChoicesRetrieveQuery } from "../../redux/api";
 import _ from "lodash";
 export default function ItemEnumSelector(field: string) {
   const { data: choices } = useItemsChoicesRetrieveQuery();

@@ -10,12 +10,12 @@ import {
   useItemsListQuery,
   useItemsPartialUpdateMutation,
   useLocationsListQuery
-} from "../redux/api";
+} from "../../redux/api";
 import ItemForm from "./ItemForm";
-import LocationForm from "./LocationForm";
-import ModalPopup from "./ModalPopup";
-import { DateFormat, defaultPagination } from "../settings/settings";
-import { usePagination } from "../hooks/usePagination";
+import LocationForm from "../LocationForm";
+import ModalPopup from "../shared/ModalPopup";
+import { DateFormat, defaultPagination } from "../../settings/settings";
+import { usePagination } from "../../hooks/usePagination";
 import ItemEnumSelector from "./ItemEnumSelector";
 
 export default function ItemTable() {
