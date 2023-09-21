@@ -1,7 +1,7 @@
 import { Layout } from "antd";
-import ItemTable from "../components/ItemTable";
-import Header from "../components/common/Header";
-import Footer from "../components/common/Footer";
+import ItemTable from "../components/Items/ItemTable";
+import Header from "../components/shared/Header";
+import Footer from "../components/shared/Footer";
 
 export default function ItemPage() {
   return (

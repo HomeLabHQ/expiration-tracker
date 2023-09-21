@@ -4,7 +4,7 @@ import type { MenuProps } from "antd"
 import { AppName } from "../../settings/settings"
 import { logout } from "../../redux/authSlice"
 import { useDispatch } from "react-redux"
-import ThemeToggle from "../ThemeToggle"
+import ThemeToggle from "./ThemeToggle"
 export default function Header() {
   const dispatch = useDispatch()
   const items: MenuProps["items"] = [
