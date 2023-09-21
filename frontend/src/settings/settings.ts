@@ -9,7 +9,7 @@ export const SocialLinks = [
   },
   {
     type: "mail",
-    url: "zibertua@gmail.com"
+    url: "korol.oleksandr.work@gmail.com"
   }
 ];
 

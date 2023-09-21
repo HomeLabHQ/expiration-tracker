@@ -13,7 +13,7 @@ from rest_framework import mixins, serializers, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from items.constants import ItemCategory
+from items.constants import ItemCategory, ItemStatus
 from items.models import Item, Location
 from items.serializers import (
     BaseItemSerializer,
@@ -44,7 +44,7 @@ class ItemViewSet(
     mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
-    all_choices: typing.ClassVar = {"category": ItemCategory}
+    all_choices: typing.ClassVar = {"category": ItemCategory, "status": ItemStatus}
     serializer_class = ItemSerializer
     list_serializer_class = BaseItemSerializer
     filter_backends = (DjangoFilterBackend,)

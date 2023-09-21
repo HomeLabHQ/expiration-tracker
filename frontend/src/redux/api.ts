@@ -204,6 +204,7 @@ export type TokenVerifyRequest = {
   token: string;
 };
 export type CategoryEnum = "GOODS" | "MEDICATIONS";
+export type StatusEnum = "STOCK" | "OPENED" | "DISPOSED" | "USED";
 export type BaseLocation = {
   id: number;
   title: string;
@@ -212,7 +213,8 @@ export type ReprBaseItem = {
   id: number;
   title: string;
   category: CategoryEnum;
-  quantity: number;
+  status: StatusEnum;
+  opening_date?: string | null;
   expiration_date?: string | null;
   location: BaseLocation;
   ttl: number;
@@ -227,7 +229,8 @@ export type ReprItem = {
   id: number;
   title: string;
   category: CategoryEnum;
-  quantity: number;
+  status: StatusEnum;
+  opening_date?: string | null;
   expiration_date?: string | null;
   location: BaseLocation;
   ttl: number;
@@ -236,14 +239,16 @@ export type ReprItem = {
 export type ItemRequest = {
   title: string;
   category?: CategoryEnum;
-  quantity?: number;
+  status?: StatusEnum;
+  opening_date?: string | null;
   expiration_date?: string | null;
   location: number;
 };
 export type PatchedItemRequest = {
   title?: string;
   category?: CategoryEnum;
-  quantity?: number;
+  status?: StatusEnum;
+  opening_date?: string | null;
   expiration_date?: string | null;
   location?: number;
 };

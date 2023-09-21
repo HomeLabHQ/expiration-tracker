@@ -465,8 +465,12 @@ components:
           maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
@@ -569,8 +573,12 @@ components:
           maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
@@ -588,8 +596,12 @@ components:
           maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
@@ -603,7 +615,7 @@ components:
       - category
       - id
       - location
-      - quantity
+      - status
       - title
       - ttl
     ReprItem:
@@ -617,8 +629,12 @@ components:
           maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
@@ -637,7 +653,7 @@ components:
       - created_at
       - id
       - location
-      - quantity
+      - status
       - title
       - ttl
     SearchResult:
@@ -693,6 +709,18 @@ components:
       required:
       - email
       - password
+    StatusEnum:
+      enum:
+      - STOCK
+      - OPENED
+      - DISPOSED
+      - USED
+      type: string
+      description: |-
+        * `STOCK` - Stock
+        * `OPENED` - Opened
+        * `DISPOSED` - Disposed
+        * `USED` - Used
     TokenRefresh:
       type: object
       properties:

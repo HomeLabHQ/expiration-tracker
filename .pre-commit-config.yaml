@@ -14,12 +14,12 @@ repos:
           [--fix, --exit-non-zero-on-fix, --config, ./backend/pyproject.toml]
   - repo: local
     hooks:
-      - id: pre-commit-api-docs
+      - id: api-schema
         name: renew api docs
         entry: poetry run --directory backend   ./backend/manage.py spectacular --color --file ./docs/schema.yml
         language: system
         pass_filenames: false
-      - id: pre-commit-migration-check
+      - id: migration-check
         name: check for missing migrations
         entry: poetry run --directory backend   ./backend/manage.py makemigrations
         language: system

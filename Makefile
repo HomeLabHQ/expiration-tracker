@@ -22,8 +22,8 @@ coverage: ## Generate coverage report
 	cd backend && coverage run ./manage.py test && coverage report -m
 be_shell: ## start be shell
 	cd backend && python ./manage.py shell_plus
-
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	cd backend && python ./manage.py admin_generator $(app)
-api_docs: ## Regenerate api from docs
-	cd backend && python ./manage.py spectacular --color --file ../docs/schema.yml
+sync_api: ## Regenerate api schema + rtk query slices
+	cd backend && python ./manage.py spectacular --color --file ../docs/schema.yml && \
+	cd ../frontend && npm run api-generate

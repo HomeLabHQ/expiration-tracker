@@ -1,7 +1,7 @@
 from expiration_tracker.mixins import RepresentationPKField
 from rest_framework import serializers
 
-from items.constants import ItemCategory
+from items.constants import ItemCategory, ItemStatus
 from items.models import Item, Location
 
 
@@ -27,14 +27,14 @@ class BaseItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ("id", "title", "category", "quantity", "expiration_date", "location", "ttl")
+        fields = ("id", "title", "category", "status", "opening_date", "expiration_date", "location", "ttl")
         read_only_fields = ("ttl",)
 
 
 class ReprBaseItemSerializer(BaseItemSerializer):
     location = BaseLocationSerializer()
-    quantity = serializers.IntegerField(required=True)
     category = serializers.ChoiceField(choices=[(v.name, v.value) for v in ItemCategory], required=True)
+    status = serializers.ChoiceField(choices=[(v.name, v.value) for v in ItemStatus], required=True)
 
 
 class ItemSerializer(BaseItemSerializer):
@@ -44,8 +44,8 @@ class ItemSerializer(BaseItemSerializer):
 
 class ReprItemSerializer(ItemSerializer):
     location = BaseLocationSerializer()
-    quantity = serializers.IntegerField(required=True)
     category = serializers.ChoiceField(choices=[(v.name, v.value) for v in ItemCategory], required=True)
+    status = serializers.ChoiceField(choices=[(v.name, v.value) for v in ItemStatus], required=True)
 
 
 class ItemSearchSerializer(serializers.Serializer):
