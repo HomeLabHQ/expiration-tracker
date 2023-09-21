@@ -7,8 +7,6 @@ from items.constants import ItemCategory, ItemStatus
 
 
 class Location(TitleDescriptionModel):
-    ...
-
     class Meta:
         db_table = "locations"
         verbose_name_plural = "locations"
