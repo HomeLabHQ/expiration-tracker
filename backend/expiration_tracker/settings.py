@@ -123,4 +123,6 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "static"))
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "attachments"))
 MEDIA_URL = "/attachments/"
 
+# * Search related settings
 SEARCH_REGION = "ua-uk"
+SEARCH_LIMIT = 5

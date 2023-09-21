@@ -1,5 +1,6 @@
 import datetime
 import typing
+from itertools import islice
 
 from django.conf import settings
 from django.db.models import F
@@ -80,15 +81,12 @@ class ItemViewSet(
         result = []
         with DDGS() as ddgs:
             try:
-                result.extend(
-                    iter(
-                        ddgs.text(
-                            serializer.validated_data["barcode"],
-                            region=settings.SEARCH_REGION,
-                            backend="lite",
-                        ),
-                    ),
+                ddgs_gen = ddgs.text(
+                    serializer.validated_data["barcode"],
+                    region=settings.SEARCH_REGION,
+                    backend="lite",
                 )
+                result.extend(iter(islice(ddgs_gen, settings.SEARCH_LIMIT)))
             except HTTPStatusError:
                 return Response(status=400)
         return Response(data=result)

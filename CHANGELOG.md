@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Add theme toggle button
 - Fix schema.yml fields as preparation to fully adopt rtk codegen
 - Added `ItemStatus` switched to single item to represent mode correct data
+- Limit duckduckgo searches for better performance
 
 ### Fixed
 

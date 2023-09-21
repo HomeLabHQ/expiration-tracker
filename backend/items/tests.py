@@ -42,6 +42,8 @@ class ItemVewSetTest(CRUDTestCase, TestCase):
 
     @skipIf(True, "Search without mock")
     def test_search(self):
+        # Before  5s msec528647
+        # After  msec771442
         resp = self.client.post(reverse(f"{self.base_view}-search"), data={"barcode": self.barcode})
         self.assertEqual(resp.status_code, 200)
 
