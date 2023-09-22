@@ -45,6 +45,7 @@ Also as a bonus i get to dive into Typescript and Ant Design.
 
 To try this out access demo instance at [Demo]
 with credentials:
+
 > NOTE: Demo not persistent and destroyed on each deployment
 
 ```js
@@ -78,6 +79,8 @@ For local development you will need:
   - Yarn 1.22.19
 
 Also strongly recommend using tools like nvm and pyenv for running specific versions of Python and Node for this project
+
+> NOTE: Additionally install poetry self add poetry-dotenv-plugin to auto load env variables in shell and run command
 
 ### Installation
 

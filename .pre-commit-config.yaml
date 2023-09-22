@@ -16,11 +16,11 @@ repos:
     hooks:
       - id: api-schema
         name: renew api docs
-        entry: poetry run --directory backend   ./backend/manage.py spectacular --color --file ./docs/schema.yml
+        entry: poetry run --directory backend  ./backend/manage.py spectacular --color --file ./docs/schema.yml
         language: system
         pass_filenames: false
       - id: migration-check
         name: check for missing migrations
-        entry: poetry run --directory backend   ./backend/manage.py makemigrations
+        entry: poetry run --directory backend  ./backend/manage.py makemigrations
         language: system
         pass_filenames: false
