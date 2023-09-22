@@ -17,6 +17,7 @@ duckduckgo-search = "^3.8.5"
 gunicorn = "^21.2.0"
 python = "^3.11"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
+psycopg = {extras = ["binary"], version = "^3.1.10"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"

@@ -21,6 +21,8 @@ All notable changes to this project will be documented in this file.
 - Added `ItemStatus` switched to single item to represent mode correct data
 - Limit duckduckgo searches for better performance
 - Add dependabot
+- Add postgres for hosting personal instance without sqlite
+- Add compose.dev.yml to take same postgres just with open port
 
 ### Fixed
 

@@ -4,6 +4,8 @@ on:
     types: [opened, synchronize]
 jobs:
   be_tests:
+    env:
+      ENVIRONMENT: "demo"
     runs-on: self-hosted
     defaults:
       run:
