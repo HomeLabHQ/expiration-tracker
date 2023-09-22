@@ -148,7 +148,10 @@ export default function ItemTable() {
       title: "Location/Status",
       responsive: ["xs"],
       render: (record: ReprBaseItem) => (
-        <Space.Compact direction="vertical">{renderLocation(record)}</Space.Compact>
+        <Space.Compact direction="vertical">
+          {renderLocation(record)}
+          {renderStatus(record)}
+        </Space.Compact>
       )
     },
     {
