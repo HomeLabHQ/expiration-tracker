@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "monthly"
+    assignees:
+      - "Dufran"
+    labels:
+      - "backend-bumps"
+
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "monthly"
+    assignees:
+      - "Dufran"
+    labels:
+      - "frontend-bumps"
