@@ -1,4 +1,16 @@
-import { AutoComplete, Button, Col, DatePicker, Form, Progress, Row, Select, Space } from "antd";
+import {
+  AutoComplete,
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  InputRef,
+  Progress,
+  Row,
+  Select,
+  Space
+} from "antd";
 import dayjs from "dayjs";
 import React from "react";
 import {
@@ -12,9 +24,9 @@ import { DefaultOptionType } from "antd/es/select";
 import { QrScanner } from "@yudiel/react-qr-scanner";
 import ItemEnumSelector from "./ItemEnumSelector";
 import { BarcodeOutlined } from "@ant-design/icons";
+import { useProgress } from "../../hooks/useProgress";
 
 export default function ItemForm(props: ParentModalProps) {
-  // TODO: Find how to get it dynamically on form render
   const [formProgress, setFormProgress] = React.useState(40);
   const [options, setOptions] = React.useState<DefaultOptionType[]>([]);
   const [form] = Form.useForm();
@@ -22,6 +34,7 @@ export default function ItemForm(props: ParentModalProps) {
   const [addItem] = useItemsCreateMutation();
   const [scanner, setScanner] = React.useState(false);
   const [searchItem] = useItemsSearchCreateMutation();
+  const titleInput = React.useRef<InputRef>(null);
   const submit = (values: ItemRequest, reuse: boolean) => {
     values.expiration_date = dayjs(values.expiration_date).format(DateFormat);
     if (!reuse) {
@@ -30,6 +43,7 @@ export default function ItemForm(props: ParentModalProps) {
         .then(() => {
           props.handleClose?.();
           form.resetFields();
+          setOptions([]);
           props.msg.success("Item added");
         })
         .catch((error) => {
@@ -42,7 +56,10 @@ export default function ItemForm(props: ParentModalProps) {
         .unwrap()
         .then(() => {
           props.msg.success("Item added");
+          form.setFieldsValue({ title: null });
           form.scrollToField("title");
+          setScanner(true);
+          setOptions([]);
         })
         .catch((error) => {
           props.msg.error(
@@ -67,9 +84,9 @@ export default function ItemForm(props: ParentModalProps) {
   return (
     <Form
       form={form}
-      onFieldsChange={(changeFields, allFields) => {
-        setFormProgress((allFields.filter((field) => field.value).length / allFields.length) * 100);
-      }}
+      onFieldsChange={(changedFields, allFields) =>
+        useProgress({ allFields, handler: setFormProgress })
+      }
       requiredMark="optional"
       scrollToFirstError
       wrapperCol={{ span: 14 }}
@@ -87,7 +104,9 @@ export default function ItemForm(props: ParentModalProps) {
             { max: 250, message: "Make it shorter" }
           ]}
         >
-          <AutoComplete allowClear defaultOpen options={options} style={{ width: 200 }} />
+          <AutoComplete allowClear defaultOpen options={options} style={{ width: 200 }}>
+            <Input ref={titleInput} />
+          </AutoComplete>
         </Form.Item>
         <Button onClick={() => setScanner(!scanner)}>
           Scan barcode
@@ -106,8 +125,9 @@ export default function ItemForm(props: ParentModalProps) {
                   setOptions(results);
                 });
               setScanner(!scanner);
+              titleInput.current?.focus();
             }}
-            onError={(error) => props.msg?.error(error.message)}
+            onError={() => console.info("Scanner error")}
           />
         )}
       </Row>
