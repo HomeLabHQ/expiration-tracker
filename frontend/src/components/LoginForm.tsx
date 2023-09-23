@@ -52,7 +52,7 @@ export default function LoginForm() {
               <Input prefix={<UserOutlined />} placeholder="Email" />
             </Form.Item>
             <Form.Item name="password">
-              <Input prefix={<LockOutlined />} type="password" placeholder="Password" />
+              <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button" block>

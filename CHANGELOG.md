@@ -2,7 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## [UNRELEASED]
+
+### Added
+
+### Fixed
+
+- Fixed password input on login form
+- Fixed broken `CRUDTestCase` after switching to postgresql
+
+### Changed
+
+- Changed `Item` queryset to omit `USED`/`WASTED` products
+
+## [1.0.0]
 
 ### Added
 
@@ -36,4 +49,5 @@ All notable changes to this project will be documented in this file.
 
 ### Removed
 
-[unreleased]: https://github.com/HomeLabHQ/expiration-tracker
+[UNRELEASED]: https://github.com/HomeLabHQ/expiration-tracker
+[1.0.0]: https://github.com/HomeLabHQ/expiration-tracker/releases/tag/v1.0.0
