@@ -50,7 +50,9 @@ class ItemViewSet(
     list_serializer_class = BaseItemSerializer
     filter_backends = (DjangoFilterBackend,)
     queryset = (
-        Item.objects.annotate(expiration=(F("expiration_date") - datetime.date.today())).all().order_by("expiration")
+        Item.objects.filter(status__in=[ItemStatus.STOCK.name, ItemStatus.OPENED.name])
+        .annotate(expiration=(F("expiration_date") - datetime.date.today()))
+        .order_by("expiration")
     )
 
     @extend_schema(

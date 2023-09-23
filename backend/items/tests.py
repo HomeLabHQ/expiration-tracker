@@ -1,7 +1,7 @@
-import random
 import typing
 from unittest import skipIf
 
+from authentication.models import User
 from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
@@ -9,6 +9,7 @@ from expiration_tracker.tests import CRUDTestCase
 from faker import Faker
 from mixer.backend.django import mixer
 
+from items.constants import ItemStatus
 from items.models import Item, Location
 
 fake: Faker = Faker()
@@ -19,12 +20,6 @@ class ItemVewSetTest(CRUDTestCase, TestCase):
     queryset = Item.objects.all()
     location_count = 20
     item_count = 100
-    fake_data: typing.ClassVar = {
-        "title": fake.name(),
-        "category": "GOODS",
-        "location": random.randint(1, location_count),
-        "expiration_date": "2022-12-12",
-    }
     methods: typing.ClassVar = ["list", "retrieve", "create", "update", "partial_update"]
 
     def setUp(self) -> None:
@@ -32,18 +27,30 @@ class ItemVewSetTest(CRUDTestCase, TestCase):
             loc = mixer.blend(Location)
             for _ in range(self.item_count // self.location_count):
                 mixer.blend(Item, location=loc, opening_date=None)
-        self.user = self.create_and_login()
+        self.user: User = self.create_and_login()
         self.barcode = "7622300465674"
+        self.fake_data = {
+            "title": fake.name(),
+            "category": "GOODS",
+            "location": Location.objects.first().id,
+            "expiration_date": "2022-12-12",
+        }
 
     def test_choices(self):
         resp = self.client.get(reverse(f"{self.base_view}-choices"))
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(len(resp.data), 2)
 
+    def test_list_not_disposed(self):
+        location_qs = Location.objects
+        Item.objects.filter(location=location_qs.last()).update(status=ItemStatus.DISPOSED.name)
+        Item.objects.filter(location=location_qs.first()).update(status=ItemStatus.USED.name)
+        resp = self.client.get(reverse(f"{self.base_view}-list"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.data["count"], self.item_count - 2 * (self.item_count // self.location_count))
+
     @skipIf(True, "Search without mock")
     def test_search(self):
-        # Before  5s msec528647
-        # After  msec771442
         resp = self.client.post(reverse(f"{self.base_view}-search"), data={"barcode": self.barcode})
         self.assertEqual(resp.status_code, 200)
 
