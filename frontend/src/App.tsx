@@ -1,28 +1,28 @@
-import LoginForm from "./features/auth/LoginForm"
-import { useAppSelector } from "./app/hooks"
-import ItemPage from "./features/items/ItemPage"
-import Header from "./features/common/Header"
-import { Layout } from "antd"
-import React from "react"
-import Footer from "./features/common/Footer"
-function App() {
-  const { auth } = useAppSelector((state) => state)
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { ConfigProvider, theme } from "antd";
+import { useAppSelector } from "./redux/hooks";
+import ItemPage from "./pages/ItemPage";
 
+export default function App() {
+  const { mode } = useAppSelector((state) => state.auth);
+  const { darkAlgorithm, defaultAlgorithm } = theme;
   return (
-    <div className="App">
-      <Layout>
-        {auth.isAuthenticated || auth.access ? (
-          <React.Fragment>
-            <Header />
-            <ItemPage />
-          </React.Fragment>
-        ) : (
-          <LoginForm />
-        )}
-        <Footer />
-      </Layout>
-    </div>
-  )
+    <ConfigProvider theme={{ algorithm: mode == "dark" ? darkAlgorithm : defaultAlgorithm }}>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <ItemPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </BrowserRouter>
+    </ConfigProvider>
+  );
 }
-
-export default App

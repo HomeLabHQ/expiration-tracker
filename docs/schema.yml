@@ -1,107 +1,55 @@
 openapi: 3.0.3
 info:
-  title: ''
-  version: 0.0.0
+  title: Expiration tracker API
+  version: 1.0.0
+  description: App to track expiration dates of medication and other goods
 paths:
   /api/auth/:
     post:
       operationId: auth_create
       description: |-
-        post:
-        Generate REST API token.
-
-        Generate personal REST API token with expired date `ACCESS_TOKEN_LIFETIME_HOURS` or/and
-        `ACCESS_TOKEN_LIFETIME_MINUTES` (1 day).
-
-        In a few words - it's an authentication token. To work with API you need to have it, entering your email
-        and password. Each time you request to the API, you need to send in header your token like
-        `Authorization: JWT eyJ0eXAiOiJKV...`, where `JWT` is header authorization prefix.
-
-        ### Examples
-
-        If data is successfully processed the server returns status code `200`.
-
-        ```json
-        {
-            "email": "watch.dog@coaxsoft.com",
-            "password": "qwerty123"
-        }
-        ```
-
-        ### Errors
-
-        If there were some error in client data, it sends status code `401` with the error message looks like:
-
-        ```json
-        {
-            "detail": "No active account found with the given credentials"
-        }
-        ```
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
       tags:
       - auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CustomTokenObtainPair'
+              $ref: '#/components/schemas/CustomTokenObtainPairRequest'
         required: true
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CustomTokenObtainPair'
+                $ref: '#/components/schemas/JWTAuthResponse'
           description: ''
   /api/auth/refresh/:
     post:
       operationId: auth_refresh_create
       description: |-
-        post:
-        Refresh expired JSON Web Token.
-
-        It is used JWT authentication with refresh expiration time = 14 days [Read JWT docs](https://jwt.io/). It
-        means, that you have 14 days, from the time your token was generated, to update token with new one. So
-        that you need to send your JSON WEB Token.
-
-        ### Examples
-
-        If data is successfully processed the server returns status code `200`.
-
-        ```json
-        {
-            "refresh": "emskdlgnkngdDFHGergergEGRerRGEgerERE346346vergd456456"
-        }
-        ```
-
-        ### Errors
-
-        If there were some error in client data, it sends status code `401` with the error message looks like:
-
-        ```json
-        {
-            "detail": "Token is invalid or expired",
-            "code": "token_not_valid"
-        }
-        ```
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
       tags:
       - auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TokenRefresh'
+              $ref: '#/components/schemas/TokenRefreshRequest'
         required: true
       responses:
         '200':
@@ -123,13 +71,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/SignUp'
+              $ref: '#/components/schemas/SignUpRequest'
         required: true
       security:
       - jwtAuth: []
@@ -145,88 +93,39 @@ paths:
     post:
       operationId: auth_verify_create
       description: |-
-        post:
-        Verify your token (is it valid?)
-
-        To work with API you need to have valid (verified) token which you get after visiting `/auth/token-verify`
-        url, entering your token.[Read JWT docs](https://jwt.io/)
-
-        ### Examples
-
-        If data is successfully processed the server returns status code `200`.
-
-        ```json
-        {
-            "token": "emskdlgnkngdDFHGergergEGRerRGEgerERE346346vergd456456"
-        }
-        ```
-
-        ### Errors
-
-        If there were some error in client data, it sends status code `401` with the error message looks like:
-
-        ```json
-        {
-            "detail": "Token is invalid or expired",
-            "code": "token_not_valid"
-        }
-        ```
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
       tags:
       - auth
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/TokenVerify'
+              $ref: '#/components/schemas/TokenVerifyRequest'
         required: true
       responses:
         '200':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenVerify'
-          description: ''
+          description: No response body
   /api/items/:
     get:
       operationId: items_list
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
-      - name: limit
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
         required: false
         in: query
         description: Number of results to return per page.
-        schema:
-          type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
         schema:
           type: integer
       tags:
@@ -239,44 +138,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedBaseItemList'
+                $ref: '#/components/schemas/PaginatedReprBaseItemList'
           description: ''
     post:
       operationId: items_create
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       tags:
       - items
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
         required: true
       security:
       - jwtAuth: []
@@ -286,32 +164,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
   /api/items/{id}/:
     get:
       operationId: items_retrieve
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -329,31 +186,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
     put:
       operationId: items_update
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -367,13 +203,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Item'
+              $ref: '#/components/schemas/ItemRequest'
         required: true
       security:
       - jwtAuth: []
@@ -383,31 +219,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
     patch:
       operationId: items_partial_update
-      description: |-
-        create:
-        Create Item
-
-        As authenticated user you can create order by providing product and quantity
-
-        list:
-        All items.
-
-
-        retrieve:
-        Details for single item
-
-
-        update:
-        Update Item
-
-
-
-        partial_update:
-        Update Item
       parameters:
       - in: path
         name: id
@@ -421,13 +236,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/PatchedItem'
+              $ref: '#/components/schemas/PatchedItemRequest'
       security:
       - jwtAuth: []
       - {}
@@ -436,15 +251,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                $ref: '#/components/schemas/ReprItem'
           description: ''
   /api/items/choices/:
     get:
       operationId: items_choices_retrieve
-      description: |-
-        Use this mixin if you have some choices that need to be send to frontend
-        this action will import dynamic all choices user send in type query
-        and return its choices
+      description: Get ENUM choices for item
+      summary: Get choices for item
       tags:
       - items
       security:
@@ -455,32 +268,70 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Item'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Choice'
           description: ''
-  /api/items/locations//:
+  /api/items/search/:
+    post:
+      operationId: items_search_create
+      description: Send search string to duck duck go
+      summary: Perform search
+      tags:
+      - items
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemSearchRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ItemSearchRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ItemSearchRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+          description: Created. New resource in response
+        '400':
+          description: Bad request (something invalid)
+  /api/locations/:
     get:
-      operationId: items_locations_list
+      operationId: locations_list
       description: |-
+        create:
+        Create Location
+
         list:
-        All items.
+        All Locations
 
         retrieve:
-        Details for single item
+        Details for single location
       parameters:
-      - name: limit
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
         required: false
         in: query
         description: Number of results to return per page.
         schema:
           type: integer
-      - name: offset
-        required: false
-        in: query
-        description: The initial index from which to return the results.
-        schema:
-          type: integer
       tags:
-      - items
+      - locations
       security:
       - jwtAuth: []
       - {}
@@ -491,15 +342,53 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedBaseLocationList'
           description: ''
-  /api/items/locations//{id}/:
-    get:
-      operationId: items_locations_retrieve
+    post:
+      operationId: locations_create
       description: |-
+        create:
+        Create Location
+
         list:
-        All items.
+        All Locations
 
         retrieve:
-        Details for single item
+        Details for single location
+      tags:
+      - locations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LocationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+          description: ''
+  /api/locations/{id}/:
+    get:
+      operationId: locations_retrieve
+      description: |-
+        create:
+        Create Location
+
+        list:
+        All Locations
+
+        retrieve:
+        Details for single location
       parameters:
       - in: path
         name: id
@@ -508,7 +397,7 @@ paths:
         description: A unique integer value identifying this location.
         required: true
       tags:
-      - items
+      - locations
       security:
       - jwtAuth: []
       - {}
@@ -521,33 +410,6 @@ paths:
           description: ''
 components:
   schemas:
-    BaseItem:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-          maxLength: 50
-        category:
-          $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
-        expiration_date:
-          type: string
-          format: date
-          nullable: true
-        location:
-          $ref: '#/components/schemas/BaseLocation'
-        ttl:
-          type: string
-          readOnly: true
-      required:
-      - id
-      - location
-      - title
-      - ttl
     BaseLocation:
       type: object
       properties:
@@ -556,7 +418,7 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
       required:
       - id
       - title
@@ -568,50 +430,75 @@ components:
       description: |-
         * `GOODS` - Goods
         * `MEDICATIONS` - Medications
-    CustomTokenObtainPair:
+    Choice:
+      type: object
+      properties:
+        field:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+      required:
+      - field
+      - values
+    CustomTokenObtainPairRequest:
       type: object
       properties:
         email:
           type: string
           writeOnly: true
+          minLength: 1
         password:
           type: string
           writeOnly: true
+          minLength: 1
       required:
       - email
       - password
-    Item:
+    ItemRequest:
       type: object
       properties:
-        id:
-          type: integer
-          readOnly: true
         title:
           type: string
-          maxLength: 50
+          minLength: 1
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
           nullable: true
         location:
-          $ref: '#/components/schemas/BaseLocation'
-        ttl:
-          type: string
-          readOnly: true
-        created_at:
-          type: string
-          format: date-time
-          readOnly: true
+          type: integer
       required:
-      - created_at
-      - id
       - location
       - title
-      - ttl
+    ItemSearchRequest:
+      type: object
+      properties:
+        barcode:
+          type: string
+          minLength: 1
+          maxLength: 50
+      required:
+      - barcode
+    JWTAuthResponse:
+      type: object
+      properties:
+        access:
+          type: string
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
     Location:
       type: object
       properties:
@@ -620,32 +507,23 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         description:
           type: string
       required:
       - id
       - title
-    PaginatedBaseItemList:
+    LocationRequest:
       type: object
       properties:
-        count:
-          type: integer
-          example: 123
-        next:
+        title:
           type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
-        previous:
+          minLength: 1
+          maxLength: 255
+        description:
           type: string
-          nullable: true
-          format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
-        results:
-          type: array
-          items:
-            $ref: '#/components/schemas/BaseItem'
+      required:
+      - title
     PaginatedBaseLocationList:
       type: object
       properties:
@@ -656,17 +534,58 @@ components:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=400&limit=100
+          example: http://api.example.org/accounts/?page=4
         previous:
           type: string
           nullable: true
           format: uri
-          example: http://api.example.org/accounts/?offset=200&limit=100
+          example: http://api.example.org/accounts/?page=2
         results:
           type: array
           items:
             $ref: '#/components/schemas/BaseLocation'
-    PatchedItem:
+    PaginatedReprBaseItemList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReprBaseItem'
+    PatchedItemRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 1
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          type: integer
+    ReprBaseItem:
       type: object
       properties:
         id:
@@ -674,11 +593,15 @@ components:
           readOnly: true
         title:
           type: string
-          maxLength: 50
+          maxLength: 255
         category:
           $ref: '#/components/schemas/CategoryEnum'
-        quantity:
-          type: integer
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
         expiration_date:
           type: string
           format: date
@@ -686,12 +609,66 @@ components:
         location:
           $ref: '#/components/schemas/BaseLocation'
         ttl:
+          type: integer
+          readOnly: true
+      required:
+      - category
+      - id
+      - location
+      - status
+      - title
+      - ttl
+    ReprItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
           type: string
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        opening_date:
+          type: string
+          format: date
+          nullable: true
+        expiration_date:
+          type: string
+          format: date
+          nullable: true
+        location:
+          $ref: '#/components/schemas/BaseLocation'
+        ttl:
+          type: integer
           readOnly: true
         created_at:
           type: string
           format: date-time
           readOnly: true
+      required:
+      - category
+      - created_at
+      - id
+      - location
+      - status
+      - title
+      - ttl
+    SearchResult:
+      type: object
+      properties:
+        title:
+          type: string
+        href:
+          type: string
+        body:
+          type: string
+      required:
+      - body
+      - href
+      - title
     SignUp:
       type: object
       description: Create new user when sign up
@@ -708,31 +685,66 @@ components:
           type: string
         last_name:
           type: string
-        password:
-          type: string
-          writeOnly: true
       required:
       - email
       - id
+    SignUpRequest:
+      type: object
+      description: Create new user when sign up
+      properties:
+        email:
+          type: string
+          format: email
+          minLength: 1
+          title: Email address
+          maxLength: 255
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - email
       - password
+    StatusEnum:
+      enum:
+      - STOCK
+      - OPENED
+      - DISPOSED
+      - USED
+      type: string
+      description: |-
+        * `STOCK` - Stock
+        * `OPENED` - Opened
+        * `DISPOSED` - Disposed
+        * `USED` - Used
     TokenRefresh:
       type: object
       properties:
         access:
           type: string
           readOnly: true
+      required:
+      - access
+    TokenRefreshRequest:
+      type: object
+      properties:
         refresh:
           type: string
           writeOnly: true
+          minLength: 1
       required:
-      - access
       - refresh
-    TokenVerify:
+    TokenVerifyRequest:
       type: object
       properties:
         token:
           type: string
           writeOnly: true
+          minLength: 1
       required:
       - token
   securitySchemes:

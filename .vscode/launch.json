@@ -1,13 +1,24 @@
 {
-    "version": "0.2.0",
-    "compounds": [
+  "version": "0.2.0",
+  "compounds": [
     {
       "name": "server+client",
-      "configurations": ["client","be-server", "fe-server"],
+      "configurations": ["be-server", "fe-server", "client"],
       "stopAll": true
     }
-    ]
-      "configurations": [
+  ],
+  "configurations": [
+    {
+      "name": "be-tests",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["test"],
+      "django": true,
+      "justMyCode": false
+    },
     {
       "name": "be-server",
       "type": "python",
@@ -17,28 +28,30 @@
       "envFile": "${workspaceFolder}/.env",
       "args": ["runserver"],
       "django": true,
-      "justMyCode": true
+      "justMyCode": false
     },
     {
       "name": "fe-server",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceRoot}/frontend",
       "envFile": "${workspaceFolder}/.env",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "frontend"]
+      "runtimeVersion": "18.17.1",
+      "runtimeArgs": ["run", "dev"]
     },
     {
       "name": "client",
       "type": "firefox",
       "request": "launch",
-      "profile":"dev-edition-default",
+      "profile": "dev-edition-default",
       "url": "http://localhost:3000",
-      "pathMappings": [{
+      "pathMappings": [
+        {
           "url": "http://localhost:3000",
           "path": "${workspaceFolder}/frontend"
-      }]
-      }
+        }
+      ]
+    }
   ]
-
 }

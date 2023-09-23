@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  api:
+    container_name: expiration-tracker-api
+    build:
+      dockerfile: ./backend/Dockerfile
+      context: ./
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    image: expiration-tracker/backend-${ENVIRONMENT}
+  db:
+    image: postgres:alpine3.18
+    container_name: expiration-tracker-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  nginx:
+    container_name: expiration-tracker-nginx
+    build:
+      dockerfile: ./nginx/Dockerfile
+      context: ./
+      args:
+        - PUBLIC_URL
+        - API_URL
+    restart: always
+    ports:
+      - 80:80
+    env_file:
+      - .env
+    volumes:
+      - static:/static
+      - attachments:/attachments
+    depends_on:
+      - api
+volumes:
+  static:
+  attachments:
+  postgres_data:

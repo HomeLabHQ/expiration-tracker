@@ -16,7 +16,7 @@ class ItemAdmin(admin.ModelAdmin):
         "updated_at",
         "title",
         "category",
-        "quantity",
+        "status",
         "expiration_date",
         "location",
     )

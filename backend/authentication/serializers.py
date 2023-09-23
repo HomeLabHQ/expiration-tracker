@@ -10,6 +10,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return super().validate(attrs)
 
 
+class JWTAuthResponseSerializer(serializers.Serializer):
+    access = serializers.CharField()
+    refresh = serializers.CharField()
+
+
 class SignUpSerializer(serializers.ModelSerializer):
     """Create new user when sign up"""
 

@@ -1,6 +1,12 @@
 .venv
 node_modules
-.env*
+.env
 .DS_Store
 *.pyc
 db.sqlite3
+# Errors from processing roadmap
+README.md-e
+# Override on production
+compose.override.yml
+# python coverage data
+.coverage

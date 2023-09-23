@@ -1,7 +1,6 @@
 [tool.poetry]
 authors = ["Oleksandr Korol <zibertua@gmail.com>"]
 description = ""
-license = "MIT"
 name = "backend"
 readme = "README.md"
 version = "0.1.0"
@@ -9,45 +8,46 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 Django = "^4.2.4"
 django-cors-headers = "^4.2.0"
+django-extensions = "^3.2.3"
 django-filter = "^23.2"
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.0"}
 drf-spectacular = "^0.26.4"
-python = "3.11"
-django-extensions = "^3.2.3"
+duckduckgo-search = "^3.8.5"
+gunicorn = "^21.2.0"
+python = "^3.11"
+uvicorn = {extras = ["standard"], version = "^0.23.2"}
+psycopg = {extras = ["binary"], version = "^3.1.10"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.7.0"
-ruff = "^0.0.285"
 mixer = "^7.2.2"
+ruff = "0.0.290"
 
+[tool.poetry.group.test.dependencies]
+coverage = {extras = ["toml"], version = "^7.2.7"}
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.ruff]
+fixable = ["ALL"]
 ignore = ["RUF005"]
 line-length = 120
-select = ["E", "F", "W", "I", "C4", "Q", "RUF", "PIE", "COM"]
+select = ["E", "F", "W", "I", "I001", "C4", "Q", "RUF", "PIE", "COM"]
 # Exclude a variety of commonly ignored directories.
 exclude = [
   ".git",
-  ".hg",
   ".mypy_cache",
   ".ruff_cache",
-  ".svn",
-  ".tox",
   ".venv",
   "__pypackages__",
   "_build",
   "buck-out",
   "migrations",
   "dist",
-  "venv",
   ".venv",
   ".conf",
-  ".data",
-  ".env",
   "asgi.py",
 ]
 per-file-ignores = {}
@@ -74,3 +74,24 @@ exclude = '''
 '''
 line-length = 120
 target-version = ["py311"]
+
+[tool.coverage.run]
+branch = true
+omit = [
+  ".venv/*",
+  "*/migrations/*",
+  "*/admin.py",
+  "*/apps.py",
+  "manage.py",
+  "*/settings.py",
+  "*/asgi.py",
+  "*/wsgi.py",
+  "*/tests.py",
+  "example/*",
+  "shop/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+sort = "cover"
