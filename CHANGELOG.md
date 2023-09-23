@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 - Add dependabot
 - Add postgres for hosting personal instance without sqlite
 - Add compose.dev.yml to take same postgres just with open port
+- Add deploy script to host persistent instance for personal use
 
 ### Fixed
 
