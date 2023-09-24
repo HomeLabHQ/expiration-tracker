@@ -11,6 +11,10 @@ export const authSlice = createSlice({
   },
 
   reducers: {
+    refreshToken: (state, action) => {
+      state.access = action.payload.access;
+      localStorage.setItem("access", action.payload.access);
+    },
     logout: (state) => {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
@@ -33,6 +37,6 @@ export const authSlice = createSlice({
   }
 });
 
-export const { logout, switchTheme } = authSlice.actions;
+export const { logout, switchTheme, refreshToken } = authSlice.actions;
 
 export default authSlice.reducer;

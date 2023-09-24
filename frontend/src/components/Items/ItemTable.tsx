@@ -218,13 +218,13 @@ export default function ItemTable() {
   return (
     <React.Fragment>
       <Space>
-        <ModalPopup message="Add new Item">
+        <ModalPopup message="Add Item">
           <ItemForm />
         </ModalPopup>
-        <ModalPopup message="Add new Location">
+        <ModalPopup message="Add Location">
           <LocationForm />
         </ModalPopup>
-        <ModalPopup message="Scan UPC" handler={setUpc}>
+        <ModalPopup message="Scan" handler={setUpc}>
           <Scanner />
         </ModalPopup>
         <Button onClick={() => setUpc("")} type="primary">

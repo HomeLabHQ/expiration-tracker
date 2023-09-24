@@ -31,7 +31,6 @@ export default function LocationForm(props: ParentModalProps) {
       layout="horizontal"
       style={{ maxWidth: 600 }}
       onFinish={onFinish}
-      initialValues={{ quantity: 1 }}
     >
       <Form.Item
         label="title"
