@@ -15,6 +15,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from items.constants import ItemCategory, ItemStatus
+from items.filters import ItemFilter
 from items.models import Item, Location
 from items.serializers import (
     BaseItemSerializer,
@@ -49,6 +50,7 @@ class ItemViewSet(
     serializer_class = ItemSerializer
     list_serializer_class = BaseItemSerializer
     filter_backends = (DjangoFilterBackend,)
+    filterset_class = ItemFilter
     queryset = (
         Item.objects.filter(status__in=[ItemStatus.STOCK.name, ItemStatus.OPENED.name])
         .annotate(expiration=(F("expiration_date") - datetime.date.today()))

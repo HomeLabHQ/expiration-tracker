@@ -42,16 +42,12 @@
     },
     {
       "name": "client",
-      "type": "firefox",
+      "type": "chrome",
       "request": "launch",
-      "profile": "dev-edition-default",
       "url": "http://localhost:3000",
-      "pathMappings": [
-        {
-          "url": "http://localhost:3000",
-          "path": "${workspaceFolder}/frontend"
-        }
-      ]
+      "userDataDir": false,
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/frontend"
     }
   ]
 }

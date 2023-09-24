@@ -5,7 +5,6 @@ import {
   DatePicker,
   Form,
   Input,
-  InputRef,
   Progress,
   Row,
   Select,
@@ -32,9 +31,9 @@ export default function ItemForm(props: ParentModalProps) {
   const [form] = Form.useForm();
   const { data: locations } = useLocationsListQuery(defaultPagination);
   const [addItem] = useItemsCreateMutation();
+  const [suggests, setSuggests] = React.useState(false);
   const [scanner, setScanner] = React.useState(false);
   const [searchItem] = useItemsSearchCreateMutation();
-  const titleInput = React.useRef<InputRef>(null);
   const submit = (values: ItemRequest, reuse: boolean) => {
     values.expiration_date = dayjs(values.expiration_date).format(DateFormat);
     if (!reuse) {
@@ -57,7 +56,6 @@ export default function ItemForm(props: ParentModalProps) {
         .then(() => {
           props.msg.success("Item added");
           form.setFieldsValue({ title: null });
-          form.scrollToField("title");
           setScanner(true);
           setOptions([]);
         })
@@ -93,7 +91,7 @@ export default function ItemForm(props: ParentModalProps) {
       layout="horizontal"
       style={{ maxWidth: 600 }}
       onFinish={(values) => submit(values, false)}
-      initialValues={{ category: "GOODS", status: "STOCK" }}
+      initialValues={{ category: "GOODS", status: "STOCK", upc: "" }}
     >
       <Row>
         <Form.Item
@@ -104,12 +102,16 @@ export default function ItemForm(props: ParentModalProps) {
             { max: 250, message: "Make it shorter" }
           ]}
         >
-          <AutoComplete allowClear defaultOpen options={options} style={{ width: 200 }}>
-            <Input ref={titleInput} />
-          </AutoComplete>
+          <AutoComplete
+            allowClear
+            options={options}
+            style={{ width: 200 }}
+            open={suggests}
+            onSelect={() => setSuggests(false)}
+          />
         </Form.Item>
         <Button onClick={() => setScanner(!scanner)}>
-          Scan barcode
+          Scan
           <BarcodeOutlined />
         </Button>
         {scanner && (
@@ -123,9 +125,10 @@ export default function ItemForm(props: ParentModalProps) {
                     results.push({ value: item.title, label: item.title });
                   });
                   setOptions(results);
+                  setSuggests(true);
                 });
               setScanner(!scanner);
-              titleInput.current?.focus();
+              form.setFieldsValue({ upc: result.getText() });
             }}
             onError={() => console.info("Scanner error")}
           />
@@ -171,6 +174,9 @@ export default function ItemForm(props: ParentModalProps) {
           }}
         />
       </Form.Item>
+      <Form.Item hidden name="upc">
+        <Input type="hidden" />
+      </Form.Item>
       <Space>
         <Button type="primary" htmlType="submit" block>
           Create
@@ -180,7 +186,10 @@ export default function ItemForm(props: ParentModalProps) {
           onClick={() =>
             form
               .validateFields()
-              .then(() => submit(form.getFieldsValue(), true))
+              .then(() => {
+                submit(form.getFieldsValue(), true);
+                setOptions([]);
+              })
               .catch((e) => console.log(e))
           }
         >

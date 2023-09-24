@@ -1,4 +1,4 @@
-import { DatePicker, Select, Space, Table, Tag, Typography } from "antd";
+import { Button, DatePicker, Select, Space, Table, Tag, Typography } from "antd";
 import { ColumnFilterItem, ColumnsType } from "antd/es/table/interface";
 import dayjs from "dayjs";
 import _ from "lodash";
@@ -17,15 +17,21 @@ import ModalPopup from "../shared/ModalPopup";
 import { DateFormat, defaultPagination } from "../../settings/settings";
 import { usePagination } from "../../hooks/usePagination";
 import ItemEnumSelector from "./ItemEnumSelector";
-
+import Scanner from "../shared/Scanner";
+import { CloseCircleOutlined } from "@ant-design/icons";
 export default function ItemTable() {
   const [page, setPage] = React.useState(defaultPagination.page);
   const [pageSize, setPageSize] = React.useState(defaultPagination.pageSize);
-  const { data: items, isLoading } = useItemsListQuery({ page: page, pageSize: pageSize });
+  // TODO: Group pagination + queryargs
+  const [upc, setUpc] = React.useState("");
+  const { data: items, isLoading } = useItemsListQuery({
+    page: page,
+    pageSize: pageSize,
+    upc: upc || undefined
+  });
   const { data: choices } = useItemsChoicesRetrieveQuery();
   const { data: locations } = useLocationsListQuery(defaultPagination);
   const [patchItem] = useItemsPartialUpdateMutation();
-
   const buildFilter = (value: string) => {
     const fieldChoices: ColumnFilterItem[] = [];
     if (choices) {
@@ -218,6 +224,12 @@ export default function ItemTable() {
         <ModalPopup message="Add new Location">
           <LocationForm />
         </ModalPopup>
+        <ModalPopup message="Scan UPC" handler={setUpc}>
+          <Scanner />
+        </ModalPopup>
+        <Button onClick={() => setUpc("")} type="primary">
+          <CloseCircleOutlined />
+        </Button>
       </Space>
       <Table
         loading={isLoading}

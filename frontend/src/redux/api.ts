@@ -41,7 +41,7 @@ const injectedRtkApi = api
       itemsList: build.query<ItemsListApiResponse, ItemsListApiArg>({
         query: (queryArg) => ({
           url: `/api/items/`,
-          params: { page: queryArg.page, page_size: queryArg.pageSize }
+          params: { page: queryArg.page, page_size: queryArg.pageSize, upc: queryArg.upc }
         }),
         providesTags: ["items"]
       }),
@@ -129,6 +129,7 @@ export type ItemsListApiArg = {
   page?: number;
   /** Number of results to return per page. */
   pageSize?: number;
+  upc?: string;
 };
 export type ItemsCreateApiResponse = /** status 201  */ ReprItem;
 export type ItemsCreateApiArg = {
@@ -212,6 +213,7 @@ export type BaseLocation = {
 export type ReprBaseItem = {
   id: number;
   title: string;
+  upc?: string | null;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -228,6 +230,7 @@ export type PaginatedReprBaseItemList = {
 export type ReprItem = {
   id: number;
   title: string;
+  upc?: string | null;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -238,6 +241,7 @@ export type ReprItem = {
 };
 export type ItemRequest = {
   title: string;
+  upc?: string | null;
   category?: CategoryEnum;
   status?: StatusEnum;
   opening_date?: string | null;
@@ -246,6 +250,7 @@ export type ItemRequest = {
 };
 export type PatchedItemRequest = {
   title?: string;
+  upc?: string | null;
   category?: CategoryEnum;
   status?: StatusEnum;
   opening_date?: string | null;
