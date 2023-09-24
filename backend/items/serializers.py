@@ -27,7 +27,17 @@ class BaseItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ("id", "title", "category", "status", "opening_date", "expiration_date", "location", "ttl")
+        fields = (
+            "id",
+            "title",
+            "upc",
+            "category",
+            "status",
+            "opening_date",
+            "expiration_date",
+            "location",
+            "ttl",
+        )
         read_only_fields = ("ttl",)
 
 
