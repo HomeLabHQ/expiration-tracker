@@ -21,7 +21,7 @@ export default function ModalPopup(props: ModalProps) {
 
   return (
     <React.Fragment>
-      <Button type="primary" size="large" onClick={handleClickOpen}>
+      <Button type="primary" onClick={handleClickOpen}>
         {props.message}
       </Button>
       <Modal footer={null} title={props.message} open={open} onCancel={handleClose}>
