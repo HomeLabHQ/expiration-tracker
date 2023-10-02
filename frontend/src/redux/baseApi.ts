@@ -51,7 +51,7 @@ const tokenRefreshFetchBase: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQ
     if (refreshResult.data) {
       // Save new access token in auth slice and local storage
       const data = refreshResult.data as AuthRefreshCreateApiResponse;
-      await api.dispatch(
+      api.dispatch(
         refreshToken({
           access: data.access
         })
