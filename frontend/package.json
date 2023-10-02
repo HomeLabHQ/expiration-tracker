@@ -37,7 +37,7 @@
     "@types/lodash": "^4.14.198",
     "@types/mocha": "^10.0.2",
     "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
+    "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
     "@typescript-eslint/parser": "^6.7.3",
     "@vitejs/plugin-react": "^4.0.0",
