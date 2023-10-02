@@ -12,7 +12,7 @@ django-extensions = "^3.2.3"
 django-filter = "^23.3"
 djangorestframework = "^3.14.0"
 djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.0"}
-drf-spectacular = "^0.26.4"
+drf-spectacular = "^0.26.5"
 duckduckgo-search = "^3.9.0"
 gunicorn = "^21.2.0"
 python = "^3.11"
