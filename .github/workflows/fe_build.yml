@@ -7,6 +7,9 @@ jobs:
     env:
       ENVIRONMENT: "demo"
     runs-on: self-hosted
+    defaults:
+      run:
+        working-directory: ./frontend
     steps:
       - name: Set Node.js 18.x
         uses: actions/setup-node@v3
@@ -15,7 +18,9 @@ jobs:
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
-          cmd: cd ./frontend && install
+          cmd: install
       - uses: actions/checkout@v3
       - name: Run build
-        run: npm run build
+        run: |
+          yarn install
+          npm run build
