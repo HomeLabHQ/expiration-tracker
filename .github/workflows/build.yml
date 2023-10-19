@@ -1,0 +1,13 @@
+name: Build
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  fe_build:
+    env:
+      ENVIRONMENT: "demo"
+    runs-on: self-hosted
+    steps:
+      - name: Run compose file build
+        run: |
+          docker compose build
