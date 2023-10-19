@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Add docker build flow
+
 ### Fixed
 
 - Fixed password input on login form
