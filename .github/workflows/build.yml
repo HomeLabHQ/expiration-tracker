@@ -8,6 +8,7 @@ jobs:
       ENVIRONMENT: "demo"
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
       - name: Make env file
         run: cp ./docs/.env.example .env
       - name: Run compose file build
