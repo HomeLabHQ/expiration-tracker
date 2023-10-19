@@ -3,11 +3,12 @@ on:
   pull_request:
     types: [opened, synchronize]
 jobs:
-  fe_build:
+  docker_build:
     env:
       ENVIRONMENT: "demo"
     runs-on: self-hosted
     steps:
+      - name: Make env file
+        run: cp ./docs/.env.example .env
       - name: Run compose file build
-        run: |
-          docker compose build
+        run: docker compose build
