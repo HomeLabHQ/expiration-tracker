@@ -24,7 +24,7 @@ ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 FROM python_base AS builder_base
 RUN apt-get update && \
     apt-get --no-install-recommends -y install \
-    curl=7.88.1-10+deb12u1 && \
+    curl=7.88.1-10+deb12u4 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
