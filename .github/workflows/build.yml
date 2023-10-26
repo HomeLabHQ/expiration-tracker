@@ -1,0 +1,19 @@
+name: Build
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  docker_build:
+    env:
+      ENVIRONMENT: "demo"
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make env file
+        run: cp ./docs/.env.example .env
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Run build
+        run: docker compose build
