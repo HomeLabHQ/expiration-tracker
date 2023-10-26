@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-- Add docker build flow
+- Add docker build flow on self-hosted runner
 
 ### Fixed
 
