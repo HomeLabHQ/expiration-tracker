@@ -56,7 +56,7 @@ class SignUpSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Only english letters are allowed")
         return value
 
-    def create(self, validated_data, is_dealer=False):
+    def create(self, validated_data) -> User:
         first_name = validated_data.pop("first_name", "")
         last_name = validated_data.pop("last_name", "")
         user = User.objects.create(

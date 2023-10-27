@@ -70,13 +70,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS: typing.ClassVar = ["first_name", "last_name"]
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         return f"{self.first_name} {self.last_name}"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.id}, {self.email}"
 
-    def has_perm(self, perm, obj=None):
+    def has_perm(self, perm, obj=None) -> bool:
         """
         Return True if the user has the specified permission. Query all
         available auth backends, but return immediately if any backend returns

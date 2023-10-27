@@ -58,37 +58,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/TokenRefresh'
           description: ''
-  /api/auth/register/:
-    post:
-      operationId: auth_register_create
-      description: |-
-        Register new user in the system
-
-        You need to provide `email`, `first_name`, `last_name`, `password_repeated`
-      tags:
-      - auth
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SignUpRequest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/SignUpRequest'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/SignUpRequest'
-        required: true
-      security:
-      - jwtAuth: []
-      - {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SignUp'
-          description: ''
   /api/auth/verify/:
     post:
       operationId: auth_verify_create
@@ -689,46 +658,6 @@ components:
       - body
       - href
       - title
-    SignUp:
-      type: object
-      description: Create new user when sign up
-      properties:
-        id:
-          type: integer
-          readOnly: true
-        email:
-          type: string
-          format: email
-          title: Email address
-          maxLength: 255
-        first_name:
-          type: string
-        last_name:
-          type: string
-      required:
-      - email
-      - id
-    SignUpRequest:
-      type: object
-      description: Create new user when sign up
-      properties:
-        email:
-          type: string
-          format: email
-          minLength: 1
-          title: Email address
-          maxLength: 255
-        first_name:
-          type: string
-        last_name:
-          type: string
-        password:
-          type: string
-          writeOnly: true
-          minLength: 1
-      required:
-      - email
-      - password
     StatusEnum:
       enum:
       - STOCK

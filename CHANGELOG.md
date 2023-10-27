@@ -8,11 +8,13 @@ All notable changes to this project will be documented in this file.
 
 - Add docker build flow on self-hosted runner
 - Remove fe_build flow (due to docker build have it)
+- Add ruff formatter
 
 ### Fixed
 
 - Fixed password input on login form
 - Fixed broken `CRUDTestCase` after switching to postgresql
+- Removed Signup views
 
 ### Changed
 
