@@ -6,7 +6,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker/badge)](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker)
 [![Build](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml)
 [![codecov](https://codecov.io/github/HomeLabHQ/expiration-tracker/graph/badge.svg?token=7KECP9M2IS)](https://codecov.io/github/HomeLabHQ/expiration-tracker)
-
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 <div align="center">
   <h3 align="center">Expiration tracker</h3>
 </div>
@@ -40,7 +40,7 @@ Main goal of this project is to allow users to track expiration dates of items(f
 and hopefully eliminate huge portions of wasted food/medications.
 Also as a bonus i get to dive into Typescript and Ant Design.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ## Demo
 
@@ -54,7 +54,7 @@ email:test@example.com
 password:Test12345
 ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ### Built With
 
@@ -64,7 +64,7 @@ password:Test12345
 [![Vite][Vite]][Vite-url]
 [![Antd][Antd]][Antd-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ## Getting Started
 
@@ -90,7 +90,7 @@ Also strongly recommend using tools like nvm and pyenv for running specific vers
    - Creates superuser from .env variables
    - Run migrations
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ## Usage
 
@@ -106,7 +106,7 @@ Complete app to use
 - Create superuser from .env `docker exec -it api python manage.py createsuperuser --no-input`
 - Access via `http://hostip`
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ## Roadmap
 
@@ -114,7 +114,7 @@ Overall project plans and tasks can be found here
 
 [Roadmap](https://github.com/orgs/HomeLabHQ/projects/4/views/3)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 ## Contributing
 
@@ -131,7 +131,7 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right"><a href="#readme-top">⬆️</a></p>
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/oleksandr-korol/

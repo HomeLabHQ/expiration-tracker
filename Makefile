@@ -16,6 +16,9 @@ update: ## Update dependencies
 start: ## Start be+fe
 	cd backend && poetry run manage.py runserver & \
 	cd frontend && npm run dev
+	be_init: ## Run migrations + create superuser from .env
+dev: ## Start dev dependencies
+	docker compose --env-file .env -f compose.dev.yml up -d
 be_init: ## Run migrations + create superuser from .env
 	cd backend && poetry run python manage.py migrate && python manage.py createsuperuser --no-input
 coverage: ## Generate coverage report
@@ -24,6 +27,6 @@ be_shell: ## start be shell
 	cd backend && python ./manage.py shell_plus
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	cd backend && python ./manage.py admin_generator $(app)
-sync_api: ## Regenerate api schema + rtk query slices
+api: ## Regenerate api schema + rtk query slices
 	cd backend && python ./manage.py spectacular --color --file ../docs/schema.yml && \
 	cd ../frontend && npm run api-generate

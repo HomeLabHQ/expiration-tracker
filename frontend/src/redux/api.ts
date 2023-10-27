@@ -22,14 +22,6 @@ const injectedRtkApi = api
         }),
         invalidatesTags: ["auth"]
       }),
-      authRegisterCreate: build.mutation<AuthRegisterCreateApiResponse, AuthRegisterCreateApiArg>({
-        query: (queryArg) => ({
-          url: `/api/auth/register/`,
-          method: "POST",
-          body: queryArg.signUpRequest
-        }),
-        invalidatesTags: ["auth"]
-      }),
       authVerifyCreate: build.mutation<AuthVerifyCreateApiResponse, AuthVerifyCreateApiArg>({
         query: (queryArg) => ({
           url: `/api/auth/verify/`,
@@ -115,10 +107,6 @@ export type AuthRefreshCreateApiResponse = /** status 200  */ TokenRefresh;
 export type AuthRefreshCreateApiArg = {
   tokenRefreshRequest: TokenRefreshRequest;
 };
-export type AuthRegisterCreateApiResponse = /** status 201  */ SignUp;
-export type AuthRegisterCreateApiArg = {
-  signUpRequest: SignUpRequest;
-};
 export type AuthVerifyCreateApiResponse = unknown;
 export type AuthVerifyCreateApiArg = {
   tokenVerifyRequest: TokenVerifyRequest;
@@ -188,18 +176,6 @@ export type TokenRefresh = {
 };
 export type TokenRefreshRequest = {
   refresh: string;
-};
-export type SignUp = {
-  id: number;
-  email: string;
-  first_name?: string;
-  last_name?: string;
-};
-export type SignUpRequest = {
-  email: string;
-  first_name?: string;
-  last_name?: string;
-  password: string;
 };
 export type TokenVerifyRequest = {
   token: string;
@@ -287,7 +263,6 @@ export type LocationRequest = {
 export const {
   useAuthCreateMutation,
   useAuthRefreshCreateMutation,
-  useAuthRegisterCreateMutation,
   useAuthVerifyCreateMutation,
   useItemsListQuery,
   useItemsCreateMutation,
