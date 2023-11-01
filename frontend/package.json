@@ -16,7 +16,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.1",
+    "@reduxjs/toolkit": "^1.9.7",
     "@yudiel/react-qr-scanner": "^1.1.10",
     "antd": "^5.8.6",
     "dayjs": "^1.11.10",
