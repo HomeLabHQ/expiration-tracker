@@ -7,6 +7,7 @@
 [![Build](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml)
 [![codecov](https://codecov.io/github/HomeLabHQ/expiration-tracker/graph/badge.svg?token=7KECP9M2IS)](https://codecov.io/github/HomeLabHQ/expiration-tracker)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
 <div align="center">
   <h3 align="center">Expiration tracker</h3>
 </div>
@@ -65,6 +66,10 @@ password:Test12345
 [![Antd][Antd]][Antd-url]
 
 <p align="right"><a href="#readme-top">⬆️</a></p>
+
+### DB schema
+
+[DB_schema](https://azimutt.app/8282c836-4d6a-490e-8584-e618796cbe51/443fed1f-1574-443b-8b1a-00967b06d3df?layout=initial%20layout&token=7adde628-87f7-46f4-842c-028c562fc5ea)
 
 ## Getting Started
 
