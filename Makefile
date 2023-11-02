@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 .PHONY: help
-
+include .env
 help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 	| sed -n 's/^\(.*\): \(.*\)##\(.*\)/\1##\3/p' \
@@ -19,6 +19,8 @@ start: ## Start be+fe
 	be_init: ## Run migrations + create superuser from .env
 dev: ## Start dev dependencies
 	docker compose --env-file .env -f compose.dev.yml up -d
+erd:
+	`docker exec  expiration-tracker-db  pg_dump -U ${POSTGRES_USER} --schema-only  > docs/db.sql`
 be_init: ## Run migrations + create superuser from .env
 	cd backend && poetry run python manage.py migrate && python manage.py createsuperuser --no-input
 coverage: ## Generate coverage report
