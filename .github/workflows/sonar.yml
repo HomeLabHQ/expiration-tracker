@@ -27,8 +27,6 @@ jobs:
       - name: Test for coverage
         run: coverage run ./manage.py test && coverage xml
         working-directory: ./backend
-      - name: get content
-        run: ls -a
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -38,3 +36,5 @@ jobs:
           args: >
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
+            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.github.repository=homelabhq/expiration-tracker
