@@ -15,9 +15,9 @@ djangorestframework-simplejwt = {extras = ["crypto"], version = "^5.3.0"}
 drf-spectacular = "^0.26.5"
 duckduckgo-search = "^3.9.0"
 gunicorn = "^21.2.0"
+psycopg = {extras = ["binary"], version = "^3.1.12"}
 python = "^3.11"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
-psycopg = {extras = ["binary"], version = "^3.1.12"}
 
 [tool.poetry.group.dev.dependencies]
 mixer = "^7.2.2"
@@ -30,9 +30,9 @@ build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.ruff]
-fixable = ["ALL"]
-ignore = ["RUF005"]
 line-length = 120
+
+ignore = ["COM812", "COM819", "E501", "Q000", "Q001", "Q002", "Q003", "W191"]
 select = ["E", "F", "W", "I", "I001", "C4", "Q", "RUF", "PIE", "COM"]
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -41,11 +41,8 @@ exclude = [
   ".ruff_cache",
   ".venv",
   "__pypackages__",
-  "_build",
-  "buck-out",
   "migrations",
   "dist",
-  ".venv",
   ".conf",
   "asgi.py",
 ]
@@ -56,24 +53,16 @@ target-version = "py311"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
-[tool.black]
-exclude = '''
-/(
-    \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | ^.*\b(migrations)\b.*$
-)/
-'''
-line-length = 120
-target-version = ["py311"]
 
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.isort]
+combine-as-imports = true
 [tool.coverage.run]
 branch = true
 omit = [
