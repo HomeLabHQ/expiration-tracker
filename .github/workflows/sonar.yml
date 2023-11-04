@@ -34,3 +34,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=HomeLabHQ_expiration-tracker
+            -Dsonar.organization=homelabhq
+            -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+            -Dsonar.tests=backend
+            -Donar.sources=.
