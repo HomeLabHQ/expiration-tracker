@@ -1,21 +1,20 @@
-name: BE tests
+name: SonarQube
 on:
+  push:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, synchronize, reopened]
 jobs:
-  be_tests:
-    env:
-      ENVIRONMENT: "demo"
-    runs-on: self-hosted
-    defaults:
-      run:
-        working-directory: ./backend
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - name: Install and configure Poetry
         uses: snok/install-poetry@v1.3.4
         with:
@@ -27,10 +26,8 @@ jobs:
         run: poetry install --with test
       - name: Test for coverage
         run: coverage run ./manage.py test && coverage xml
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./backend/coverage.xml
-          flags: be
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
