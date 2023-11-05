@@ -11,6 +11,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
+      - name: Extract branch name
+        shell: bash
+        run: echo "BRANCH_NAME=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        id: extract_branch
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -23,18 +27,19 @@ jobs:
       - name: Install dependencies
         run: poetry -C backend install --with test
       - name: Test for coverage
-        run:
-          poetry -C backend run coverage run backend/manage.py test backend &&
+        run: poetry -C backend run coverage run backend/manage.py test backend &&
           poetry -C backend run coverage xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
         with:
           args: >
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
+            -Dsonar.branch.name=${BRANCH_NAME}
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.verbose=true
