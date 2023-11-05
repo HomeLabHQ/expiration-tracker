@@ -32,13 +32,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-        with:
-          args: >
-            -Dsonar.projectKey=HomeLabHQ_expiration-tracker
-            -Dsonar.organization=homelabhq
-            -Dsonar.branch.name=${BRANCH_NAME}
-            -Dsonar.sourceEncoding=UTF-8
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.verbose=true
-            -Dsonar.sources=.
