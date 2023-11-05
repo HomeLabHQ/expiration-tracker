@@ -38,4 +38,3 @@ jobs:
             -Dsonar.organization=homelabhq
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.sources=.
-            -Dsonar.verbose=true
