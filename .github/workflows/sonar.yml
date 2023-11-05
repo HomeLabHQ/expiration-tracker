@@ -24,13 +24,19 @@ jobs:
           installer-parallel: true
       - name: Install dependencies
         run: poetry -C backend install --with test
-      - name: Get directory
-        run: pwd
       - name: Test for coverage
         run: poetry -C backend run coverage run backend/manage.py test backend &&
           poetry -C backend run coverage xml
+      - name: Extract project dir
+        shell: bash
+        run: echo "BASE_DIR=${pwd}" >> $GITHUB_ENV
+        id: extract_project_dir
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectBaseDir=${BASE_DIR}
+            -Dsonar.branch.name=${BRANCH_NAME}
