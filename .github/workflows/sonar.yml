@@ -24,7 +24,7 @@ jobs:
         run: poetry -C backend install --with test
       - name: Test for coverage
         run:
-          poetry -C backend run coverage run ./manage.py test &&
+          poetry -C backend run coverage run backend/manage.py test &&
           poetry -C backend run coverage xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
