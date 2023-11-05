@@ -14,8 +14,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Extract branch name
         shell: bash
         run: echo "BRANCH_NAME=$(echo ${{ github.ref }} | awk -F/ '{print $3}')" >> $GITHUB_ENV
