@@ -1,6 +1,8 @@
 name: SonarCloud
 on:
   push:
+  pull_request:
+    types: [opened, synchronize]
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -29,10 +31,6 @@ jobs:
       - name: Test for coverage
         run: poetry -C backend run coverage run backend/manage.py test backend &&
           poetry -C backend run coverage xml
-      - name: Extract project dir
-        shell: bash
-        run: echo "BASE_DIR=$(pwd)" >> $GITHUB_ENV
-        id: extract_project_dir
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -40,5 +38,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectBaseDir=${BASE_DIR}
             -Dsonar.branch.name=${BRANCH_NAME}
