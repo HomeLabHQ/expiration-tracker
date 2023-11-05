@@ -24,6 +24,8 @@ jobs:
           installer-parallel: true
       - name: Install dependencies
         run: poetry -C backend install --with test
+      - name: Get directory
+        run: pwd
       - name: Test for coverage
         run: poetry -C backend run coverage run backend/manage.py test backend &&
           poetry -C backend run coverage xml
