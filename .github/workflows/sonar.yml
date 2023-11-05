@@ -1,6 +1,9 @@
 name: SonarCloud
 on:
   push:
+    branches:
+      - main
+      - dev
   pull_request:
     types: [opened, synchronize]
 jobs:
@@ -42,4 +45,3 @@ jobs:
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
             -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.sources=.
