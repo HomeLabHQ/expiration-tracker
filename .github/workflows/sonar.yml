@@ -37,5 +37,5 @@ jobs:
             -Dsonar.organization=homelabhq
             -Dsonar.sourceEncoding=UTF-8
             -Dsonar.python.coverage.reportPaths=coverage.xml
--Dsonar.verbose=true
+            -Dsonar.verbose=true
             -Dsonar.sources=.
