@@ -42,5 +42,4 @@ jobs:
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
             -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.tests=backend
             -Dsonar.sources=.
