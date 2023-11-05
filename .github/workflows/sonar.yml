@@ -17,8 +17,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Extract branch name
+        shell: bash
+        run: echo "BRANCH_NAME=$(echo ${{ github.ref }} | awk -F/ '{print $$3}')" >> $GITHUB_ENV
         id: extract_branch_name
-        run: echo "##[set-output name=branch;]$(echo ${{ github.ref }} | awk -F/ '{print $$3}')"
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -42,7 +43,7 @@ jobs:
           projectBaseDir: /home/runner/work/expiration-tracker/expiration-tracker
           args: >
             -Dsonar.scm.provider=git
-            -Dsonar.branch.name=${{ steps.extract_branch_name.outputs.branch }}
+            -Dsonar.branch.name=${BRANCH_NAME}
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
             -Dsonar.python.coverage.reportPaths=coverage.xml
