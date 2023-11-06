@@ -27,6 +27,8 @@ jobs:
         with:
           version: 1.7.0
           installer-parallel: true
+      - name: show envs
+        run: printenv
       - name: Install dependencies
         run: poetry -C backend install --with test
       - name: Test for coverage
