@@ -3,9 +3,12 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
 [![TimeSpent][Wakatime-shield]][Wakatime-shield]
-[![CodeFactor](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker/badge)](https://www.codefactor.io/repository/github/homelabhq/expiration-tracker)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_expiration-tracker&metric=coverage)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_expiration-tracker)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_expiration-tracker&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_expiration-tracker)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_expiration-tracker&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_expiration-tracker)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_expiration-tracker&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_expiration-tracker)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=HomeLabHQ_expiration-tracker&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=HomeLabHQ_expiration-tracker)
 [![Build](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml)
-[![codecov](https://codecov.io/github/HomeLabHQ/expiration-tracker/graph/badge.svg?token=7KECP9M2IS)](https://codecov.io/github/HomeLabHQ/expiration-tracker)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 <div align="center">
