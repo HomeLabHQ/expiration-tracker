@@ -72,7 +72,7 @@ password:Test12345
 
 ### DB schema
 
-[DB_schema](https://azimutt.app/8282c836-4d6a-490e-8584-e618796cbe51/443fed1f-1574-443b-8b1a-00967b06d3df?layout=initial%20layout&token=7adde628-87f7-46f4-842c-028c562fc5ea)
+![DB_schema](./docs/db.html)
 
 ## Getting Started
 
