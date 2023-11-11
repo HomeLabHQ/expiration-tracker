@@ -19,7 +19,7 @@ export function usePagination<T>({
   setPageSize,
   setPage
 }: PaginationArg<T>): TablePaginationConfig {
-  const [keyName] = useState(name ? `expiration-tracker-${name}-pagination` : undefined);
+  const keyName = useMemo(() => (name ? `expiration-tracker-${name}-pagination` : undefined), []);
   const [current, setCurrent] = useState(1);
 
   useEffect(() => {
@@ -30,8 +30,10 @@ export function usePagination<T>({
         if (pagObj.length === 2) {
           try {
             setCurrent(parseInt(pagObj[0], 10));
+            setPageSize?.(parseInt(pagObj[1], 10));
           } catch {
             setCurrent(1);
+            setPageSize?.(parseInt(pagObj[1], 10));
             localStorage.removeItem(keyName);
           }
         } else {
@@ -48,7 +50,7 @@ export function usePagination<T>({
     return {
       defaultCurrent: current,
       defaultPageSize: pageSize,
-      total: obj?.length || total,
+      total: obj?.length ?? total,
       pageSize: pageSize,
       current: current,
       disabled: false,

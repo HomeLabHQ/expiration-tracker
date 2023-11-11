@@ -9,7 +9,7 @@ export default function ThemeToggle() {
     <Switch
       checkedChildren="Dark"
       unCheckedChildren="Light"
-      defaultChecked={mode == "dark" ? true : false}
+      defaultChecked={mode === "dark"}
       onChange={() => dispatch(switchTheme())}
     />
   );

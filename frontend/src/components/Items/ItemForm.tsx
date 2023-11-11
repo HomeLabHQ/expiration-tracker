@@ -23,9 +23,11 @@ import { DefaultOptionType } from "antd/es/select";
 import { QrScanner } from "@yudiel/react-qr-scanner";
 import ItemEnumSelector from "./ItemEnumSelector";
 import { BarcodeOutlined } from "@ant-design/icons";
-import { useProgress } from "../../hooks/useProgress";
+import { getProgress } from "../../hooks/getProgress";
+import ModalPopup from "../shared/ModalPopup";
+import LocationForm from "../LocationForm";
 
-export default function ItemForm(props: ParentModalProps) {
+export default function ItemForm(props: Readonly<ParentModalProps>) {
   const [formProgress, setFormProgress] = React.useState(40);
   const [options, setOptions] = React.useState<DefaultOptionType[]>([]);
   const [form] = Form.useForm();
@@ -83,7 +85,7 @@ export default function ItemForm(props: ParentModalProps) {
     <Form
       form={form}
       onFieldsChange={(changedFields, allFields) =>
-        useProgress({ allFields, handler: setFormProgress })
+        getProgress({ allFields, handler: setFormProgress })
       }
       requiredMark="optional"
       scrollToFirstError
@@ -95,7 +97,7 @@ export default function ItemForm(props: ParentModalProps) {
     >
       <Row>
         <Form.Item
-          label="title"
+          label="Title"
           name="title"
           rules={[
             { required: true, message: "Please input Title" },
@@ -105,7 +107,7 @@ export default function ItemForm(props: ParentModalProps) {
           <AutoComplete
             allowClear
             options={options}
-            style={{ width: 200 }}
+            style={{ width: 300 }}
             open={suggests}
             onSelect={() => setSuggests(false)}
           />
@@ -138,7 +140,7 @@ export default function ItemForm(props: ParentModalProps) {
       <Row>
         <Col xs={12}>
           <Form.Item
-            label="category"
+            label="Category"
             name="category"
             rules={[{ required: true, message: "Please select category" }]}
           >
@@ -147,7 +149,7 @@ export default function ItemForm(props: ParentModalProps) {
         </Col>
         <Col xs={12}>
           <Form.Item
-            label="status"
+            label="Status"
             name="status"
             rules={[{ required: true, message: "Please select status" }]}
           >
@@ -155,13 +157,20 @@ export default function ItemForm(props: ParentModalProps) {
           </Form.Item>
         </Col>
       </Row>
-      <Form.Item
-        label="location"
-        name="location"
-        rules={[{ required: true, message: "Please select location" }]}
-      >
-        <Select>{renderLocationSelector()}</Select>
-      </Form.Item>
+      {locations?.results?.length ? (
+        <Form.Item
+          label="Location"
+          name="location"
+          rules={[{ required: true, message: "Please select location" }]}
+        >
+          <Select>{renderLocationSelector()}</Select>
+        </Form.Item>
+      ) : (
+        <ModalPopup message="Add Location">
+          <LocationForm />
+        </ModalPopup>
+      )}
+
       <Form.Item
         label="Expiration date"
         required

@@ -1,4 +1,3 @@
-import React from "react";
 import { Layout, Space } from "antd";
 import { SocialLinks, IconSize } from "../../settings/settings";
 import { LinkedinFilled, GithubFilled, MailFilled } from "@ant-design/icons";
@@ -22,7 +21,7 @@ export default function Footer() {
           );
         case "mail":
           return (
-            <a key={index} href={link.url} target="_blank" rel="noreferrer">
+            <a key={index} href={`mailto:${link.url}`} target="_blank" rel="noreferrer">
               <MailFilled style={socialIconStyle} />
             </a>
           );
@@ -32,16 +31,14 @@ export default function Footer() {
   };
 
   return (
-    <React.Fragment>
-      <Layout.Footer
-        style={{
-          bottom: 0,
-          width: "100%",
-          textAlign: "center"
-        }}
-      >
-        Oleksandr Korol ©2023 <Space>{renderSocialLinks()}</Space>
-      </Layout.Footer>
-    </React.Fragment>
+    <Layout.Footer
+      style={{
+        bottom: 0,
+        width: "100%",
+        textAlign: "center"
+      }}
+    >
+      Oleksandr Korol ©2023 <Space>{renderSocialLinks()}</Space>
+    </Layout.Footer>
   );
 }
