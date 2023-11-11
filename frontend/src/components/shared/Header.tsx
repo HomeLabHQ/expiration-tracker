@@ -1,26 +1,26 @@
-import { Menu, Button } from "antd"
-import { CalendarTwoTone } from "@ant-design/icons"
-import type { MenuProps } from "antd"
-import { AppName } from "../../settings/settings"
-import { logout } from "../../redux/authSlice"
-import { useDispatch } from "react-redux"
-import ThemeToggle from "./ThemeToggle"
+import { Menu, Button } from "antd";
+import { CalendarTwoTone } from "@ant-design/icons";
+import type { MenuProps } from "antd";
+import { AppName } from "../../settings/settings";
+import { logout } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
+import ThemeToggle from "./ThemeToggle";
 export default function Header() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const items: MenuProps["items"] = [
     {
       label: AppName,
       key: "mail",
-      icon: <CalendarTwoTone />,
+      icon: <CalendarTwoTone />
     },
     {
       label: <Button onClick={() => dispatch(logout())}>Logout</Button>,
-      key: "logout",
+      key: "logout"
     },
     {
       label: <ThemeToggle />,
-      key: "theme",
-    },
-  ]
-  return <Menu items={items} selectable={false} mode="horizontal"></Menu>
+      key: "theme"
+    }
+  ];
+  return <Menu items={items} selectable={false} mode="horizontal"></Menu>;
 }

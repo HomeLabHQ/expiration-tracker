@@ -6,7 +6,7 @@ interface ModalProps {
   children: React.ReactElement;
   handler?: (value: string) => void;
 }
-export default function ModalPopup(props: ModalProps) {
+export default function ModalPopup(props: Readonly<ModalProps>) {
   const [open, setOpen] = React.useState(false);
   const [msg, contextHolder] = message.useMessage();
   const handleClickOpen = () => {

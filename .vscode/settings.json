@@ -9,5 +9,9 @@
 },
 "[python]": {
   "editor.defaultFormatter": "charliermarsh.ruff"
+},
+"sonarlint.connectedMode.project": {
+  "connectionId": "VScode",
+  "projectKey": "HomeLabHQ_expiration-tracker"
 }
 }

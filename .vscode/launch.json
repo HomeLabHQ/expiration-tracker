@@ -1,8 +1,13 @@
 {
   "version": "0.2.0",
   "compounds": [
+       {
+      "name": "fe+be",
+      "configurations": ["be-server", "fe-server"],
+      "stopAll": true
+    },
     {
-      "name": "server+client",
+      "name": "fe+be+browser",
       "configurations": ["be-server", "fe-server", "client"],
       "stopAll": true
     }

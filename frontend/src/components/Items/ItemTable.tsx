@@ -19,10 +19,12 @@ import { usePagination } from "../../hooks/usePagination";
 import ItemEnumSelector from "./ItemEnumSelector";
 import Scanner from "../shared/Scanner";
 import { CloseCircleOutlined } from "@ant-design/icons";
+
+type FilterChoice = string | number | boolean;
+
 export default function ItemTable() {
   const [page, setPage] = React.useState(defaultPagination.page);
   const [pageSize, setPageSize] = React.useState(defaultPagination.pageSize);
-  // TODO: Group pagination + queryargs
   const [upc, setUpc] = React.useState("");
   const { data: items, isLoading } = useItemsListQuery({
     page: page,
@@ -36,7 +38,7 @@ export default function ItemTable() {
     const fieldChoices: ColumnFilterItem[] = [];
     if (choices) {
       const fieldChoice = _.find(choices, { field: value });
-      fieldChoice?.values.map((item: string | number | boolean) => {
+      fieldChoice?.values.map((item: FilterChoice) => {
         fieldChoices.push({
           text: String(item)[0] + String(item).slice(1).toLowerCase(),
           value: item
@@ -217,7 +219,7 @@ export default function ItemTable() {
 
   return (
     <React.Fragment>
-      <Space>
+      <Space size="large" align="center" direction="horizontal">
         <ModalPopup message="Add Item">
           <ItemForm />
         </ModalPopup>
