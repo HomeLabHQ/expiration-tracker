@@ -72,7 +72,7 @@ password:Test12345
 
 ### DB schema
 
-![DB_schema](./docs/db.html)
+![DB_schema](./docs/db.svg)
 
 ## Getting Started
 

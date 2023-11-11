@@ -32,7 +32,7 @@ be_shell: ## start be shell
 	cd backend && python ./manage.py shell_plus
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	cd backend && python ./manage.py admin_generator $(app)
-erd: ## Use SchemaCrawler to generate diff compatible ERD
+erd: ## Use SchemaCrawler to generate diff compatible
 	docker compose -f compose.dev.yml up db crawler -d && \
 	docker compose exec crawler \
 	/opt/schemacrawler/bin/schemacrawler.sh \
@@ -44,5 +44,19 @@ erd: ## Use SchemaCrawler to generate diff compatible ERD
 	--password $(POSTGRES_PASSWORD) \
 	--command schema \
 	--no-info \
-	--output-format=htmlx \
-	--info-level standard  --output-file share/db.html
+	--info-level standard \
+	--output-format htmlx \
+	--output-file share/db.html && \
+	docker compose exec crawler \
+	/opt/schemacrawler/bin/schemacrawler.sh \
+	--server postgresql \
+	--schemas=public \
+	--host db \
+	--port $(DB_PORT) \
+	--user $(POSTGRES_USER) \
+	--password $(POSTGRES_PASSWORD) \
+	--command schema \
+	--no-info \
+	--info-level standard \
+	--output-format svg \
+	--output-file share/db.svg

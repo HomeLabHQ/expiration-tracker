@@ -38,4 +38,5 @@ jobs:
           args: >
             -Dsonar.projectKey=HomeLabHQ_expiration-tracker
             -Dsonar.organization=homelabhq
+            -Dsonar.exclude=docs/*
             -Dsonar.python.coverage.reportPaths=coverage.xml
