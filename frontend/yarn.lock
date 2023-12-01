@@ -2145,10 +2145,10 @@
     loupe "^2.3.6"
     pretty-format "^29.5.0"
 
-"@yudiel/react-qr-scanner@^1.1.10":
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/@yudiel/react-qr-scanner/-/react-qr-scanner-1.1.10.tgz#d6508f57947e8e35e106000c7263746b9d9912a8"
-  integrity sha512-+YIHbnocynkkGgyMK8MMkn1NBnJRwJntdm4shQ+linm4NdGdSAavLYxJYwnk2PixZyVu/GZ3Uc2aM0XWlBq+Zw==
+"@yudiel/react-qr-scanner@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@yudiel/react-qr-scanner/-/react-qr-scanner-1.2.3.tgz#d3e48c0c93dc074799a84d11002699f4c74e1102"
+  integrity sha512-DxM0wMibWcqlvp+Zrws4qjl5a87pVfhHOg0HXO+kewci1iX4Xj68ZH6Cx8SDH2CJMy6AY0GYp9oYJDkEq/5inA==
   dependencies:
     "@zxing/library" "^0.20.0"
 

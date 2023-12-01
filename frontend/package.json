@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
-    "@yudiel/react-qr-scanner": "^1.1.10",
+    "@yudiel/react-qr-scanner": "^1.2.3",
     "antd": "^5.8.6",
     "dayjs": "^1.11.10",
     "jwt-decode": "^3.1.2",
