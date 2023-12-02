@@ -11,7 +11,7 @@ setup: ## Prepare virtual env and setup project
 	cd frontend && yarn install &\
 	pre-commit install
 update: ## Update dependencies
-	cd backend && poetry update &&\
+	cd backend && poetry update &\
 	cd frontend && yarn upgrade
 dev: ## Start docker compose stack for development
 	docker compose -f compose.dev.yml up db -d
