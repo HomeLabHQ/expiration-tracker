@@ -55,7 +55,7 @@
     "less": "^4.2.0",
     "prettier": "3.0.3",
     "prettier-config-nick": "^1.0.2",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "*",
     "vite": "^4.5.1",
     "vitest": "^0.34.6"
