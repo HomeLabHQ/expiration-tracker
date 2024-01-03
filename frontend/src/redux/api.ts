@@ -101,17 +101,17 @@ const injectedRtkApi = api
 export { injectedRtkApi as backendApi };
 export type AuthCreateApiResponse = /** status 200  */ JwtAuthResponse;
 export type AuthCreateApiArg = {
-  customTokenObtainPairRequest: CustomTokenObtainPairRequest;
+  customTokenObtainPairRequest: CustomTokenObtainPairRequestWrite;
 };
-export type AuthRefreshCreateApiResponse = /** status 200  */ TokenRefresh;
+export type AuthRefreshCreateApiResponse = /** status 200  */ TokenRefreshRead;
 export type AuthRefreshCreateApiArg = {
-  tokenRefreshRequest: TokenRefreshRequest;
+  tokenRefreshRequest: TokenRefreshRequestWrite;
 };
 export type AuthVerifyCreateApiResponse = unknown;
 export type AuthVerifyCreateApiArg = {
-  tokenVerifyRequest: TokenVerifyRequest;
+  tokenVerifyRequest: TokenVerifyRequestWrite;
 };
-export type ItemsListApiResponse = /** status 200  */ PaginatedReprBaseItemList;
+export type ItemsListApiResponse = /** status 200  */ PaginatedReprBaseItemListRead;
 export type ItemsListApiArg = {
   /** A page number within the paginated result set. */
   page?: number;
@@ -119,22 +119,22 @@ export type ItemsListApiArg = {
   pageSize?: number;
   upc?: string;
 };
-export type ItemsCreateApiResponse = /** status 201  */ ReprItem;
+export type ItemsCreateApiResponse = /** status 201  */ ReprItemRead;
 export type ItemsCreateApiArg = {
   itemRequest: ItemRequest;
 };
-export type ItemsRetrieveApiResponse = /** status 200  */ ReprItem;
+export type ItemsRetrieveApiResponse = /** status 200  */ ReprItemRead;
 export type ItemsRetrieveApiArg = {
   /** A unique integer value identifying this item. */
   id: number;
 };
-export type ItemsUpdateApiResponse = /** status 200  */ ReprItem;
+export type ItemsUpdateApiResponse = /** status 200  */ ReprItemRead;
 export type ItemsUpdateApiArg = {
   /** A unique integer value identifying this item. */
   id: number;
   itemRequest: ItemRequest;
 };
-export type ItemsPartialUpdateApiResponse = /** status 200  */ ReprItem;
+export type ItemsPartialUpdateApiResponse = /** status 200  */ ReprItemRead;
 export type ItemsPartialUpdateApiArg = {
   /** A unique integer value identifying this item. */
   id: number;
@@ -147,18 +147,18 @@ export type ItemsSearchCreateApiResponse =
 export type ItemsSearchCreateApiArg = {
   itemSearchRequest: ItemSearchRequest;
 };
-export type LocationsListApiResponse = /** status 200  */ PaginatedBaseLocationList;
+export type LocationsListApiResponse = /** status 200  */ PaginatedBaseLocationListRead;
 export type LocationsListApiArg = {
   /** A page number within the paginated result set. */
   page?: number;
   /** Number of results to return per page. */
   pageSize?: number;
 };
-export type LocationsCreateApiResponse = /** status 201  */ Location;
+export type LocationsCreateApiResponse = /** status 201  */ LocationRead;
 export type LocationsCreateApiArg = {
   locationRequest: LocationRequest;
 };
-export type LocationsRetrieveApiResponse = /** status 200  */ Location;
+export type LocationsRetrieveApiResponse = /** status 200  */ LocationRead;
 export type LocationsRetrieveApiArg = {
   /** A unique integer value identifying this location. */
   id: number;
@@ -167,27 +167,33 @@ export type JwtAuthResponse = {
   access: string;
   refresh: string;
 };
-export type CustomTokenObtainPairRequest = {
+export type CustomTokenObtainPairRequest = {};
+export type CustomTokenObtainPairRequestWrite = {
   email: string;
   password: string;
 };
-export type TokenRefresh = {
+export type TokenRefresh = {};
+export type TokenRefreshRead = {
   access: string;
 };
-export type TokenRefreshRequest = {
+export type TokenRefreshRequest = {};
+export type TokenRefreshRequestWrite = {
   refresh: string;
 };
-export type TokenVerifyRequest = {
+export type TokenVerifyRequest = {};
+export type TokenVerifyRequestWrite = {
   token: string;
 };
 export type CategoryEnum = "GOODS" | "MEDICATIONS";
 export type StatusEnum = "STOCK" | "OPENED" | "DISPOSED" | "USED";
 export type BaseLocation = {
+  title: string;
+};
+export type BaseLocationRead = {
   id: number;
   title: string;
 };
 export type ReprBaseItem = {
-  id: number;
   title: string;
   upc?: string | null;
   category: CategoryEnum;
@@ -195,6 +201,16 @@ export type ReprBaseItem = {
   opening_date?: string | null;
   expiration_date?: string | null;
   location: BaseLocation;
+};
+export type ReprBaseItemRead = {
+  id: number;
+  title: string;
+  upc?: string | null;
+  category: CategoryEnum;
+  status: StatusEnum;
+  opening_date?: string | null;
+  expiration_date?: string | null;
+  location: BaseLocationRead;
   ttl: number;
 };
 export type PaginatedReprBaseItemList = {
@@ -203,8 +219,13 @@ export type PaginatedReprBaseItemList = {
   previous?: string | null;
   results?: ReprBaseItem[];
 };
+export type PaginatedReprBaseItemListRead = {
+  count?: number;
+  next?: string | null;
+  previous?: string | null;
+  results?: ReprBaseItemRead[];
+};
 export type ReprItem = {
-  id: number;
   title: string;
   upc?: string | null;
   category: CategoryEnum;
@@ -212,6 +233,16 @@ export type ReprItem = {
   opening_date?: string | null;
   expiration_date?: string | null;
   location: BaseLocation;
+};
+export type ReprItemRead = {
+  id: number;
+  title: string;
+  upc?: string | null;
+  category: CategoryEnum;
+  status: StatusEnum;
+  opening_date?: string | null;
+  expiration_date?: string | null;
+  location: BaseLocationRead;
   ttl: number;
   created_at: string;
 };
@@ -251,7 +282,17 @@ export type PaginatedBaseLocationList = {
   previous?: string | null;
   results?: BaseLocation[];
 };
+export type PaginatedBaseLocationListRead = {
+  count?: number;
+  next?: string | null;
+  previous?: string | null;
+  results?: BaseLocationRead[];
+};
 export type Location = {
+  title: string;
+  description?: string;
+};
+export type LocationRead = {
   id: number;
   title: string;
   description?: string;

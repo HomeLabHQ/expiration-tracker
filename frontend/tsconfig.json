@@ -16,5 +16,8 @@
     "jsx": "react-jsx",
   },
   "include": ["src"],
+  "exclude": [
+        "src/redux/api.ts"
+    ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

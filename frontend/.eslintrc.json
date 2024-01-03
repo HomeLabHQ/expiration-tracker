@@ -18,6 +18,7 @@
         "@typescript-eslint",
         "react"
     ],
+    "ignorePatterns": ["api.ts"],
     "rules": {
         "react/prop-types": 0
     }

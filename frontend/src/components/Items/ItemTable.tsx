@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import _ from "lodash";
 import React from "react";
 import {
-  BaseLocation,
-  ReprBaseItem,
+  BaseLocationRead,
+  ReprBaseItemRead,
   useItemsChoicesRetrieveQuery,
   useItemsListQuery,
   useItemsPartialUpdateMutation,
@@ -51,7 +51,7 @@ export default function ItemTable() {
   };
   const buildLocationFilter = () => {
     const fieldChoices: ColumnFilterItem[] = [];
-    locations?.results?.map((location: BaseLocation) => {
+    locations?.results?.map((location: BaseLocationRead) => {
       fieldChoices.push({
         text: location.title,
         value: location.id
@@ -59,13 +59,13 @@ export default function ItemTable() {
     });
     return fieldChoices;
   };
-  const renderTitle = (record: ReprBaseItem) => {
+  const renderTitle = (record: ReprBaseItemRead) => {
     return <Typography.Text>{record.title}</Typography.Text>;
   };
-  const renderCategory = (record: ReprBaseItem) => {
+  const renderCategory = (record: ReprBaseItemRead) => {
     return <Tag color="green">{record.category}</Tag>;
   };
-  const renderLocation = (record: ReprBaseItem) => {
+  const renderLocation = (record: ReprBaseItemRead) => {
     return (
       <Select
         defaultValue={record.location.id}
@@ -80,7 +80,7 @@ export default function ItemTable() {
   };
 
   const statusOptions = ItemEnumSelector("status");
-  const renderStatus = (record: ReprBaseItem) => {
+  const renderStatus = (record: ReprBaseItemRead) => {
     return (
       <Space.Compact direction="vertical">
         <Select
@@ -103,7 +103,7 @@ export default function ItemTable() {
     );
   };
 
-  const renderExpirationDate = (record: ReprBaseItem) => {
+  const renderExpirationDate = (record: ReprBaseItemRead) => {
     return (
       <DatePicker
         defaultValue={dayjs(record.expiration_date)}
@@ -118,16 +118,16 @@ export default function ItemTable() {
       />
     );
   };
-  const renderTtl = (record: ReprBaseItem) => {
+  const renderTtl = (record: ReprBaseItemRead) => {
     return <Typography.Text>{record.ttl}</Typography.Text>;
   };
 
-  const columns: ColumnsType<ReprBaseItem> = [
+  const columns: ColumnsType<ReprBaseItemRead> = [
     {
       title: "Title/Category",
       width: "5%",
       responsive: ["xs"],
-      render: (record: ReprBaseItem) => (
+      render: (record: ReprBaseItemRead) => (
         <Space.Compact direction="vertical">
           {renderTitle(record)}
           {renderCategory(record)}
@@ -146,16 +146,16 @@ export default function ItemTable() {
       responsive: ["sm"],
       filters: buildFilter("category"),
       sorter: {
-        compare: (a: ReprBaseItem, b: ReprBaseItem) => a.category.localeCompare(b.category)
+        compare: (a: ReprBaseItemRead, b: ReprBaseItemRead) => a.category.localeCompare(b.category)
       },
-      render: (record: ReprBaseItem) => renderCategory(record),
-      onFilter: (value: string | number | boolean, record: ReprBaseItem) =>
+      render: (record: ReprBaseItemRead) => renderCategory(record),
+      onFilter: (value: string | number | boolean | bigint, record: ReprBaseItemRead) =>
         record.category?.startsWith(value.toString())
     },
     {
       title: "Location/Status",
       responsive: ["xs"],
-      render: (record: ReprBaseItem) => (
+      render: (record: ReprBaseItemRead) => (
         <Space.Compact direction="vertical">
           {renderLocation(record)}
           {renderStatus(record)}
@@ -168,12 +168,12 @@ export default function ItemTable() {
       width: "5%",
       responsive: ["sm"],
       filters: buildLocationFilter(),
-      render: (text: string, record: ReprBaseItem) => renderLocation(record),
+      render: (text: string, record: ReprBaseItemRead) => renderLocation(record),
       sorter: {
-        compare: (a: ReprBaseItem, b: ReprBaseItem) =>
+        compare: (a: ReprBaseItemRead, b: ReprBaseItemRead) =>
           a.location.title.localeCompare(b.location.title)
       },
-      onFilter: (value: string | number | boolean, record: ReprBaseItem) =>
+      onFilter: (value: string | number | boolean | bigint, record: ReprBaseItemRead) =>
         record.location.id == value
     },
     {
@@ -181,12 +181,12 @@ export default function ItemTable() {
       width: "5%",
       responsive: ["sm"],
       ellipsis: false,
-      render: (record: ReprBaseItem) => renderStatus(record)
+      render: (record: ReprBaseItemRead) => renderStatus(record)
     },
     {
       title: "Expiration/TTL",
       responsive: ["xs"],
-      render: (record: ReprBaseItem) => (
+      render: (record: ReprBaseItemRead) => (
         <Space.Compact direction="vertical">
           {renderExpirationDate(record)}
           {renderTtl(record)}
@@ -197,19 +197,19 @@ export default function ItemTable() {
       title: "Expiration",
       width: "10%",
       responsive: ["sm"],
-      render: (record: ReprBaseItem) => renderExpirationDate(record)
+      render: (record: ReprBaseItemRead) => renderExpirationDate(record)
     },
     {
       title: "Time to live in days",
       responsive: ["sm"],
-      render: (record: ReprBaseItem) => renderTtl(record),
+      render: (record: ReprBaseItemRead) => renderTtl(record),
       sorter: {
-        compare: (a: ReprBaseItem, b: ReprBaseItem) => a.ttl - b.ttl
+        compare: (a: ReprBaseItemRead, b: ReprBaseItemRead) => a.ttl - b.ttl
       }
     }
   ];
 
-  const tablePagination = usePagination<ReprBaseItem>({
+  const tablePagination = usePagination<ReprBaseItemRead>({
     name: "items-table",
     total: items?.count,
     pageSize: pageSize,
