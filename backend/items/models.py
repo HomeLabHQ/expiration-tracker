@@ -1,8 +1,8 @@
 import datetime
 import typing
 
+from core.models import TimeStampedModel, TitleDescriptionModel, TitleModel
 from django.db import models
-from expiration_tracker.models import TimeStampedModel, TitleDescriptionModel, TitleModel
 
 from items.constants import ItemCategory, ItemStatus
 

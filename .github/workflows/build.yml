@@ -6,7 +6,7 @@ jobs:
   docker_build:
     env:
       ENVIRONMENT: "demo"
-    runs-on: arc-runner-set
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - name: Make env file

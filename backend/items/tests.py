@@ -2,10 +2,10 @@ import typing
 from unittest import skipIf
 
 from authentication.models import User
+from core.tests import CRUDTestCase
 from django.conf import settings
 from django.test import TestCase
 from django.urls import reverse
-from expiration_tracker.tests import CRUDTestCase
 from faker import Faker
 from mixer.backend.django import mixer
 

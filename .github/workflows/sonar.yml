@@ -9,7 +9,7 @@ jobs:
     name: SonarCloud
     env:
       ENVIRONMENT: "demo"
-    runs-on: arc-runner-set
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4

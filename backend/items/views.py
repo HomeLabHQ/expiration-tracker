@@ -2,13 +2,13 @@ import datetime
 import typing
 from itertools import islice
 
+from core.mixins import ChoiceMixin, ListSerializerMixin
+from core.throttles import SearchThrottle
 from django.conf import settings
 from django.db.models import F
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import OpenApiResponse, extend_schema, extend_schema_view
 from duckduckgo_search import DDGS
-from expiration_tracker.mixins import ChoiceMixin, ListSerializerMixin
-from expiration_tracker.throttles import SearchThrottle
 from httpx import HTTPStatusError
 from rest_framework import mixins, serializers, viewsets
 from rest_framework.decorators import action

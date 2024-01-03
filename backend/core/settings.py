@@ -43,7 +43,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "expiration_tracker.urls"
+ROOT_URLCONF = "core.urls"
 
 TEMPLATES = [
     {
@@ -65,7 +65,7 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=int(os.environ.get("REFRESH_TOKEN_LIFETIME_DAYS", 1))),
 }
 REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "expiration_tracker.paginators.ResultSetPagination",
+    "DEFAULT_PAGINATION_CLASS": "core.paginators.ResultSetPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": ("rest_framework_simplejwt.authentication.JWTAuthentication",),
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -82,7 +82,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 
-WSGI_APPLICATION = "expiration_tracker.wsgi.application"
+WSGI_APPLICATION = "core.wsgi.application"
 if ENVIRONMENT == "demo":
     DATABASES = {
         "default": {

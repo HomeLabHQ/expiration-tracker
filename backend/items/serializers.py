@@ -1,4 +1,4 @@
-from expiration_tracker.mixins import RepresentationPKField
+from core.mixins import RepresentationPKField
 from rest_framework import serializers
 
 from items.constants import ItemCategory, ItemStatus
