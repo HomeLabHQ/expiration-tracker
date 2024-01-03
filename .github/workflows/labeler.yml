@@ -7,6 +7,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    runs-on: self-hosted
+    runs-on: arc-runner-set
     steps:
       - uses: actions/labeler@v4
