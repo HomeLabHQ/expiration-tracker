@@ -4,6 +4,8 @@ on:
     branches:
       - main
       - dev
+  pull_request:
+    types: [opened, synchronize]
 jobs:
   sonarcloud:
     name: SonarCloud
@@ -17,11 +19,8 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-      - name: Install and configure Poetry
-        uses: snok/install-poetry@v1.3.4
-        with:
-          version: 1.7.0
-          installer-parallel: true
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
       - name: Install dependencies
         run: poetry -C backend install --with test
       - name: Test for coverage
