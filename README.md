@@ -116,6 +116,13 @@ Complete app to use
 
 <p align="right"><a href="#readme-top">⬆️</a></p>
 
+## Deploy
+
+There is 2 separate methods for deploy:
+
+- Standalone included DB + Nginx that are accessible from outside `compose.yml`
+- Slim (without DB and NGINx not accessible from outside) for single central DB + Extra reverse proxy for cases when 1 host hosts multiple projects or environments (prod,demo,staging) `compose.slim.yml`
+
 ## Roadmap
 
 Overall project plans and tasks can be found here
