@@ -438,7 +438,6 @@ components:
           maxLength: 255
         upc:
           type: string
-          nullable: true
           maxLength: 20
         category:
           $ref: '#/components/schemas/CategoryEnum'
@@ -550,7 +549,6 @@ components:
           maxLength: 255
         upc:
           type: string
-          nullable: true
           maxLength: 20
         category:
           $ref: '#/components/schemas/CategoryEnum'
@@ -577,7 +575,6 @@ components:
           maxLength: 255
         upc:
           type: string
-          nullable: true
           maxLength: 20
         category:
           $ref: '#/components/schemas/CategoryEnum'
@@ -614,7 +611,6 @@ components:
           maxLength: 255
         upc:
           type: string
-          nullable: true
           maxLength: 20
         category:
           $ref: '#/components/schemas/CategoryEnum'

@@ -51,7 +51,7 @@ class BaseAPITest(APITestCase):
 
 class CustomClient(APIClient):
     def request(self, **request):
-        print(f"{Colors.BOLD}{Colors.WARNING} {request.get('REQUEST_METHOD')}:{Colors.END} {request.get('PATH_INFO')}")
+        print(f"{Colors.BOLD}{Colors.WARNING} {request.get('REQUEST_METHOD')}:{Colors.END} {request.get('PATH_INFO')}")  # noqa: T201
         return super().request(**request)
 
 
@@ -63,7 +63,7 @@ class BaseTestCase(ABC):
     def _callTestMethod(self, method):
         class_name = self.__class__.__name__
         method_name = method.__name__
-        print(
+        print(  # noqa: T201
             f"{Colors.BOLD}{Colors.BLUE} {class_name}{Colors.END} -> {Colors.GREEN}{method_name}{Colors.END}",
         )
         super()._callTestMethod(method)

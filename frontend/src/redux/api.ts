@@ -195,7 +195,7 @@ export type BaseLocationRead = {
 };
 export type ReprBaseItem = {
   title: string;
-  upc?: string | null;
+  upc?: string;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -205,7 +205,7 @@ export type ReprBaseItem = {
 export type ReprBaseItemRead = {
   id: number;
   title: string;
-  upc?: string | null;
+  upc?: string;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -227,7 +227,7 @@ export type PaginatedReprBaseItemListRead = {
 };
 export type ReprItem = {
   title: string;
-  upc?: string | null;
+  upc?: string;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -237,7 +237,7 @@ export type ReprItem = {
 export type ReprItemRead = {
   id: number;
   title: string;
-  upc?: string | null;
+  upc?: string;
   category: CategoryEnum;
   status: StatusEnum;
   opening_date?: string | null;
@@ -248,7 +248,7 @@ export type ReprItemRead = {
 };
 export type ItemRequest = {
   title: string;
-  upc?: string | null;
+  upc?: string;
   category?: CategoryEnum;
   status?: StatusEnum;
   opening_date?: string | null;
@@ -257,7 +257,7 @@ export type ItemRequest = {
 };
 export type PatchedItemRequest = {
   title?: string;
-  upc?: string | null;
+  upc?: string;
   category?: CategoryEnum;
   status?: StatusEnum;
   opening_date?: string | null;

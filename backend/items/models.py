@@ -31,7 +31,7 @@ class Item(TimeStampedModel, TitleModel):
     opening_date = models.DateField(null=True)
     expiration_date = models.DateField(null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    upc = models.CharField(max_length=20, blank=True, null=True)
+    upc = models.CharField(max_length=20, blank=True)
 
     @property
     def ttl(self):
