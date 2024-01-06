@@ -51,10 +51,8 @@ Also as a bonus i get to dive into Typescript and Ant Design.
 To try this out access demo instance at [Demo]
 with credentials:
 
-> NOTE: Demo not persistent and destroyed on each deployment
-
 ```js
-email:test@example.com
+email:staging@example.com
 password:Test12345
 ```
 
@@ -161,4 +159,4 @@ Don't forget to give the project a star! Thanks again!
 [Django]: https://img.shields.io/badge/Django-20232A?style=for-the-badge&logo=django&logoColor=61DAFB
 [Django-url]: https://www.djangoproject.com/
 [Wakatime-shield]: https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/9e8caf94-21bb-4372-9c1e-00e07136d2d3.svg
-[Demo]: https://g9l1dqnl-8023.euw.devtunnels.ms/
+[Demo]: https://pets.dufran.org/expiration-tracker-staging/
