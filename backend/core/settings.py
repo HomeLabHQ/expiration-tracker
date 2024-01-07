@@ -13,19 +13,25 @@ CORS_ALLOWED_ORIGINS = CORS_ORIGIN_WHITELIST
 CSRF_TRUSTED_ORIGINS = CORS_ORIGIN_WHITELIST
 
 
-INSTALLED_APPS = [
+COMMON_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
-    "corsheaders",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
+]
+
+THIRD_PARTY_APPS = [
     "django_extensions",
-    "authentication",
-    "items",
+    "rest_framework",
     "drf_spectacular",
 ]
+
+PROJECT_APPS = ["authentication", "items"]
+
+INSTALLED_APPS = COMMON_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 SHELL_PLUS_IMPORTS = [
     "from mixer.backend.django import mixer",
@@ -133,7 +139,17 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "static"))
 MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, "attachments"))
 MEDIA_URL = "/attachments/"
-
+# * Subdir hosting
+PUBLIC_URL = os.environ.get("PUBLIC_URL", "")
+if PUBLIC_URL:
+    USE_X_FORWARDED_HOST = True
+    FORCE_SCRIPT_NAME = PUBLIC_URL + "/"
+    SESSION_COOKIE_PATH = PUBLIC_URL + "/"
+    MEDIA_URL = PUBLIC_URL + "/attachments/"
+    STATIC_URL = PUBLIC_URL + "/static/"
+LOGIN_URL = "login/"
+LOGIN_REDIRECT_URL = PUBLIC_URL + "/"
+LOGOUT_REDIRECT_URL = PUBLIC_URL + "/"
 # * Search related settings
 SEARCH_REGION = "ua-uk"
 SEARCH_LIMIT = 5
