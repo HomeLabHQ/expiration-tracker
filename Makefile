@@ -10,6 +10,8 @@ setup: ## Prepare virtual env and setup project
 	cd backend && poetry install &\
 	cd frontend && yarn install & \
 	pre-commit install
+env: ## Sync env from secret storage `make env type=staging`
+	infisical export --env $(type) >.env
 update: ## Update dependencies
 	cd backend && poetry update && \
 	cd frontend && yarn upgrade

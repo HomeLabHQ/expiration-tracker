@@ -10,3 +10,4 @@ README.md-e
 compose.override.yml
 # python coverage data
 .coverage
+.infisical.json
