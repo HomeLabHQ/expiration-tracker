@@ -159,4 +159,4 @@ Don't forget to give the project a star! Thanks again!
 [Django]: https://img.shields.io/badge/Django-20232A?style=for-the-badge&logo=django&logoColor=61DAFB
 [Django-url]: https://www.djangoproject.com/
 [Wakatime-shield]: https://wakatime.com/badge/user/b235aad2-892a-4e83-b8c3-a6cc36bc4cf4/project/9e8caf94-21bb-4372-9c1e-00e07136d2d3.svg
-[Demo]: https://pets.dufran.org/expiration-tracker-staging/
+[Demo]: https://expiration-tracker-staging.dufran.org/login
