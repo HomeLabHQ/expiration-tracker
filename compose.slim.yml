@@ -31,6 +31,5 @@ services:
     depends_on:
       - api
 volumes:
-  frontend:
   static:
   attachments:
