@@ -43,6 +43,7 @@ services:
     volumes:
       - static:/static
       - attachments:/attachments
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - api
 volumes:
