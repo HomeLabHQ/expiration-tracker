@@ -1,7 +1,7 @@
 {
   "version": "0.2.0",
   "compounds": [
-       {
+    {
       "name": "fe+be",
       "configurations": ["be-server", "fe-server"],
       "stopAll": true
@@ -13,18 +13,6 @@
     }
   ],
   "configurations": [
-    {
-      "name": "be-tests",
-      "type": "python",
-      "request": "launch",
-      "program": "${workspaceFolder}/backend/manage.py",
-      "cwd": "${workspaceFolder}/backend",
-      "envFile": "${workspaceFolder}/.env",
-      "args": ["test"],
-      "django": true,
-      "consoleTitle": "BE tests",
-      "justMyCode": false
-    },
     {
       "name": "be-server",
       "type": "python",
@@ -56,6 +44,18 @@
       "userDataDir": false,
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/frontend"
+    },
+    {
+      "name": "be-tests",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/manage.py",
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/.env",
+      "args": ["test"],
+      "django": true,
+      "consoleTitle": "BE tests",
+      "justMyCode": false
     }
   ]
 }
