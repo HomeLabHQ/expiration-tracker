@@ -10,43 +10,17 @@
 [![Build](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml/badge.svg)](https://github.com/HomeLabHQ/expiration-tracker/actions/workflows/build.yml)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-<div align="center">
-  <h3 align="center">Expiration tracker</h3>
-</div>
+# Expiration tracker
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <a href="#demo">Demo</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-        <li><a href="#db-schema">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#deploy">Deploy</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-  </ol>
-</details>
+## Project description
 
-## About The Project
+<a href="https://homelabhq.github.io/expiration-tracker/"><img src="https://img.shields.io/badge/doc-mkdocs-02a6f2?style=flat-square&logo=read-the-docs" alt="Documentation"></a>
 
 Main goal of this project is to allow users to track expiration dates of items(food/medication),
 and hopefully eliminate huge portions of wasted food/medications.
 Also as a bonus i get to dive into Typescript and Ant Design.
 
-<p align="right"><a href="#readme-top">⬆️</a></p>
-
-## Demo
+## Demo instance
 
 To try this out access demo instance at [Demo]
 with credentials:
@@ -56,9 +30,7 @@ email:staging@example.com
 password:Test12345
 ```
 
-<p align="right"><a href="#readme-top">⬆️</a></p>
-
-### Built With
+## Built With
 
 [![Django][Django]][Django-url]
 [![React][React.js]][React-url]
@@ -66,16 +38,14 @@ password:Test12345
 [![Vite][Vite]][Vite-url]
 [![Antd][Antd]][Antd-url]
 
-<p align="right"><a href="#readme-top">⬆️</a></p>
+## Development environment
 
-### DB schema
-
-![DB_schema](./docs/db.svg)
-
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+- Clone repository
+- Install requirement runtime
+- Install dependencies via `make setup`
+- Start dev dependencies via `make dev`
+- Start debug configurations located in `launch.json`
+- Init backend database via `make be_init`
 
 ### Prerequisites
 
@@ -89,45 +59,12 @@ Also strongly recommend using tools like nvm and pyenv for running specific vers
 
 > NOTE: Additionally install poetry self add poetry-dotenv-plugin to auto load env variables in shell and run command
 
-### Installation
-
-1. Run `make setup`
-2. Initialize backend via `make be_init`
-   - Creates superuser from .env variables
-   - Run migrations
-
-<p align="right"><a href="#readme-top">⬆️</a></p>
-
-## Usage
-
-There are 2 methods of usage:
-
-- Development environment
-  - VScode debug config in you need to play around with debugger
-  - Run `make start`. Please note that in this case you will manually need to add env variables.
-
-Complete app to use
-
-- Launch docker stack `docker compose up -d`
-- Create superuser from .env `docker exec -it api python manage.py createsuperuser --no-input`
-- Access via `http://hostip`
-
-<p align="right"><a href="#readme-top">⬆️</a></p>
-
 ## Deploy
 
 There is 2 separate methods for deploy:
 
 - Standalone included DB + Nginx that are accessible from outside `compose.yml`
 - Slim (without DB) and configurable port number to be exposed `compose.slim.yml`
-
-## Roadmap
-
-Overall project plans and tasks can be found here
-
-[Roadmap](https://github.com/orgs/HomeLabHQ/projects/4/views/3)
-
-<p align="right"><a href="#readme-top">⬆️</a></p>
 
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/oleksandr-korol/

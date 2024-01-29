@@ -33,31 +33,9 @@ be_shell: ## start be shell
 	poetry -C backend run ./backend/manage.py shell_plus
 be_admin: ## Generate admin file for specific app `make be_admin app=items`
 	poetry -C backend run ./backend/manage.py admin_generator $(app)
-erd: ## Use SchemaCrawler to generate diff compatible
-	docker compose -f compose.dev.yml up db crawler -d && \
-	docker compose exec crawler \
-	/opt/schemacrawler/bin/schemacrawler.sh \
-	--server postgresql \
-	--schemas=public \
-	--host db \
-	--port $(DB_PORT) \
-	--user $(POSTGRES_USER) \
-	--password $(POSTGRES_PASSWORD) \
-	--command schema \
-	--no-info \
-	--info-level standard \
-	--output-format htmlx \
-	--output-file share/db.html && \
-	docker compose exec crawler \
-	/opt/schemacrawler/bin/schemacrawler.sh \
-	--server postgresql \
-	--schemas=public \
-	--host db \
-	--port $(DB_PORT) \
-	--user $(POSTGRES_USER) \
-	--password $(POSTGRES_PASSWORD) \
-	--command schema \
-	--no-info \
-	--info-level standard \
-	--output-format svg \
-	--output-file share/db.svg
+erd: ## Generate ERD with some hectic file manipulation
+	poetry -C backend run ./backend/manage.py graph_models -a  -g  -o docs/database/database.dot && \
+	mv docs/database/database.dot docs/database/database.md && \
+	sed -i '' '1s/^/```dot\n/' docs/database/database.md && echo '```' >> docs/database/database.md
+deploy_docs: ## Deploy documentation to github pages
+	mkdocs gh-deploy

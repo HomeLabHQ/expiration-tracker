@@ -11,3 +11,4 @@ compose.override.yml
 # python coverage data
 .coverage
 .infisical.json
+doc_site

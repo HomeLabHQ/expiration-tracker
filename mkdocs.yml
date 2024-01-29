@@ -1,0 +1,56 @@
+site_name: expiration-tracker
+docs_dir: docs
+site_dir: doc_site
+site_url: http://0.0.0.0
+theme:
+  name: material
+  icon:
+    logo: material/black-mesa
+  favicon: img/favicon.ico
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+      primary: deep orange
+      accent: teal
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+      primary: deep orange
+      accent: red
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+    - toc.integrate
+markdown_extensions:
+  - mkdocs_graphviz
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.snippets
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.tabbed
+  - pymdownx.details
+extra_javascript:
+  - https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/javascripts/massiliaGraphviz.js
+  - https://unpkg.com/mermaid@10.7.0/dist/mermaid.min.js
+plugins:
+  - search
+  - autorefs
+  - awesome-pages
+  - mkdocstrings

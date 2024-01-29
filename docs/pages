@@ -1,0 +1,7 @@
+nav:
+  - "Home": "index.md"
+  - "C4": "c4"
+  - "Database": "erd"
+  - "Development plan": development_plan
+  - "App": app
+  - "External services": external_services

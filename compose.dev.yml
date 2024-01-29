@@ -5,9 +5,5 @@ services:
       service: db
     ports:
       - "5432:5432"
-  crawler:
-    image: schemacrawler/schemacrawler:latest
-    volumes:
-      - ./docs:/home/schcrwlr/share
 volumes:
   postgres_data:
