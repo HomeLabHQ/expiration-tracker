@@ -2,27 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://0.0.0.0/</loc>
-         <lastmod>2024-01-29</lastmod>
+         <lastmod>2024-02-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>http://0.0.0.0/item_lifecycle/</loc>
-         <lastmod>2024-01-29</lastmod>
+         <loc>http://0.0.0.0/app/</loc>
+         <lastmod>2024-02-03</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://0.0.0.0/app/item_lifecycle/</loc>
+         <lastmod>2024-02-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://0.0.0.0/c4/container/</loc>
-         <lastmod>2024-01-29</lastmod>
+         <lastmod>2024-02-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://0.0.0.0/c4/system/</loc>
-         <lastmod>2024-01-29</lastmod>
+         <lastmod>2024-02-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://0.0.0.0/database/database/</loc>
-         <lastmod>2024-01-29</lastmod>
+         <lastmod>2024-02-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
