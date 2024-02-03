@@ -3,8 +3,8 @@ import { backendApi } from "./api";
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    access: localStorage.getItem("access") || null,
-    refresh: localStorage.getItem("refresh") || null,
+    access: localStorage.getItem("access") ?? null,
+    refresh: localStorage.getItem("refresh") ?? null,
     isAuthenticated: !!localStorage.getItem("access"),
     user: {},
     mode: "dark"

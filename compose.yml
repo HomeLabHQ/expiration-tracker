@@ -13,7 +13,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    image: expiration-tracker/backend-${ENVIRONMENT}
+    image: expiration-tracker-api-${ENVIRONMENT}
   db:
     image: postgres:alpine3.18
     container_name: expiration-tracker-db-${ENVIRONMENT}
